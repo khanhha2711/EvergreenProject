@@ -16,4 +16,5 @@ public interface ICusDocumentRepository extends JpaRepository<CusDocuments,Integ
             nativeQuery = true)
     List<CusDocuments> findByShipmentCode(@Param("shipmentCode") String shipmentCode);
 
+    CusDocuments findByDocumentCode(String documentCode);
 }

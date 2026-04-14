@@ -13,8 +13,8 @@ public class TransportDTO {
     @JsonProperty("destination")
     private String destination;
 
-    @JsonProperty("container")
-    private String container;
+    @JsonProperty("containerType")
+    private String containerType;
 
     @JsonProperty("incoterm")
     private String incoterm;
@@ -40,12 +40,12 @@ public class TransportDTO {
         this.destination = destination;
     }
 
-    public String getContainer() {
-        return container;
+    public String getContainerType() {
+        return containerType;
     }
 
-    public void setContainer(String container) {
-        this.container = container;
+    public void setContainerType(String containerType) {
+        this.containerType = containerType;
     }
 
     public String getIncoterm() {

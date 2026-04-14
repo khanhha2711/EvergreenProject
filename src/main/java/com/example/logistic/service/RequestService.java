@@ -82,6 +82,7 @@ public class RequestService implements IRequestService {
         req.setOrigin(requestDTO.getTransport().getOrigin());
         req.setDestination(requestDTO.getTransport().getDestination());
         req.setIncoterm(requestDTO.getTransport().getIncoterm());
+        req.setContainerType(requestDTO.getTransport().getContainerType());
 
         req.setQuantityContainer(1);
         req.setStatus("NEW");
@@ -176,6 +177,7 @@ public class RequestService implements IRequestService {
         dto.setIncoterm(req.getIncoterm());
         dto.setOrigin(req.getOrigin());
         dto.setDestination(req.getDestination());
+        dto.setContainerType(req.getContainerType());
 
         List<String> serviceCodes = req.getRequestServices()
                 .stream()
@@ -186,5 +188,5 @@ public class RequestService implements IRequestService {
 
         return dto;
     }
-    //Sort trạng thái
+    //Sort trạng thái V
 }

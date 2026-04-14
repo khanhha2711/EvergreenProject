@@ -209,7 +209,7 @@ public class QuotationService implements IQuotationService{
         transportDTO.setOrigin(requests.getOrigin());
         transportDTO.setDestination(requests.getDestination());
         transportDTO.setIncoterm(requests.getIncoterm());
-        transportDTO.setContainer("40FT");
+        transportDTO.setContainerType(requests.getContainerType());
         transportDTO.setDate(requests.getCreatedAt());
         res.setTransportDTO(transportDTO);
 
@@ -261,6 +261,7 @@ public class QuotationService implements IQuotationService{
         res.setSummary(summary);
 
         //employee
+
         ActivityDTO activityDTO=new ActivityDTO();
         activityDTO.setAction("Tao bao gia");
         activityDTO.setUser(quotations.getEmployee().getUser().getUserName());

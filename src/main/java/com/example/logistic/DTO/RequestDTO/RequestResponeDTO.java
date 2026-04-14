@@ -25,12 +25,22 @@ public class RequestResponeDTO {
     private String incoterm;
     private String origin;
     private String destination;
+    private String containerType;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
     private List<String> serviceCode;
 
     public RequestResponeDTO() {
     }
+
+    public String getContainerType() {
+        return containerType;
+    }
+
+    public void setContainerType(String containerType) {
+        this.containerType = containerType;
+    }
+
     public String getCustomerAddress() {
         return customerAddress;
     }

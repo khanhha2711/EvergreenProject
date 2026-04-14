@@ -31,28 +31,8 @@ public class CusDocuments {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createAt;
 
-    @Column(name = "status")
-    private String status;
-    @Column(name = "description")
-    private String description;
 
     public CusDocuments() {
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getId() {

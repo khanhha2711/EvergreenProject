@@ -26,18 +26,18 @@ public class CustomerController {
         }
         return customerService.searchCustomer(search);
     }
-    @PostMapping ("/Create")
+    @PostMapping ("/create")
     public  ResponseEntity<UpdateRespDTO> createCustomers(@RequestBody CreateDTO customers){
 
         UpdateRespDTO respDTO=customerService.createCustomer(customers);
         return ResponseEntity.ok(respDTO);
     }
-    @GetMapping("/Detail/{customerCode}")
+    @GetMapping("/detail/{customerCode}")
     public ResponseEntity<DetailDTO> getCustomerDetail(@PathVariable("customerCode") String customerCode){
         return ResponseEntity.ok(customerService.getCustomerDetail(customerCode));
     }
 
-    @PutMapping("/Update/{customerCode}")
+    @PutMapping("/update/{customerCode}")
     @Transactional
     public ResponseEntity<UpdateRespDTO> updateCustomer(@PathVariable ("customerCode") String customerCode,
                                                         @RequestBody UpdateDTO dto){

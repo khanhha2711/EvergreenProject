@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class LogDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate createdAt;
-    private String status;
+    private  String documentName;
     private String description;
 
     public LogDTO() {
@@ -29,11 +29,11 @@ public class LogDTO {
         this.createdAt = createdAt;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDocumentName() {
+        return documentName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
     }
 }

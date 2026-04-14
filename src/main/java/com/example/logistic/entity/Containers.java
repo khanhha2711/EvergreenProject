@@ -16,10 +16,21 @@ public class Containers {
     @Column(name = "container_code", insertable = false, updatable = false)
     private String containerCode;
 
+    @Column(name = "container_number")
+    private String containerNumber;
+
     @Column(name = "type_container")
     private String typeContainer;
 
     public Containers() {
+    }
+
+    public String getContainerNumber() {
+        return containerNumber;
+    }
+
+    public void setContainerNumber(String containerNumber) {
+        this.containerNumber = containerNumber;
     }
 
     public int getId() {

@@ -38,6 +38,9 @@ public class Requests {
     @Column(name="quantity_container")
     private int quantityContainer;
 
+    @Column(name="container_type")
+    private String containerType;
+
     @Column(name="cargo_value")
     private double cargoValue;
 
@@ -48,9 +51,6 @@ public class Requests {
         return requestServices;
     }
 
-    public void setRequestServices(List<ServiceDetail> requestServices) {
-        this.requestServices = requestServices;
-    }
 
     @Column(name = "origin")
     private String origin;
@@ -68,6 +68,18 @@ public class Requests {
     public Requests() {
     }
 
+
+    public String getContainerType() {
+        return containerType;
+    }
+
+    public void setContainerType(String containerType) {
+        this.containerType = containerType;
+    }
+
+    public void setRequestServices(List<ServiceDetail> requestServices) {
+        this.requestServices = requestServices;
+    }
     public String getStatus() {
         return status;
     }

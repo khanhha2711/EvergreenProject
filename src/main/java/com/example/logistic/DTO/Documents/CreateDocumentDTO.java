@@ -2,29 +2,12 @@ package com.example.logistic.DTO.Documents;
 
 import com.example.logistic.DTO.Contracts.Detail.AttachmentDTO;
 
-public class ListDTO {
-    private String documentCode;
+public class CreateDocumentDTO {
+    //Thêm chứng từ
     private String documentType;
-    private String documentNumber;
-    private AttachmentDTO attachment;
-    public ListDTO() {
-    }
+    private String  documentNumber;
 
-    public AttachmentDTO getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(AttachmentDTO attachment) {
-        this.attachment = attachment;
-    }
-
-
-    public String getDocumentCode() {
-        return documentCode;
-    }
-
-    public void setDocumentCode(String documentCode) {
-        this.documentCode = documentCode;
+    public CreateDocumentDTO() {
     }
 
     public String getDocumentType() {

@@ -25,27 +25,24 @@ public class CusDeclarations {
     @Column(name = "lane")
     private String lane;
 
-    @Column(name = "tax")
-    private double tax;
-
     @Column(name = "status")
     private String status;
 
     @Column(name = "declaration_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate declarationDate;
-    @Column(name = "description")
-    private String description;
 
+    @Column(name = "attachment")
+    private String attachment;
     public CusDeclarations() {
     }
 
-    public String getDescription() {
-        return description;
+    public String getAttachment() {
+        return attachment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
     public int getId() {
@@ -86,14 +83,6 @@ public class CusDeclarations {
 
     public void setLane(String lane) {
         this.lane = lane;
-    }
-
-    public double getTax() {
-        return tax;
-    }
-
-    public void setTax(double tax) {
-        this.tax = tax;
     }
 
     public String getStatus() {

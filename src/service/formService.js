@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
 
 export const formService = {
-  submitForm: (form) => api.post("/form", form),
+  submitForm: (form) => api.post("/requests/create", form),
 };

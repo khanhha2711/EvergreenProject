@@ -13,53 +13,41 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-const hangHoaSchema = z.object({
-  tenHangHoa: z.string().min(2, "Tên hàng hóa phải có ít nhất 2 ký tự"),
+const cargoSchema = z.object({
+  cargoName: z.string().min(2, "Tên hàng hóa phải có ít nhất 2 ký tự"),
 
-  loaiHang: z.string().min(1, "Vui lòng chọn loại hàng"),
+  cargoCategory: z.string().min(1, "Vui lòng chọn loại hàng"),
 
-  soKien: z.coerce
+  packageCount: z.coerce
     .number({ invalid_type_error: "Số kiện phải là số" })
     .min(1, "Số kiện phải lớn hơn 0"),
 
-  trongLuong: z.coerce.number({
+  grossWeight: z.coerce.number({
     invalid_type_error: "Trọng lượng phải là số",
   }),
 
-  kichThuoc: z.coerce
-    .number({
-      invalid_type_error: "Kích thước phải là số",
-    })
-    .optional(),
-
-  tongCBM: z.coerce
-    .number({
-      invalid_type_error: "CBM phải là số",
-    })
-    .optional(),
-
-  giaTriHang: z.coerce
+  cargoValue: z.coerce
     .number({ invalid_type_error: "Giá trị phải là số" })
     .min(0, "Giá trị không hợp lệ"),
 });
 
 export default function HangHoa({ onNext, defaultValue }) {
   const [error, setError] = useState({});
-  const [loaiHang, setLoaiHang] = useState("");
-  const thongTinHangHoa = [
+  const [cargoCategory, setCargoCategory] = useState("");
+  const cargoField = [
     {
       type: "input",
-      label: "Tên hàng hóa",
-      name: "tenHangHoa",
-      placeHolder: "Công ty TNHH ABC",
+      label: "Tên hàng hóa *",
+      name: "cargoName",
+      placeHolder: "Máy tính",
       icon: <Box className="icon" />,
     },
     {
       type: "select",
       label: "Loai hàng *",
-      name: "loaiHang",
+      name: "cargoCategory",
       placeHolder: "Chọn loại hàng",
-      loaiHang: [
+      categories: [
         { name: "hangThuong", option: "Hàng thường" },
         { name: "nguyHiem", option: "Hàng nguy hiểm" },
         { name: "deVo", option: "Hàng dễ vỡ" },
@@ -69,37 +57,23 @@ export default function HangHoa({ onNext, defaultValue }) {
     },
     {
       type: "input",
-      label: "Số kiện",
-      name: "soKien",
+      label: "Số kiện *",
+      name: "packageCount",
       placeHolder: "1000",
       icon: <Weight className="icon" />,
     },
     {
       type: "input",
       label: "Trọng lượng (kg) *",
-      name: "trongLuong",
+      name: "grossWeight",
       placeHolder: "1000",
       icon: <Weight className="icon" />,
     },
     {
       type: "input",
-      label: "Kích thước (D*R*C cm)",
-      name: "kichThuoc",
-      placeHolder: "120*80*100",
-      icon: <Ruler className="icon" />,
-    },
-    {
-      type: "input",
-      label: "Tổng CBM(m3)",
-      name: "tongCBM",
-      placeHolder: "10.5",
-      icon: <Box className="icon" />,
-    },
-    {
-      type: "input",
-      label: "Giá trị hàng (USD)",
-      name: "giaTriHang",
-      placeHolder: "5000",
+      label: "Giá trị hàng hóa *",
+      name: "cargoValue",
+      placeHolder: "100000",
       icon: <DollarSign className="icon" />,
     },
   ];
@@ -109,9 +83,9 @@ export default function HangHoa({ onNext, defaultValue }) {
     const formData = new FormData(e.target);
     const data = {
       ...Object.fromEntries(formData),
-      loaiHang: loaiHang,
+      cargoCategory: cargoCategory,
     };
-    const result = hangHoaSchema.safeParse(data);
+    const result = cargoSchema.safeParse(data);
     if (!result.success) {
       const formattedErrors = {};
       result.error.issues.forEach((err) => {
@@ -120,8 +94,8 @@ export default function HangHoa({ onNext, defaultValue }) {
       setError(formattedErrors);
     } else {
       setError({});
-      onNext({ hangHoa: data });
-      console.log({ hangHoa: data });
+      onNext({ cargo: data });
+      console.log({ cargo: data });
     }
   };
   return (
@@ -137,59 +111,59 @@ export default function HangHoa({ onNext, defaultValue }) {
         onSubmit={handleNext}
         className="flex flex-wrap w-full justify-between"
       >
-        {thongTinHangHoa.map((hangHoa, index) => (
+        {cargoField.map((cargo, index) => (
           <div
             key={index}
             className={cn(
               "w-[45%] mb-4",
-              hangHoa.name === "tenHangHoa" && "w-full",
+              cargo.name === "cargoName" && "w-full",
             )}
           >
-            <h3 className="text-sm mb-2 ">{hangHoa.label}</h3>
-            {hangHoa.type === "input" ? (
+            <h3 className="text-sm mb-2 ">{cargo.label}</h3>
+            {cargo.type === "input" ? (
               <div className="flex relative flex-col">
                 <div className="absolute translate-x-1/2 translate-y-2/3">
-                  {hangHoa.icon}
+                  {cargo.icon}
                 </div>
                 <Input
-                  name={hangHoa.name}
-                  placeholder={hangHoa.placeHolder}
+                  name={cargo.name}
+                  placeholder={cargo.placeHolder}
                   className={cn("px-8")}
-                  defaultValue={defaultValue?.[hangHoa.name] || ""}
+                  defaultValue={defaultValue?.[cargo.name] || ""}
                 />
-                {error[hangHoa.name] && (
+                {error[cargo.name] && (
                   <p className="text-red-500 text-xs mt-1">
-                    {error[hangHoa.name]}
+                    {error[cargo.name]}
                   </p>
                 )}
               </div>
             ) : (
               <div>
                 <Select
-                  value={defaultValue?.[hangHoa.name]}
-                  onValueChange={setLoaiHang}
-                  name="loaiHang"
+                  value={defaultValue?.[cargo.name]}
+                  onValueChange={setCargoCategory}
+                  name="cargoCategory"
                 >
                   <SelectTrigger className="w-full ">
-                    <SelectValue placeholder={hangHoa.placeHolder} />
+                    <SelectValue placeholder={cargo.placeHolder} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {hangHoa.loaiHang.map((loai, index) => (
+                      {cargo.categories.map((category, index) => (
                         <SelectItem
                           className={cn("hover:text-card")}
                           key={index}
-                          value={loai.name}
+                          value={category.name}
                         >
-                          {loai.option}
+                          {category.option}
                         </SelectItem>
                       ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                {error[hangHoa.name] && (
+                {error[cargo.name] && (
                   <p className="text-red-500 text-xs mt-1">
-                    {error[hangHoa.name]}
+                    {error[cargo.name]}
                   </p>
                 )}
               </div>

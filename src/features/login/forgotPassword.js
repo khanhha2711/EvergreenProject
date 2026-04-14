@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Email from "./quen-mat-khau/email";
-import XacThuc from "./quen-mat-khau/xacThuc";
-import MatKhauMoi from "./quen-mat-khau/matKhauMoi";
 import { useRouter } from "next/navigation";
+import XacThuc from "@/components/quen-mat-khau/xacThuc";
+import MatKhauMoi from "@/components/quen-mat-khau/matKhauMoi";
+import Email from "@/components/quen-mat-khau/email";
 
 export default function QuenMatKhau() {
   const router = useRouter();

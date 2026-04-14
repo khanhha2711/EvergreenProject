@@ -1,4 +1,3 @@
-import { OTPEmail } from "@/components/email/auth";
 import { getEmailTemplate } from "@/lib/sendEmail";
 import { Resend } from "resend";
 

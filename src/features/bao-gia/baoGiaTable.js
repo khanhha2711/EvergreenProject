@@ -6,11 +6,11 @@ import { toast } from "sonner";
 import { columns } from "./colums";
 import PATH from "@/routes/path";
 import { PaginationTable } from "@/components/table/pagination";
-import SearchAndSort from "@/components/searchAndFilter";
+import SearchAndSort from "@/components/inputs/searchAndFilter";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
+import { STATEBAOGIA } from "@/constants/bao-gia";
 
 export default function BaoGiaTable({ data }) {
   const router = useRouter();
@@ -19,17 +19,19 @@ export default function BaoGiaTable({ data }) {
 
   const updateParams = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
-
-    if (value) params.set(key, value);
-    else params.delete(key);
+    if (value === "all") {
+      params.delete(key);
+    } else if (value) {
+      params.set(key, value);
+    } else params.delete(key);
     setPage(1);
     router.push(`?${params.toString()}`);
   };
 
   // pagination
   const pageSize = 8;
-  const totalPage = Math.ceil(data.length / pageSize);
-  const dataNew = data.slice((page - 1) * pageSize, page * pageSize);
+  const totalPage = Math.ceil(data?.length / pageSize);
+  const dataNew = data?.slice((page - 1) * pageSize, page * pageSize);
   const handleNext = () => {
     if (page < totalPage) {
       setPage(page + 1);
@@ -63,17 +65,16 @@ export default function BaoGiaTable({ data }) {
           <SearchAndSort
             onSearch={(val) => updateParams("search", val)}
             onFilter={(val) => updateParams("state", val)}
+            status={STATEBAOGIA}
+            placeholder={"Tìm kiếm theo tên công ty"}
           />
         </div>
-
-        <Button className="whitespace-nowrap">
-          <Link href={PATH.ADMIN.BAOGIA.TAOMOI}>+ Tạo báo giá</Link>
-        </Button>
       </div>
       <DataTable
-        data={dataNew}
+        data={dataNew || ""}
         columns={columns({ onDelete: handleDelete })}
         basePath={PATH.ADMIN.BAOGIA.DANHSACH}
+        idName={"quotationCode"}
       />
 
       <PaginationTable

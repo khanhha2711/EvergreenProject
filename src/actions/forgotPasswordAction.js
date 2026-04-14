@@ -18,7 +18,7 @@ export async function sendEmail(prevState, formData) {
     return { success: true, data: res.data };
   } catch (error) {
     console.log(error.response?.data?.message || error.message);
-    return { success: true, error: "Email không tồn tại" };
+    return { success: false, error: "Email không tồn tại" };
   }
 }
 
@@ -33,7 +33,7 @@ export async function sendOTP(prevState, formData) {
   } catch (error) {
     console.log(error.response?.data?.message || error.message);
     return {
-      success: true,
+      success: false,
       error: "Mã xác thực không chính xác yêu cầu nhập lại ",
     };
   }
@@ -50,7 +50,7 @@ export async function sendNewPassword(prevState, formData) {
   } catch (error) {
     console.log(error.response?.data?.message || error.message);
     return {
-      success: true,
+      success: false,
       error: "Có lỗi xảy ra",
     };
   }

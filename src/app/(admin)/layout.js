@@ -1,15 +1,13 @@
 import NavAdmin from "@/components/layout/navAdmin";
 import Sidebar from "@/components/layout/sidebar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Suspense } from "react";
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="flex min-h-screen w-full pt-2">
+    <div className="flex min-h-screen w-full bg-white">
       <Sidebar />
       <div className="flex flex-col flex-1">
         <NavAdmin />
-        <main className="flex-1 p-4 bg-gray-50">{children}</main>
+        <main className="flex-1  bg-gray-100">{children}</main>
       </div>
     </div>
   );

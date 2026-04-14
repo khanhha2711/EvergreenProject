@@ -6,7 +6,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-export const SelectComponent = ({ placeHolder, options, onChange, value }) => {
+export const SelectComponent = ({
+  placeHolder,
+  options,
+  onChange,
+  value,
+}) => {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-full bg-card">

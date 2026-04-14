@@ -1,4 +1,4 @@
-import QuenMatKhau from "@/components/forgotPassword";
+import QuenMatKhau from "@/features/login/forgotPassword";
 import Image from "next/image";
 
 export default function ForgotPassword() {

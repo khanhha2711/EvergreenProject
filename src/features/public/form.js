@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
-import KhachHang from "./form/khachHang";
-import HangHoa from "./form/hangHoa";
-import VanChuyen from "./form/vanChuyen";
-import Stepper from "./navigation/stepper";
-import { Button } from "./ui/button";
+import KhachHang from "../../components/form/khachHang";
+import HangHoa from "../../components/form/hangHoa";
+import VanChuyen from "../../components/form/vanChuyen";
+import Stepper from "../../components/navigation/stepper";
+import { Button } from "../../components/ui/button";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { submitForm } from "@/actions/formAction";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 export default function Form() {
   const [form, setForm] = useState({});
@@ -48,15 +49,13 @@ export default function Form() {
     <div className="flex flex-col items-center w-[60vw]">
       <Stepper currentStep={step} />
       {step === 1 && (
-        <KhachHang onNext={handleNext} defaultValue={form.khachHang} />
+        <KhachHang onNext={handleNext} defaultValue={form.customer} />
       )}
 
-      {step === 2 && (
-        <HangHoa onNext={handleNext} defaultValue={form.hangHoa} />
-      )}
+      {step === 2 && <HangHoa onNext={handleNext} defaultValue={form.cargo} />}
 
       {step === 3 && (
-        <VanChuyen onNext={handleNext} defaultValue={form.vanChuyen} />
+        <VanChuyen onNext={handleNext} defaultValue={form.transport} />
       )}
 
       <div className="w-full flex justify-between mt-6">

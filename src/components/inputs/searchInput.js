@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import { useRef, useState } from "react";
 
-const SearchInput = ({ setSearch }) => {
+const SearchInput = ({ setSearch, placeholder }) => {
   const [value, setValue] = useState("");
   const debounceRef = useRef(null);
 
@@ -16,7 +16,6 @@ const SearchInput = ({ setSearch }) => {
       setSearch(val);
     }, 500);
   };
-
   return (
     <div className="relative">
       <Search
@@ -27,7 +26,7 @@ const SearchInput = ({ setSearch }) => {
       <Input
         value={value}
         onChange={handleChange}
-        placeholder="Tìm kiếm"
+        placeholder={placeholder}
         className="text-sm border px-8 py-2 rounded-sm w-full bg-card"
       />
     </div>

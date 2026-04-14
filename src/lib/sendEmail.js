@@ -1,7 +1,8 @@
-import { OTPEmail } from "@/components/email/auth";
-import { WelcomeQuoteEmail } from "@/components/email/welcome";
+import { OTPEmail } from "@/components/emailTemplate/auth";
+import { BaoGiaEmail } from "@/components/emailTemplate/baogia";
+import { WelcomeQuoteEmail } from "@/components/emailTemplate/welcome";
 
-export const getEmailTemplate = ({type, data}) => {
+export const getEmailTemplate = ({ type, data }) => {
   switch (type) {
     case "WELCOME":
       return {
@@ -14,8 +15,16 @@ export const getEmailTemplate = ({type, data}) => {
         subject: "Mã OTP xác thực tài khoản",
         template: OTPEmail({ otp: data.otp }),
       };
-
+    case "BAOGIA":
+      return {
+        subject: "Báo giá chi tiết từ evergreen",
+        template: BaoGiaEmail({
+          customer: data.customer,
+          items: data.items,
+          summary: data.summary,
+        }),
+      };
     default:
-      throw Error;
+      throw new Error("Invalid email type");
   }
 };

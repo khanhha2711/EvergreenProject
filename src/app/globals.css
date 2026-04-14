@@ -21,6 +21,7 @@
   --color-badge-3: var(--badge-3);
   --color-badge-2: var(--badge-2);
   --color-badge-1: var(--badge-1);
+  --color-card2: var(--card2);
   --color-badge-4-foreground: var(--badge-4-foreground);
   --color-badge-3-foreground: var(--badge-3-foreground);
   --color-badge-2-foreground: var(--badge-2-foreground);
@@ -72,6 +73,7 @@
   --border: oklch(0.929 0.013 255.508);
   --input: rgb(213, 217, 221);
   --ring: oklch(77.44% 0.22926 146.873);
+  --card2: rgb(204, 250, 220);
   --badge-1: oklch(93.65% 0.03199 17.556);
   --badge-2: oklch(95.687% 0.06656 156.92);
   --badge-3: oklch(90.394% 0.00145 285.311);
@@ -149,7 +151,7 @@
     @apply text-base font-normal;
   }
   .container {
-    @apply px-8 py-6 w-full;
+    @apply px-15 py-8 w-full;
   }
   .icon {
     @apply text-gray-400 w-4 h-4;

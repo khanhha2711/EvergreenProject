@@ -4,10 +4,15 @@ import { Map, MapPin } from "lucide-react";
 import { Input } from "@base-ui/react";
 
 export default function LocationInput({ diaDiem, value }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
   const debounceRef = useRef(null);
-
+  useEffect(() => {
+    if (value !== undefined) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setQuery(value);
+    }
+  }, [value]);
   const handleSearch = (value) => {
     setQuery(value);
     if (debounceRef.current) {
@@ -29,7 +34,7 @@ export default function LocationInput({ diaDiem, value }) {
       <div className="relative">
         <MapPin className="icon absolute translate-y-1/2 translate-x-2" />
         <Input
-          value={value || query}
+          value={query}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Nhập địa điểm"
           className="text-sm border px-8 py-2 rounded-sm w-full bg-card"

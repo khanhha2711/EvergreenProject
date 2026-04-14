@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
 
-export function DataTable({ data, columns, basePath }) {
+export function DataTable({ data, columns, basePath, idName, onRowClick }) {
   const table = useReactTable({
     data,
     columns,
@@ -25,9 +25,9 @@ export function DataTable({ data, columns, basePath }) {
   });
   const router = useRouter();
   return (
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-hidden rounded-md border bg-white">
       <Table>
-        <TableHeader className="bg-primary/20">
+        <TableHeader className="bg-primary/20 ">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -51,9 +51,13 @@ export function DataTable({ data, columns, basePath }) {
               <TableRow
                 key={row.id}
                 onClick={() => {
+                  if (onRowClick) {
+                    onRowClick(row.original);
+                    return;
+                  }
                   if (!basePath) return;
 
-                  router.push(`${basePath}/${row.original.id}`);
+                  router.push(`${basePath}/${row.original[idName]}`);
                 }}
               >
                 {row.getVisibleCells().map((cell) => (

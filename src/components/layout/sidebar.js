@@ -10,7 +10,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <section className="flex flex-col h-full gap-10 mx-4 sm:w-48">
+    <section className="flex flex-col h-full gap-10 mx-4 sm:w-48 sticky top-0 pt-4   ">
       <Image src="/logo.png" alt="logo" width={140} height={140} priority />
 
       <div className="flex flex-col gap-4">
@@ -28,7 +28,7 @@ export default function Sidebar() {
                   "bg-primary text-primary-foreground hover:bg-primary",
               )}
             >
-              {sidebar.icon}
+              {sidebar.icon({ style: isActive && "text-white" })}
               <span className="font-medium">{sidebar.label}</span>
             </Link>
           );

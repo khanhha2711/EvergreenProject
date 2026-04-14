@@ -1,14 +1,14 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { STATES } from "@/constants/filter";
+import { STATEBAOGIA } from "@/constants/bao-gia";
 import { Trash } from "lucide-react";
 
-const states = STATES;
+const state = STATEBAOGIA;
 
 export const columns = (actions = {}) => [
   {
-    accessorKey: "id",
+    accessorKey: "quotationCode",
     header: "Mã báo giá",
   },
 
@@ -16,32 +16,32 @@ export const columns = (actions = {}) => [
     accessorKey: "customer",
     header: "Khách hàng",
     cell: ({ row }) => {
-      const { customer, company } = row.original;
+      const { contactName, companyName } = row.original;
 
       return (
         <div>
-          <div className="font-medium">{customer}</div>
-          <div className="text-sm text-muted-foreground">{company}</div>
+          <div className="font-medium">{contactName}</div>
+          <div className="text-sm text-muted-foreground">{companyName}</div>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "creater",
+    accessorKey: "employeeName",
     header: "Người tạo",
   },
 
   {
-    accessorKey: "dateStart",
+    accessorKey: "createdAt",
     header: "Ngày bắt đầu",
   },
 
   {
-    accessorKey: "sum",
+    accessorKey: "totalPrice",
     header: "Tổng tiền",
     cell: ({ row }) => {
-      const amount = row.getValue("sum");
+      const amount = row.getValue("totalPrice");
 
       return (
         <div className="font-medium">
@@ -55,42 +55,22 @@ export const columns = (actions = {}) => [
   },
 
   {
-    accessorKey: "state",
+    accessorKey: "status",
     header: "Trạng thái",
     cell: ({ row }) => {
-      const value = row.getValue("state");
-      const state = states.find((s) => s.value === value);
+      const value = row.getValue("status").toLowerCase();
+      const currentState = state.find((s) => s.value === value);
 
-      if (!state) return null;
-
-      return (
-        <Badge variant={state.variant} className="flex items-center gap-2">
-          {state.icon}
-          {state.label}
-        </Badge>
-      );
-    },
-  },
-
-  {
-    id: "actions",
-    header: "Action",
-    cell: ({ row }) => {
-      const value = row.getValue("state");
+      if (!currentState) return null;
 
       return (
-        <div
-          className="flex justify-center items-center"
-          onClick={(e) => e.stopPropagation()}
+        <Badge
+          variant={currentState.variant}
+          className="flex items-center gap-2"
         >
-          {value === "draft" && (
-            <Trash
-              size={18}
-              className="cursor-pointer text-red-500"
-              onClick={() => actions.onDelete?.(row.original.id)}
-            />
-          )}
-        </div>
+          {currentState.icon}
+          {currentState.label}
+        </Badge>
       );
     },
   },

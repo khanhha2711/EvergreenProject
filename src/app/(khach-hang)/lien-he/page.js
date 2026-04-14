@@ -1,4 +1,4 @@
-import Form from "@/components/form";
+import Form from "@/features/public/form";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Building2, Clock, Mail, MapPin, Phone } from "lucide-react";

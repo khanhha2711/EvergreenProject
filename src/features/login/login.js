@@ -17,7 +17,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state.success) {
-      router.push("/");
+      router.push("/yeu-cau");
     }
   }, [state.success, router]);
 
@@ -31,8 +31,8 @@ export default function LoginForm() {
             size={15}
           />
           <Input
-            name="username"
-            placeholder="Tên đăng nhập"
+            name="gmail"
+            placeholder="Nhập gmail"
             className={cn("pl-8 h-10")}
             required
           />

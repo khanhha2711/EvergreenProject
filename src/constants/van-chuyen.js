@@ -10,4 +10,5 @@ export const SHIPMENT_FIELDS = [
     placeholder: "Ví dụ: Hà Nội, Việt Nam",
   },
   { name: "createdAt", label: "Thời gian gửi hàng" },
+  { name: "containerType", label: "Loại container" },
 ];

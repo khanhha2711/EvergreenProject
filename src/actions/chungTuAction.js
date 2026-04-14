@@ -1,5 +1,4 @@
 import { chungTuService } from "@/service/chungTuService";
-import { success } from "zod";
 
 const data = [
   {
@@ -9,14 +8,14 @@ const data = [
     attachment: { fileName: "ádfghj" },
   },
 ];
-export async function getChungTu(params) {
+export async function getChungTu(id) {
   try {
-    const res = await chungTuService.list(params);
+    const res = await chungTuService.list(id);
     return { success: true, data: res.data };
   } catch (error) {
     return {
       success: false,
-      data: data,
+      // data: data,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }
@@ -28,7 +27,7 @@ export async function createChungTu({ id, formData }) {
     return { success: true, data: res.data };
   } catch (error) {
     return {
-      success: true,
+      success: false,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }
@@ -61,6 +60,7 @@ export async function deleteChungTu(id) {
 export async function detailChungTu(id) {
   try {
     const res = await chungTuService.detail(id);
+    console.log("data", res.data);
     return { success: true, data: res.data };
   } catch (error) {
     return {

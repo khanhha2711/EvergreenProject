@@ -6,3 +6,8 @@ export const INCOTERM = [
   { value: "DDP", label: "DDP - Delivered Duty Paid" },
   { value: "DDU", label: "DDU - Delivered Duty Unpaid" },
 ];
+
+export const CONTAINER = [
+  { value: "20dc", label: "20' DC" },
+  { value: "40dc", label: "40' DC" },
+];

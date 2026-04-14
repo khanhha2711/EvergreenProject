@@ -9,7 +9,7 @@ import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
 import z from "zod";
 
-import { INCOTERM } from "@/constants/form";
+import { CONTAINER, INCOTERM } from "@/constants/form";
 import LocationInput from "../inputs/locationInput";
 import { SelectComponent } from "../inputs/select";
 import { Input } from "../ui/input";
@@ -19,7 +19,7 @@ const schema = z.object({
   origin: z.string().min(1, "Vui lòng chọn nơi lấy hàng"),
   destination: z.string().min(1, "Vui lòng chọn nơi giao hàng"),
   incoterm: z.string().optional(),
-  date: z
+  createdAt: z
     .date({
       required_error: "Vui lòng chọn thời gian giao hàng",
     })
@@ -30,9 +30,9 @@ export default function VanChuyen({ onNext, defaultValue }) {
   const [form, setForm] = useState({
     origin: "",
     destination: "",
-    container: "40DC",
+    containerType: "",
     incoterm: "",
-    date: new Date(),
+    createdAt: new Date(),
     ...defaultValue,
   });
 
@@ -111,7 +111,12 @@ export default function VanChuyen({ onNext, defaultValue }) {
 
         <div>
           <p className="text-sm mb-2">Loại container *</p>
-          <Input defaultValue={"40DC"} name="container"></Input>
+          <SelectComponent
+            placeHolder="Chọn loại container"
+            options={CONTAINER}
+            onChange={(e) => updateState("containerType", e)}
+            value={form?.containerType}
+          />
         </div>
 
         <div>
@@ -120,12 +125,12 @@ export default function VanChuyen({ onNext, defaultValue }) {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                data-empty={!form.date}
-                name="date"
+                data-empty={!form.createdAt}
+                name="createdAt"
                 className="bg-card w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground focus:bg-card hover:bg-card hover:text-foreground hover:border-ring"
               >
-                {form.date ? (
-                  format(form.date, "dd/MM/yyyy")
+                {form.createdAt ? (
+                  format(form.createdAt, "dd/MM/yyyy")
                 ) : (
                   <span>Chọn ngày</span>
                 )}
@@ -135,13 +140,13 @@ export default function VanChuyen({ onNext, defaultValue }) {
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 mode="single"
-                selected={form?.date}
-                onSelect={(d) => updateState("date", d)}
-                defaultMonth={form.date}
+                selected={form?.createdAt}
+                onSelect={(d) => updateState("createdAt", d)}
+                defaultMonth={form.createdAt}
               />
             </PopoverContent>
           </Popover>
-          {errors.date && (
+          {errors.createdAt && (
             <p className="text-red-500 text-xs mt-1">{errors.date}</p>
           )}
         </div>

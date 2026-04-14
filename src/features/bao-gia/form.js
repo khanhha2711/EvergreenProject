@@ -23,6 +23,7 @@ import ConfirmModal from "@/components/modal/comfirmModal";
 import { updateBaoGia } from "@/actions/baoGiaAction";
 import { getDichVu } from "@/actions/dichVuAction";
 import { format, isValid, parse } from "date-fns";
+import { CONTAINER } from "@/constants/form";
 
 export default function Form({ form = {}, isEdit }) {
   const [shipping, setShipping] = useState(form?.transportDTO || {});
@@ -249,6 +250,13 @@ export default function Form({ form = {}, isEdit }) {
                 <p className="text-sm mb-2">{field.label}</p>
                 {isEdit ? (
                   <b>{shipping?.[field.name] || ""}</b>
+                ) : field.name === "containerType" ? (
+                  <SelectComponent
+                    placeHolder="Chọn loại container"
+                    options={CONTAINER}
+                    onChange={(e) => updateState("containerType", e)}
+                    value={shipping?.[field.name] || ""}
+                  />
                 ) : field.name !== "createdAt" ? (
                   <LocationInput
                     diaDiem={(e) => updateState(field.name, e)}

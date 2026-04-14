@@ -18,6 +18,7 @@ const CustomView = ({ data, id }) => {
     const dataDetail = res.data;
     setDataDetail(dataDetail);
   };
+  console.log(data.length !== 0);
 
   return (
     <div>

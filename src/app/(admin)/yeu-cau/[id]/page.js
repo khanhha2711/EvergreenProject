@@ -1,6 +1,7 @@
 import { createBaoGia, detailYeuCau } from "@/actions/yeuCauAction";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CONTAINER } from "@/constants/form";
 import { CARGOFIELDS } from "@/constants/hang-hoa";
 import { CUSTOMER_FIELDS } from "@/constants/khach-hang";
 import { SHIPMENT_FIELDS } from "@/constants/van-chuyen";
@@ -78,7 +79,14 @@ export default async function Page({ params }) {
                 <div key={field.name} className="space-y-1">
                   <p>{field.label}</p>
                   <p>
-                    <b>{data?.shipping?.[field.name] || ""}</b>
+                    <b>
+                      {field.name === "containerType"
+                        ? CONTAINER.find(
+                            (container) =>
+                              container.value === data?.shipping?.[field.name],
+                          ).label
+                        : data?.shipping?.[field.name] || ""}
+                    </b>
                   </p>
                 </div>
               );

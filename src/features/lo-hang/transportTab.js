@@ -20,7 +20,7 @@ const truckSchema = z.object({
 
 const TransportTab = () => {
   const data = {
-    companyTruckName: "jjjjjjjjjjjjjjjjj",
+    companyName: "Công ty TNHH ABC",
     list: [
       {
         truckCode: "123",
@@ -53,7 +53,7 @@ const TransportTab = () => {
     const newData = dataTruck
       .filter((data) => data.truckCode === "")
       .map(({ truckCode, ...rest }) => rest);
-    const data = { companyTruckName: companyName, list: newData };
+    const data = { companyName: companyName, list: newData };
     console.log(data);
   };
 
@@ -68,8 +68,8 @@ const TransportTab = () => {
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="companyName">Tên đơn vị vận tải</label>
-          {data?.companyTruckName ? (
-            <b>{data?.companyTruckName}</b>
+          {data?.companyName ? (
+            <b>{data?.companyName}</b>
           ) : (
             <Input
               className="mt-2"
@@ -98,19 +98,8 @@ const TransportTab = () => {
           <Button onClick={() => handleSubmit()}>Lưu</Button>
         </div>
       </Card>
-      <Card className="flex">
-        <div className="flex flex-row gap-4">
-          <div className="border-l-3 relative ml-4 ">
-            <div className="absolute -top-6.5 -left-6.5">
-              <Dot size={50} className="text-primary" />
-            </div>
-            <div className="h-15 w-fit"></div>
-          </div>
-          <div>
-            <b>Chờ lấy hàng</b>
-            <p>22/2/2026</p>
-          </div>
-        </div>
+      <Card>
+        
       </Card>
     </div>
   );

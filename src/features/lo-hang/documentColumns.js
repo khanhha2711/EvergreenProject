@@ -3,14 +3,14 @@ import { Pen } from "lucide-react";
 
 export const getColumns = ({ handleEdit }) => {
   const documentColumns = [
-    { accessorKey: "documentCode", header: "Mã chứng từ" },
     {
       id: "stt",
       header: "STT",
       cell: ({ row }) => <div>{row.index + 1}</div>,
     },
+    { accessorKey: "documentCode", header: "Mã chứng từ" },
     { accessorKey: "documentNumber", header: "Số chứng từ" },
-    { accessorKey: "documentType", header: "Loại chứng từ" },
+    { accessorKey: "documentType", header: "Tên chứng từ" },
     {
       accessorKey: "acttachment",
       header: "File",

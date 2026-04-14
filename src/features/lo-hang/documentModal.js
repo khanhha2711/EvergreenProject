@@ -26,8 +26,11 @@ const DocumentModal = ({
   isEdit,
   setIsEdit,
   setDataDetail,
+  fetchData,
 }) => {
-  const [file, setFile] = useState(dataDetail?.attachment || null);
+  const [file, setFile] = useState(
+    (isCreate && dataDetail?.attachment) || null,
+  );
   const [error, setError] = useState({});
   const [isComfirm, setIsConfirm] = useState(false);
   const [description, setDescription] = useState("");
@@ -43,13 +46,11 @@ const DocumentModal = ({
     if (isEdit) {
       formData.append("documentNumber", dataDetail.documentNumber);
       formData.append("documentType", dataDetail.documentType);
-      formData.append("description", description);
     }
     const data = {
       ...Object.fromEntries(formData),
       file,
     };
-
     const result = documentSchema.safeParse(data);
     if (!result.success) {
       const formattedErrors = {};
@@ -68,7 +69,10 @@ const DocumentModal = ({
         res = await createChungTu({ id, formData });
       } else {
         const documentId = dataDetail?.documentCode;
+        formData.delete("documentType");
+        formData.delete("documentNumber");
         res = await updateChungTu({ id: documentId, data: formData });
+        fetchData(dataDetail?.documentCode);
       }
       if (res.success) {
         toast.success("Tạo mới thành công");
@@ -131,10 +135,10 @@ const DocumentModal = ({
           DOCUMENTFIELDS.slice(0, 3).map((field, index) => (
             <div key={index}>
               <p>{field.label}</p>
-              <p>{dataDetail?.[field.name]}</p>
+              <b>{dataDetail?.[field.name]}</b>
             </div>
           ))}
-        {((isEdit && !file) || (file && description !== "")) && (
+        {isEdit && (
           <div className="col-span-full">
             <h3>Lý do</h3>
             <div className="mt-2">
@@ -173,7 +177,7 @@ const DocumentModal = ({
           >
             Hủy
           </Button>
-          <Button type="submit" className="w-fit">
+          <Button disable={isLoading} type="submit" className="w-fit">
             Lưu
           </Button>
         </div>

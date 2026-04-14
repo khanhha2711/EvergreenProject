@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    dependencies {
+
+        compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+        // Spring MVC
+        implementation "org.springframework:spring-webmvc:6.2.10"
+        // Thymeleaf 6 + Spring integration
+        implementation "org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE"
+        implementation "org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE"
+
+        implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
+        implementation 'com.mysql:mysql-connector-j:8.3.0'
+        implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '3.3.0'
+
+
+        // Mail
+        implementation 'org.springframework:spring-context-support:6.2.10'
+        implementation 'com.sun.mail:jakarta.mail:2.0.1'
+        implementation 'commons-fileupload:commons-fileupload:1.5'
+
+        // Nếu chưa có, cũng cần commons-io
+        implementation 'commons-io:commons-io:2.13.0'
+
+        // Local Date
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0'
+
+        //Json
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

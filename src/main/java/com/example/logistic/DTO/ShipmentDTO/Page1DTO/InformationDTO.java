@@ -26,6 +26,7 @@ public class InformationDTO {
     public InformationDTO() {
     }
 
+
     public ActivityDTO getActivity() {
         return activity;
     }

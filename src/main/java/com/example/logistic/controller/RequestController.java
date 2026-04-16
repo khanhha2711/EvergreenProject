@@ -48,11 +48,6 @@ public class RequestController {
     public ResponseEntity<String> deleteRequest(@PathVariable ("requestCode") String requestCode){
         return requestService.deleteRequest(requestCode);
     }
-
-//    @GetMapping ("")
-//    public ResponseEntity<List<ListRespDTO>> searchByPhone(@RequestParam ("search") String phone){
-//        return ResponseEntity.ok(requestService.search(phone));
-//    }
 }
 
 //done

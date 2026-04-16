@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table (name="customs_declarations")
@@ -27,6 +28,8 @@ public class CusDeclarations {
 
     @Column(name = "status")
     private String status;
+    @Column(name = "customs_branch")
+    private String customsBranch;
 
     @Column(name = "declaration_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -34,7 +37,25 @@ public class CusDeclarations {
 
     @Column(name = "attachment")
     private String attachment;
+    @OneToMany(mappedBy = "cusDeclaration", cascade = CascadeType.ALL)
+    private List<Containers> containers;
     public CusDeclarations() {
+    }
+
+    public List<Containers> getContainers() {
+        return containers;
+    }
+
+    public void setContainers(List<Containers> containers) {
+        this.containers = containers;
+    }
+
+    public String getCustomsBranch() {
+        return customsBranch;
+    }
+
+    public void setCustomsBranch(String customsBranch) {
+        this.customsBranch = customsBranch;
     }
 
     public String getAttachment() {

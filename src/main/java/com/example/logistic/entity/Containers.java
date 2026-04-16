@@ -21,8 +21,19 @@ public class Containers {
 
     @Column(name = "type_container")
     private String typeContainer;
+    @Column(name = "seal_number")
+    private String sealNumber;
+
 
     public Containers() {
+    }
+
+    public String getSealNumber() {
+        return sealNumber;
+    }
+
+    public void setSealNumber(String sealNumber) {
+        this.sealNumber = sealNumber;
     }
 
     public String getContainerNumber() {

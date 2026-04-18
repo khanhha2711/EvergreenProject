@@ -31,15 +31,15 @@ export const State = ({ id, state, data }) => {
 
       await updateState({ id, state: newState.toUpperCase() });
       router.refresh();
-
+      setLoading(false);
       toast.success("Cập nhật trạng thái thành công");
     } catch (error) {
       setCurrentState(state);
       toast.error("Cập nhật thất bại");
     } finally {
-      setLoading(false);
     }
   };
+
   const createContract = async () => {
     try {
       setLoading(true);
@@ -72,7 +72,7 @@ export const State = ({ id, state, data }) => {
             onClick={() => handleUpdateState("send", { sendEmail: true })}
             disabled={loading}
           >
-            {loading ? "Đang gửi..." : "Gửi báo giá"}
+            {loading ? "Đang gửi ..." : "Gửi báo giá"}
           </Button>
         </div>
       )}
@@ -107,7 +107,7 @@ export const State = ({ id, state, data }) => {
       {/* APPROVED */}
       {normalizedState === "approved" && (
         <Button disabled={loading} onClick={createContract}>
-          Tạo hợp đồng
+          {loading ? "Đang tải..." : "Tạo hợp đồng"}
         </Button>
       )}
     </div>

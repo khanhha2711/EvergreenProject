@@ -9,5 +9,5 @@ export const khachHangService = {
 
   detail: (id) => api.get(`/customers/detail/${id}`),
 
-  update: ({ id, data }) => api.patch(`/customers/${id}`, data),
+  update: ({ id, data }) => api.put(`/customers/update/${id}`, data),
 };

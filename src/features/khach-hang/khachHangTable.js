@@ -1,7 +1,6 @@
 "use client";
 
 import { DataTable } from "@/components/table/data-table";
-import PATH from "@/routes/path";
 import { PaginationTable } from "@/components/table/pagination";
 import SearchAndSort from "@/components/inputs/searchAndFilter";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Modal from "@/components/modal/modal";
 import ModalKhachHang from "./modalKhacHang";
-import ConfirmModal from "@/components/modal/comfirmModal";
 import { getKhachHangChiTiet } from "@/actions/khachHangAction";
 
 export default function KhachHangTable({ data }) {
@@ -54,7 +52,6 @@ export default function KhachHangTable({ data }) {
   const handleRowClick = async (row) => {
     const res = await getKhachHangChiTiet(row.customerCode);
     setDetailData(res.data);
-    setIsEdit(true);
     setIsOpen(true);
   };
   return (

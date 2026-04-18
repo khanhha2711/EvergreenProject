@@ -17,9 +17,14 @@ export default function DichVuTable({ data }) {
   const [services, setServices] = useState(data);
   const [idEdit, setIdEdit] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setError] = useState("");
   const router = useRouter();
 
-  const handleDelete = useCallback(async (id) => {
+  const handleDelete = useCallback(async (item, index) => {
+    if (!item.serviceCode) {
+      setServices((prev) => prev.filter((service, i) => i !== index));
+      return;
+    }
     const res = await deleteDichVu(id);
     if (res.success) {
       setServices((prev) =>
@@ -36,30 +41,33 @@ export default function DichVuTable({ data }) {
 
     try {
       if (isNew) {
-        const service = services.find((service) => service.serviceCode === "");
-        if (!service.serviceName) {
-          setServices(services.filter((service) => service.serviceCode !== ""));
-          setIsNew(false);
+        const hasInvalid = services.some((service) => {
+          const values = [service.serviceName, service.unit, service.price];
+          return values.some((value) => !value);
+        });
+        if (hasInvalid) {
+          setError("Không được để trống. Hãy nhập đầy đủ nội dung");
           return;
         }
-        const { serviceCode, ...payload } = service || {};
-        if (!payload.serviceName) {
-          setIsNew(false);
-          router.refresh();
-          return;
-        }
-        const res = await createDichVu(payload);
+        // setError("");
+        const newServices = services
+          .filter((service) => !service.serviceCode)
+          .map(({ serviceCode, ...rest }) => rest);
+
+        const res = await createDichVu(newServices);
 
         if (!res?.success) {
           throw new Error("Create failed");
         }
 
         setIsNew(false);
+        setError("");
         toast.success("Lưu thành công");
         router.refresh();
       }
 
       if (isEdit) {
+        console.log(services);
         const res = await updateDichVu(services);
 
         if (!res?.success) {
@@ -84,6 +92,7 @@ export default function DichVuTable({ data }) {
         index === id ? { ...item, [field]: value } : item,
       ),
     );
+    setError("");
   }, []);
 
   const handleEdit = useCallback(async (id) => {
@@ -117,7 +126,6 @@ export default function DichVuTable({ data }) {
     ]);
     setIsNew(true);
   };
-  console.log(services);
   return (
     <div className="container space-y-4">
       <h2 className="text-center">Bảng giá dịch vụ</h2>
@@ -126,7 +134,19 @@ export default function DichVuTable({ data }) {
       </div>
       <DataTable data={services} columns={columns} />
       {(isNew || isEdit) && (
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
+          {errors && <p className="text-destructive">{errors} </p>}
+          <Button
+            onClick={() => {
+              setIsEdit(false), setIsNew(false), setError("");
+              setServices(
+                services.filter((items) => items?.serviceCode !== ""),
+              );
+            }}
+            variant="secondary"
+          >
+            Hủy
+          </Button>
           <Button onClick={handleSubmit} disabled={isLoading}>
             Lưu
           </Button>

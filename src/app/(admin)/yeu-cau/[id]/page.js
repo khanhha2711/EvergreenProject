@@ -84,7 +84,7 @@ export default async function Page({ params }) {
                         ? CONTAINER.find(
                             (container) =>
                               container.value === data?.shipping?.[field.name],
-                          ).label
+                          )?.label
                         : data?.shipping?.[field.name] || ""}
                     </b>
                   </p>

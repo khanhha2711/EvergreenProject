@@ -1,7 +1,7 @@
 export const vanTaiNoiDia = [
-  { name: "name", label: "Tên công ty" },
-  { name: "phone", label: "Số điện thoại" },
-  { name: "gmail", label: "Email" },
+  { name: "companyName", label: "Tên công ty" },
+  { name: "companyPhone", label: "Số điện thoại" },
+  { name: "companyGmail", label: "Email" },
   { name: "companyAddress", label: "Địa chỉ" },
 ];
 

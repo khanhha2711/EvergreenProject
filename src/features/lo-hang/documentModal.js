@@ -177,7 +177,7 @@ const DocumentModal = ({
           >
             Hủy
           </Button>
-          <Button disable={isLoading} type="submit" className="w-fit">
+          <Button disabled={isLoading} type="submit" className="w-fit">
             Lưu
           </Button>
         </div>

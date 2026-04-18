@@ -17,9 +17,10 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state.success) {
+      localStorage.setItem("user", JSON.stringify(state.data));
       router.push("/yeu-cau");
     }
-  }, [state.success, router]);
+  }, [state.data, state.success, router]);
 
   return (
     <div className="flex flex-col items-center w-full">

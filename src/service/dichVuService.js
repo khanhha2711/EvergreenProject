@@ -9,5 +9,5 @@ export const dichVuService = {
 
   detail: (id) => api.get(`/services/detail/${id}`),
 
-  update: ({id, data}) => api.patch(`/services/${id}`, data),
+  update: (data) => api.put(`/services`, data),
 };

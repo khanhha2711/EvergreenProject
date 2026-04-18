@@ -1,31 +1,31 @@
 import { dichVuService } from "@/service/dichVuService";
 
-// const dichVu = [
-//   {
-//     serviceCode: "DV-01",
-//     serviceName: "Khai báo hải quan",
-//     unitPrice: 100000,
-//     unit: "luồng",
-//   },
-//   {
-//     serviceCode: "DV-02",
-//     serviceName: "Dịch vụ vận chuyển",
-//     unitPrice: 200000,
-//     unit: "20/40 cont",
-//   },
-//   {
-//     serviceCode: "DV-03",
-//     serviceName: "Dịch vụ kiểm hóa",
-//     unitPrice: 300000,
-//     unit: "20/40 cont",
-//   },
-//   {
-//     serviceCode: "DV-04",
-//     serviceName: "Khai báo C/O",
-//     unitPrice: 300000,
-//     unit: "Bộ bill",
-//   },
-// ];
+const dichVu = [
+  {
+    serviceCode: "DV-01",
+    serviceName: "Khai báo hải quan",
+    price: 100000,
+    unit: "luồng",
+  },
+  {
+    serviceCode: "DV-02",
+    serviceName: "Dịch vụ vận chuyển",
+    price: 200000,
+    unit: "20/40 cont",
+  },
+  {
+    serviceCode: "DV-03",
+    serviceName: "Dịch vụ kiểm hóa",
+    price: 300000,
+    unit: "20/40 cont",
+  },
+  {
+    serviceCode: "DV-04",
+    serviceName: "Khai báo C/O",
+    price: 300000,
+    unit: "Bộ bill",
+  },
+];
 
 export async function getDichVu(params) {
   try {
@@ -34,7 +34,7 @@ export async function getDichVu(params) {
   } catch (error) {
     return {
       success: false,
-      // data: dichVu,
+      data: dichVu,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }

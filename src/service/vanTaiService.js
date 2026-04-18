@@ -5,6 +5,7 @@ export const vanTaiNoiDia = {
   detail: (id) => api.get(`/company/${id}`),
   create: (data) => api.post(`/company/create`, data),
   update: ({ id, data }) => api.put(`/company/update/${id}`, data),
+  select: () => api.get("/company/select"),
 };
 
 export const vanTaiHangTau = {
@@ -12,4 +13,21 @@ export const vanTaiHangTau = {
   detail: (id) => api.get(`/shipping/${id}`),
   create: (data) => api.post(`/shipping/create`, data),
   update: ({ id, data }) => api.put(`/shipping/update/${id}`, data),
+};
+
+export const vanChuyenNoiDia = {
+  detail: (id) => api.get(`/trucking/${id}`),
+  create: ({ id, data }) => api.post(`/trucking/create/${id}`, data),
+  update: ({ id, data }) => api.put(`/trucking/update/${id}`, data),
+  delete: (id) => api.delete(`/trucking/${id}`),
+};
+
+export const datTau = {
+  detail: (id) => api.get(`/shipping/detail/${id}`),
+  create: ({ id, data }) => api.post(`/shipping/create/${id}`, data),
+  update: ({ id, data }) => api.put(`/shipping/${id}`, data),
+};
+
+export const container = {
+  select: (id) => api.get(`/containers/${id}`),
 };

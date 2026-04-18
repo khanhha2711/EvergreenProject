@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChangeMoney } from "@/lib/changeMoney";
-import { Delete, Pen } from "lucide-react";
+import { Delete, Pen, Trash2 } from "lucide-react";
 
 export const getColumns = ({
   onDelete,
@@ -11,7 +11,6 @@ export const getColumns = ({
   isEdit,
   idEdit,
 }) => {
-  console.log(isNew);
   const columns = [
     {
       accessorKey: "id",
@@ -93,25 +92,22 @@ export const getColumns = ({
       id: "actions",
       cell: ({ row }) => {
         const item = row.original;
-
         return (
           <div className="flex justify-center gap-2">
-            {
+            {((isNew && !item.serviceCode) || !isNew) && (
               <Button
-                variant="secondary"
-                className="border-none"
-                onClick={() => onDelete?.(item.serviceCode)}
+                className="border-none bg-white hover:bg-white "
+                onClick={() => onDelete(item, row.index)}
               >
-                <Delete className="icon " />
+                <Trash2 className="icon text-destructive" />
               </Button>
-            }
+            )}
             {!isNew && (
               <Button
-                variant="secondary"
-                className="border-none"
-                onClick={() => onEdit?.(item.serviceCode)}
+                className="border-none bg-white hover:bg-white "
+                onClick={() => onEdit(item.serviceCode)}
               >
-                <Pen className="icon" />
+                <Pen className="icon text-gray-600" />
               </Button>
             )}
           </div>

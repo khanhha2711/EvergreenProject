@@ -8,7 +8,6 @@ export default async function LoHang({ params, searchParams }) {
   const { id } = await params;
   const res = await getLoHangChiTiet(id);
   const data = res.data;
-  console.log(data);
   return (
     <div className="mb-4">
       <div className="bg-white border-t pt-4 px-6 space-y-4">

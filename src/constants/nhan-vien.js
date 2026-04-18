@@ -13,7 +13,7 @@ export const EMPLOYEE_FIELDS = [
   },
   {
     label: "Chức vụ",
-    name: "roleName",
+    name: "position",
     placeholder: "Nhập chức vụ",
   },
 

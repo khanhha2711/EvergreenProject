@@ -11,8 +11,8 @@ const Activity = ({ data, user }) => {
         </div>
         <div className="h-20 w-0.5 bg-gray-400"></div>
       </div>
-      <Card className="-space-y-5.5 px-4 -py-2 flex-1">
-        <div className="flex justify-between mt-2.5">
+      <Card className="-space-y-5.5 px-4 py-2 flex-1">
+        <div className="flex justify-between ">
           <div className="flex gap-2">
             <p className="text-sm text-gray-700">Người thực hiện: </p>
             <b className="text-sm text-gray-600">{user}</b>
@@ -22,10 +22,12 @@ const Activity = ({ data, user }) => {
           </p>
         </div>
         <p className=" font-bold text-base">{data?.description}</p>
-        <div className=" flex gap-2 mb-2.5 mt-2">
-          <p className="text-sm text-gray-700">Tên chứng từ:</p>
-          <b className="text-sm text-gray-600">{data?.documentName}</b>
-        </div>
+        {data?.documentName && (
+          <div className=" flex gap-2  ">
+            <p className="text-sm text-gray-700">Tên chứng từ:</p>
+            <b className="text-sm text-gray-600">{data?.documentName}</b>
+          </div>
+        )}
       </Card>
     </div>
   );

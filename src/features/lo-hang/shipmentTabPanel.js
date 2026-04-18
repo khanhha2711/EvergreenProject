@@ -14,9 +14,9 @@ const ShipmentTabPanel = async ({ data, searchParams }) => {
         return <DocumentTab id={data?.shipmentCode} />;
 
       case "van-chuyen":
-        return <TransportTab />;
+        return <TransportTab id={data?.shipmentCode} />;
       case "hai-quan":
-        return <CustomTab />;
+        return <CustomTab id={data?.shipmentCode} />;
       default:
         return <OverviewTab data={data} />;
     }

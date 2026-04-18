@@ -9,7 +9,8 @@ import { schemaCustomer } from "./schema";
 import { createKhachHang, updateKhachHang } from "@/actions/khachHangAction";
 import { toast } from "sonner";
 import ConfirmModal from "@/components/modal/comfirmModal";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 export default function ModalKhachHang({
   setIsOpen,
@@ -29,7 +30,6 @@ export default function ModalKhachHang({
     const formData = new FormData(e.target);
     const dataCustomer = Object.fromEntries(formData);
     dataCustomer.customerAddress = address;
-    console.log(dataCustomer);
     const { isValid, errors } = validate({
       schema: schemaCustomer,
       data: dataCustomer,
@@ -40,7 +40,10 @@ export default function ModalKhachHang({
     }
     setError({});
     if (isEdit) {
-      const res = await updateKhachHang({ id: data.id, data: dataCustomer });
+      const res = await updateKhachHang({
+        id: data.customerCode,
+        data: dataCustomer,
+      });
       if (!res.success) {
         toast.error(
           "Cập nhật dữ liệu không thành công. Vui lòng thực hiện lại.",
@@ -69,12 +72,14 @@ export default function ModalKhachHang({
     setAddress(e);
   };
   return (
-    <div>
+    <div className="px-6">
       {isConfirm && (
         <ConfirmModal
           title={"Xác nhận hủy bỏ"}
           content={"Bạn có chắc chắn muốn hủy bỏ thêm khách hàng mới không?"}
-          onCancel={() => setIsAlert(false)}
+          onCancel={() => {
+            setIsConfirm(false);
+          }}
           onConfirm={() => {
             setIsOpen(false);
             setIsConfirm(false);
@@ -83,13 +88,29 @@ export default function ModalKhachHang({
           }}
         />
       )}
-      <h3 className="mb-4">
-        {isEdit
-          ? "Chỉnh sửa thông tin khách hàng"
-          : !isCreate
-          ? "Thông tin khách hàng"
-          : "Thêm mới khách hàng"}
-      </h3>
+      <div className="flex justify-between">
+        <h3 className="mb-4">
+          {isEdit
+            ? "Chỉnh sửa thông tin khách hàng"
+            : !isCreate
+            ? "Thông tin khách hàng"
+            : "Thêm mới khách hàng"}
+        </h3>
+        {!isEdit && !isCreate && (
+          <div className="flex gap-3">
+            <Button variant="secondary" onClick={() => setIsEdit(true)}>
+              Chỉnh sửa
+            </Button>
+            <Button
+              onClick={() => setIsOpen(false)}
+              className="bg-white hover:bg-white text-black"
+            >
+              <X />
+            </Button>
+          </div>
+        )}
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className=" grid grid-cols-2 gap-4 gap-x-10"
@@ -133,7 +154,9 @@ export default function ModalKhachHang({
               type="button"
               variant="secondary"
               className={"w-fit"}
-              onClick={() => setIsConfirm(true)}
+              onClick={() => {
+                setIsConfirm(true);
+              }}
             >
               Hủy bỏ
             </Button>

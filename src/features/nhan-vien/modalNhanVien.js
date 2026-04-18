@@ -8,6 +8,7 @@ import { createNhanVien, updateNhanVien } from "@/actions/nhanVienAction";
 import { employeeSchema } from "./schema";
 import ConfirmModal from "@/components/modal/comfirmModal";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ModalNhanVien({
   setIsOpen,
@@ -19,6 +20,7 @@ export default function ModalNhanVien({
 }) {
   const [error, setError] = useState({});
   const [isConfirm, setIsConfirm] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,15 +34,20 @@ export default function ModalNhanVien({
       setError(errors);
       return;
     }
-    console.log(dataEmployee);
     setError({});
     if (isEdit) {
-      const res = await updateNhanVien({ id: data.id, data: dataEmployee });
+      const res = await updateNhanVien({
+        id: data.employeeCode,
+        data: dataEmployee,
+      });
       if (!res.success) {
+        console.log(res.error);
+
         toast.error(
           "Cập nhật dữ liệu không thành công. Vui lòng thực hiện lại.",
         );
       } else {
+        router.refresh();
         setIsOpen(false);
         setIsEdit(false);
         toast.success("Cập nhật thành công");
@@ -52,13 +59,12 @@ export default function ModalNhanVien({
           "Thêm mới dữ liệu không thành công. Vui lòng thực hiện lại.",
         );
       } else {
+        router.refresh();
         setIsOpen(false);
         setIsCreate(false);
         toast.success("Thêm mới thành công");
       }
     }
-
-    console.log(data);
   };
 
   return (

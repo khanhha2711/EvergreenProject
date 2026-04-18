@@ -8,7 +8,7 @@ export async function loginAction(prevState, formData) {
 
   try {
     const res = await loginService.logIn({ gmail, password });
-    return { success: true, user: res.data };
+    return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: "Tài khoản hoặc mật khẩu không chính xác" };
   }

@@ -109,6 +109,7 @@ export async function createNhanVien(data) {
 export async function updateNhanVien({ id, data }) {
   try {
     const res = await nhanVienService.update({ id, data });
+    console.log(res);
     return { success: true, data: res.data };
   } catch (error) {
     return {

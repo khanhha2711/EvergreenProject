@@ -9,5 +9,5 @@ export const nhanVienService = {
 
   detail: (id) => api.get(`/employees/detail/${id}`),
 
-  update: ({ id, data }) => api.patch(`/employees/update${id}`, data),
+  update: ({ id, data }) => api.put(`/employees/update/${id}`, data),
 };

@@ -17,8 +17,8 @@ const SHIPMENTFIELDS = [
     label: "Mã hợp đồng",
     name: "contractCode",
   },
-  { name: "estimatedArrival", label: "Ngày dự kiến" },
   { name: "departureDate", label: "Ngày khởi hành" },
+  { name: "estimatedArrival", label: "Ngày dự kiến" },
 ];
 
 const OverviewTab = ({ data }) => {

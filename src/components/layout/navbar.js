@@ -17,7 +17,9 @@ export default function Navbar() {
 
   return (
     <nav className="flex min-w-0 w-full max-w-screen-2xl justify-between items-center px-6 py-2">
-      <Image src="/logo.png" alt="logo" width={168} height={48} priority />
+      <Link href={PATH.PUBLIC.HOME}>
+        <Image src="/logo.png" alt="logo" width={168} height={48} priority />
+      </Link>
       <div className="flex items-center gap-8">
         <ul className="flex gap-8">
           {nav.map((item, index) => {

@@ -28,7 +28,7 @@ export function CreateBaoGiaButton({ requestId }) {
 
   return (
     <Button onClick={() => handleCreate()} disabled={isLoading}>
-      Tạo báo giá
+      {isLoading ? "Đang tạo ..." : "Tạo báo giá"}
     </Button>
   );
 }

@@ -1,7 +1,7 @@
 import { SelectComponent } from "@/components/inputs/select";
 import { Input } from "@/components/ui/input";
 import { ChangeMoney } from "@/lib/changeMoney";
-import { Delete, Pen } from "lucide-react";
+import { Delete, Pen, Trash2 } from "lucide-react";
 
 export const getColumns = ({
   onDelete,
@@ -87,7 +87,7 @@ export const getColumns = ({
         return (
           <div className="flex gap-2">
             <button onClick={() => onDelete?.(item.serviceCode)}>
-              <Delete className="icon" />
+              <Trash2 className="icon" />
             </button>
           </div>
         );

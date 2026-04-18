@@ -108,7 +108,6 @@ export default function Form({ form = {}, isEdit }) {
       setError({});
       const res = await submitForm(data);
       if (res.success) {
-        setLoading(false);
         router.push(PATH.ADMIN.YEUCAU.DANHSACH);
       } else {
         setLoading(false);
@@ -119,7 +118,6 @@ export default function Form({ form = {}, isEdit }) {
       console.log("data", items);
       const res = await updateBaoGia({ id: form.id, data: items });
       if (res.success) {
-        setLoading(false);
         toast.success("Cập nhật thành công");
         router.push(PATH.ADMIN.BAOGIA.CHITIET(form.id));
       } else {

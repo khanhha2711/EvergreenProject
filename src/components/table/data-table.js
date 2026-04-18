@@ -18,12 +18,15 @@ import {
 import { useRouter } from "next/navigation";
 
 export function DataTable({ data, columns, basePath, idName, onRowClick }) {
+  
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
   const router = useRouter();
+  
   return (
     <div className="overflow-hidden rounded-md border bg-white">
       <Table>

@@ -9,7 +9,6 @@ import { columns } from "./columns.js";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Modal from "@/components/modal/modal";
-import ConfirmModal from "@/components/modal/comfirmModal";
 import ModalNhanVien from "./modalNhanVien.js";
 import { getNhanVienChiTiet } from "@/actions/nhanVienAction.js";
 
@@ -46,12 +45,12 @@ export default function NhanVienTable({ data }) {
       setPage(page - 1);
     }
   };
-
+  console.log(data);
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
   const handleRowClick = async (row) => {
-    const res = await getNhanVienChiTiet(row.customerCode);
+    const res = await getNhanVienChiTiet(row.employeeCode);
     setDetailData(res.data);
     setIsEdit(false);
     setIsOpen(true);

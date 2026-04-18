@@ -108,7 +108,7 @@ const DocumentView = ({ id, data }) => {
       </Card>
       {dataDetail?.log.length > 0 && (
         <div className="space-y-4 mx-6 mb-6">
-          <h3>Lịch sử cập nhật</h3>
+          <h3>Lịch sử hoạt động</h3>
           {dataDetail?.log.map((data, index) => (
             <div key={index}>
               <Activity data={data} user={dataDetail?.activity?.user} />

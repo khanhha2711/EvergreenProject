@@ -62,23 +62,16 @@ export default function VanTaiTable({ dataTable, vanTaiColumns }) {
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
-  const dataNoiDia = {
-    truckingName: "Công ty TNHH Vận Tải ABC",
-    truckingPhone: "0123456789",
-    truckingEmail: "info@abc.com",
-    truckingAddress: "123 Đường ABC, Quận XYZ, TP. HCM",
-  };
+
   const getData = async (row) => {
-    const id = noiDia ? row.truckingCode : row.shippingLineCode;
-    console.log(id);
+    const id = noiDia ? row.companyCode : row.shippingCode;
     const res = noiDia
       ? await detailVanTaiNoiDia(id)
       : await detailVanTaiHangTau(id);
 
-    if (!res.success) {
+    if (res.success) {
       setDetailData(res.data);
       setIsOpen(true);
-      toast.error("Lỗi khi lấy dữ liệu");
       return;
     }
   };

@@ -53,13 +53,18 @@ export const DOCUMENTFIELDS = [
 export const CUSTOMFIELDS = [
   { label: "Mã tờ khai", name: "declarationCode" },
   {
+    label: "Chi cục hải quan",
+    name: "customsBranch",
+    placeholder: "Nhập chi cục hải quan",
+  },
+  {
     label: "Số tờ khai",
     name: "declarationNumber",
     placeholder: "Nhập số tờ khai",
   },
   {
     label: "Ngày khai báo",
-    name: "createdAt",
+    name: "declarationDate",
     placeholder: "Chọn ngày khai báo",
   },
   {
@@ -75,6 +80,17 @@ export const CUSTOMFIELDS = [
 ];
 
 export const SHIPPINGFIELDS = [
-  { label: "Mã booking", name: "bookingCode" },
-  {},
+  { label: "Mã booking", name: "bookingCode", placeholder: "Nhập mã booking" },
+  {
+    label: "Hãng vận chuyển",
+    name: "shippingLineName",
+    placeholder: "Chọn hãng vận chuyển",
+  },
+  { label: "Tên tàu", name: "vesselName", placeholder: "Nhập tên tàu" },
+  { label: "Cảng đi", name: "portOfLoading", placeholder: "Nhập tên cảng đi" },
+  {
+    label: "Cảng đến",
+    name: "portOfDischarge",
+    placeholder: "Nhập tên cảng đi",
+  },
 ];

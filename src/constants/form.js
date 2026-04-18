@@ -8,6 +8,6 @@ export const INCOTERM = [
 ];
 
 export const CONTAINER = [
-  { value: "20dc", label: "20' DC" },
-  { value: "40dc", label: "40' DC" },
+  { value: "20' Cont", label: "20' DC" },
+  { value: "40' Cont", label: "40' DC" },
 ];

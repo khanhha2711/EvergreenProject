@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { vanTaiHangTau, vanTaiNoiDia } from "@/constants/van-tai";
 import { validate } from "@/lib/validation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -20,8 +21,8 @@ const schemaNoiDia = z.object({
   companyGmail: z.string().email(),
 });
 const schemaTau = z.object({
-  shippingLineName: z.string().min(1, "Không được để trống"),
-  shippingLineEmail: z.string().email(),
+  shippingName: z.string().min(1, "Không được để trống"),
+  gmail: z.string().email(),
 });
 export default function VanTaiModal({
   data,
@@ -34,6 +35,7 @@ export default function VanTaiModal({
 }) {
   const [isConfirm, setIsConfirm] = useState(false);
   const [errors, setError] = useState({});
+  const router = useRouter();
 
   const title = noiDia
     ? isEdit
@@ -53,15 +55,15 @@ export default function VanTaiModal({
 
     return Object.values(values).every((val) => !val || val.trim() === "");
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const dataForm = Object.fromEntries(formData.entries());
     const schema = noiDia ? schemaNoiDia : schemaTau;
-    console.log(data);
 
-    const { isValid, errors } = validate({ schema, data });
+    const { isValid, errors } = validate({ schema, data: dataForm });
     if (!isValid) {
       setError(errors);
       return;
@@ -69,20 +71,23 @@ export default function VanTaiModal({
     setError({});
     if (isCreate) {
       const res = noiDia
-        ? await createVanTaiNoiDia(data)
-        : createVanTaiHangTau(data);
+        ? await createVanTaiNoiDia(dataForm)
+        : await createVanTaiHangTau(dataForm);
       if (res.success) {
         setIsOpen(false);
+        router.refresh();
         toast.success("Tạo mới thành công");
       } else {
         toast.error("Có lỗi xảy ra. Vui lòng thực hiện lại");
       }
     } else {
       const res = noiDia
-        ? await updateVanTaiNoiDia(data)
-        : updateVanTaiHangTau(data);
+        ? await updateVanTaiNoiDia({ id: data?.companyCode, data: dataForm })
+        : await updateVanTaiHangTau({ id: data?.shippingCode, data: dataForm });
+      console.log(res.success);
       if (res.success) {
         setIsOpen(false);
+        router.refresh();
         toast.success("Cập nhật thành công");
       } else {
         toast.error("Có lỗi xảy ra. Vui lòng thực hiện lại");
@@ -120,7 +125,7 @@ export default function VanTaiModal({
             </Button>
             <Button
               type="button"
-              className="border-none hover:bg-destructive hover:text-primary bg-white text-black"
+              className="bg-white hover:bg-white text-black"
               onClick={() => setIsOpen(false)}
             >
               X

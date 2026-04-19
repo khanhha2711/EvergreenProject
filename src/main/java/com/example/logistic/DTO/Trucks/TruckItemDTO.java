@@ -1,29 +1,24 @@
 package com.example.logistic.DTO.Trucks;
 
-public class CreateDTO {
-    private String companyCode;
-    private String shipmentCode;
+import com.example.logistic.DTO.Container.SelectDTO;
+
+public class TruckItemDTO {
+    private String truckCode;
     private String licensePlate;
     private String driverName;
     private String driverPhone;
 
-    public CreateDTO() {
+    private String containerNumber;
+
+    public TruckItemDTO() {
     }
 
-    public String getCompanyCode() {
-        return companyCode;
+    public String getTruckCode() {
+        return truckCode;
     }
 
-    public String getShipmentCode() {
-        return shipmentCode;
-    }
-
-    public void setShipmentCode(String shipmentCode) {
-        this.shipmentCode = shipmentCode;
-    }
-
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode;
+    public void setTruckCode(String truckCode) {
+        this.truckCode = truckCode;
     }
 
     public String getLicensePlate() {
@@ -48,5 +43,13 @@ public class CreateDTO {
 
     public void setDriverPhone(String driverPhone) {
         this.driverPhone = driverPhone;
+    }
+
+    public String getContainerNumber() {
+        return containerNumber;
+    }
+
+    public void setContainerNumber(String containerNumber) {
+        this.containerNumber = containerNumber;
     }
 }

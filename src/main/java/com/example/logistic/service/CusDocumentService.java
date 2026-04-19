@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class CusDocumentService implements ICusDocumentService{
         newDoc.setShipment(shipments);
         newDoc.setDocumentNumber(dto.getDocumentNumber());
         newDoc.setDocumentType(dto.getDocumentType());
-        newDoc.setCreateAt(LocalDate.now());
+        newDoc.setCreateAt(LocalDateTime.now());
         newDoc.setAttachment(attachment);
         CusDocuments saved = cusDocumentRepository.saveAndFlush(newDoc);
 
@@ -165,7 +166,7 @@ public class CusDocumentService implements ICusDocumentService{
         LogDocuments logDocuments=new LogDocuments();
         logDocuments.setDocuments(cusDocuments);
         logDocuments.setDocumentName(cusDocuments.getDocumentType());
-        logDocuments.setCreatedAt(LocalDate.now());
+        logDocuments.setCreatedAt(LocalDateTime.now());
         logDocuments.setDescription(dto.getDescription());
 
         logDocumentRepository.save(logDocuments);

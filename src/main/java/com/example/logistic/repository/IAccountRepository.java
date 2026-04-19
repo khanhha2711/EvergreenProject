@@ -13,9 +13,10 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface IAccountRepository extends JpaRepository<Accounts,Integer> {
-    Optional<Accounts> findByUserId(Users userId);
+    Optional<Accounts> findByUserId_Id(int userId);
     Accounts findByGmail(String gmail);
-
+    Optional<Accounts> findByGmailAndIdNot(String gmail, Integer accountId);
+    Optional<Accounts> findByUserId(Users user);
     @Modifying
     @Transactional
     @Query("UPDATE Accounts a SET a.password = :newPassword WHERE a.gmail = :gmail")

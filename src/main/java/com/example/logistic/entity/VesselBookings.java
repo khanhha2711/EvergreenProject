@@ -20,13 +20,52 @@ public class VesselBookings {
     @Column(name = "booking_code", insertable = false, updatable = false)
     private String bookingCode;
 
-    @Column(name = "internal_cost")
-    private double internalCost;
 
     @Column(name = "status")
     private String status;
+    @Column(name = "booking_number") // so tau
+    private String bookingNumber;
+    @Column(name = "vessel_name") // ten tau
+    private String vesselName;
+
+    @Column(name = "port_of_loading") // cang di
+    private String portOfLoading;
+    @Column(name = "port_of_discharge") // cang den
+    private String portOfDischarge ;
 
     public VesselBookings() {
+    }
+
+    public String getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public String getVesselName() {
+        return vesselName;
+    }
+
+    public void setVesselName(String vesselName) {
+        this.vesselName = vesselName;
+    }
+
+    public String getPortOfLoading() {
+        return portOfLoading;
+    }
+
+    public void setPortOfLoading(String portOfLoading) {
+        this.portOfLoading = portOfLoading;
+    }
+
+    public String getPortOfDischarge() {
+        return portOfDischarge;
+    }
+
+    public void setPortOfDischarge(String portOfDischarge) {
+        this.portOfDischarge = portOfDischarge;
     }
 
     public int getId() {
@@ -61,13 +100,6 @@ public class VesselBookings {
         this.bookingCode = bookingCode;
     }
 
-    public double getInternalCost() {
-        return internalCost;
-    }
-
-    public void setInternalCost(double internalCost) {
-        this.internalCost = internalCost;
-    }
 
     public String getStatus() {
         return status;

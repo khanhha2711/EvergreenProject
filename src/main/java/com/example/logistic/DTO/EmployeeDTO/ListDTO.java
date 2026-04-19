@@ -1,23 +1,15 @@
 package com.example.logistic.DTO.EmployeeDTO;
 
 public class ListDTO {
-    private String employeeCode;
     private String employeeName;
     private String employeePhone;
     private String gmail;
-    private String roleName;
+    private String position;
     private String department;
 
     public ListDTO() {
     }
 
-    public String getEmployeeCode() {
-        return employeeCode;
-    }
-
-    public void setEmployeeCode(String employeeCode) {
-        this.employeeCode = employeeCode;
-    }
 
     public String getEmployeeName() {
         return employeeName;
@@ -43,12 +35,12 @@ public class ListDTO {
         this.gmail = gmail;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getPosition() {
+        return position;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getDepartment() {

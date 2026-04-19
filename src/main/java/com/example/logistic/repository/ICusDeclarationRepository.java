@@ -1,5 +1,6 @@
 package com.example.logistic.repository;
 
+import com.example.logistic.DTO.Declarations.DetailDTO;
 import com.example.logistic.entity.CusDeclarations;
 import com.example.logistic.entity.CusDocuments;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface ICusDeclarationRepository extends JpaRepository<CusDeclarations
     CusDeclarations findByShipmentCode(@Param("shipmentCode") String shipmentCode);
 
     CusDeclarations findByDeclarationCode(String declarationCode);
+
+
 }

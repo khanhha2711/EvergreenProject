@@ -1,7 +1,6 @@
 package com.example.logistic.controller;
 
-import com.example.logistic.DTO.Declarations.ContainerDTO;
-import com.example.logistic.DTO.Declarations.CreateNewDTO;
+import com.example.logistic.DTO.Declarations.*;
 import com.example.logistic.DTO.Documents.CreateDocumentDTO;
 import com.example.logistic.entity.CusDeclarations;
 import com.example.logistic.service.ICusDeclarationService;
@@ -9,6 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,14 +24,6 @@ public class DeclarationController {
     @Autowired
     private ICusDeclarationService cusDeclarationService;
 
-    @GetMapping("/{shipmentCode}")
-    public ResponseEntity<CusDeclarations> showList(@PathVariable ("shipmentCode") String shipmentCode){
-       CusDeclarations result= cusDeclarationService.showList(shipmentCode);
-       if(result != null){
-           return ResponseEntity.ok(result);
-       }
-       return null;
-    }
 
     @PostMapping(value="/create/{shipmentCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> createDeclaration(@PathVariable("shipmentCode") String shipmentCode,
@@ -47,5 +39,21 @@ public class DeclarationController {
         return ResponseEntity.ok(doc);
     }
 
+    @GetMapping("/detail/{shipmentCode}")
+    public ResponseEntity<DetailDTO> detailDeclaration(@PathVariable ("shipmentCode") String shipmentCode) throws Exception {
+        return  ResponseEntity.ok(cusDeclarationService.detailDeclaration(shipmentCode));
+    }
+    @GetMapping(value="/detail/{declarationCode}/file", produces = MediaType.APPLICATION_PDF_VALUE)
+    @ResponseBody
+    private ResponseEntity<Resource> previewFile(@PathVariable ("declarationCode") String declarationCode) throws Exception {
+        return cusDeclarationService.loadFile(declarationCode);
+    }
+
+    @PutMapping("/update/{declarationCode}")
+    public ResponseEntity<UpdateLog> updateLog(@PathVariable ("declarationCode") String declarationCode,
+                                               @RequestBody  LogDTO dto){
+        UpdateLog updateLog= cusDeclarationService.update(declarationCode,dto);
+        return ResponseEntity.ok(updateLog );
+    }
 
 }

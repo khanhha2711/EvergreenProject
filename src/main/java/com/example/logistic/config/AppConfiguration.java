@@ -30,6 +30,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -56,7 +57,15 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")           // Cho phép tất cả origin (frontend)
+                .allowedMethods("*")                  // Quan trọng: cho phép PUT, OPTIONS, ...
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);                        // Cache preflight 1 giờ
+    }
     // Thymeleaf Template Resolver
     @Bean
     public SpringResourceTemplateResolver templateResolver() {

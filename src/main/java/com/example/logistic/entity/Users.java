@@ -28,20 +28,12 @@ public class Users {
     public Users() {
     }
 
-    public String getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        id = id;
+        this.id = id;
     }
 
     public String getUserName() {
@@ -58,6 +50,14 @@ public class Users {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public String getUserStatus() {

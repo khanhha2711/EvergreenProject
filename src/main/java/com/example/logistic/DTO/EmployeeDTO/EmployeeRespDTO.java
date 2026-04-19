@@ -6,7 +6,7 @@ public class EmployeeRespDTO {
     private String department;
     private String position;
     private String gmail;
-    private String phone;
+    private String employeePhone;
 
     public EmployeeRespDTO() {
     }
@@ -51,11 +51,11 @@ public class EmployeeRespDTO {
         this.gmail = gmail;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmployeePhone() {
+        return employeePhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmployeePhone(String employeePhone) {
+        this.employeePhone = employeePhone;
     }
 }

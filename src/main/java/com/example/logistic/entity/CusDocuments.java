@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="customs_documents")
@@ -28,8 +29,8 @@ public class CusDocuments {
     @Column(name = "attachment")
     private String attachment;
     @Column(name = "created_at")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createAt;
 
 
     public CusDocuments() {
@@ -83,11 +84,11 @@ public class CusDocuments {
         this.attachment = attachment;
     }
 
-    public LocalDate getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(LocalDate createAt) {
+    public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
 }

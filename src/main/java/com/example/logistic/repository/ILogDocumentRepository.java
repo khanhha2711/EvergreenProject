@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ILogDocumentRepository extends JpaRepository<LogDocuments ,Integer> {
-    @Query(value = "SELECT * FROM log_documents WHERE document_id = :documentId", nativeQuery = true)
+    @Query(value = "SELECT * FROM log_documents WHERE document_id = :documentId ORDER BY created_at DESC", nativeQuery = true)
     List<LogDocuments> findByDocumentId(@Param("documentId") int documentId);
 }

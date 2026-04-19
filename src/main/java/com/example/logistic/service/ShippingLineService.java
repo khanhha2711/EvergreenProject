@@ -2,15 +2,17 @@ package com.example.logistic.service;
 
 import com.example.logistic.DTO.ShippingLineDTO.CreateDTO;
 import com.example.logistic.DTO.ShippingLineDTO.ListDTO;
+import com.example.logistic.DTO.ShippingLineDTO.ResponeSearchDTO;
 import com.example.logistic.entity.ShippingLines;
 import com.example.logistic.repository.IShippingLineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Service
 public class ShippingLineService implements IShippingLineService{
     @Autowired
     private IShippingLineRepository shippingLineRepository;
@@ -92,9 +94,20 @@ public class ShippingLineService implements IShippingLineService{
         return List.of(mapToListDTO(shippingLines));
     }
 
-//    @Override
-//    public void deleteShipping(String shippingCode) {
-//        ShippingLines shippingLines= shippingLineRepository.findByShippingCode(shippingCode);
-//        shippingLineRepository.delete(shippingLines);
-//    }
+    @Override
+    public List<ResponeSearchDTO> searchAll() {
+        return shippingLineRepository.findAll()
+                .stream()
+                .map(this::mapToResp)
+                .toList();
+    }
+
+    private ResponeSearchDTO mapToResp(ShippingLines shippingLines) {
+        ResponeSearchDTO responeSearchDTO= new ResponeSearchDTO();
+        responeSearchDTO.setShippingCode(shippingLines.getShippingCode());
+        responeSearchDTO.setShippingName(shippingLines.getShippingName());
+        return responeSearchDTO;
+    }
+
+
 }

@@ -1,9 +1,10 @@
 package com.example.logistic.controller;
 
-import com.example.logistic.DTO.Trucks.CreateDTO;
+import com.example.logistic.DTO.Trucks.GetAllTruckDTO;
+import com.example.logistic.DTO.Trucks.TruckItemDTO;
+import com.example.logistic.DTO.Trucks.UpdateTruckDTO;
 import com.example.logistic.service.ITruckingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,26 @@ public class TruckController {
     @Autowired
     private ITruckingService truckingService;
 
+    @GetMapping("/{shipmentCode}")
+    public ResponseEntity<GetAllTruckDTO> getTruckVessel(@PathVariable ("shipmentCode") String shipmentCode){
+        return ResponseEntity.ok(truckingService.getTruckVessel(shipmentCode));
+    }
+    @PostMapping("/create/{shipmentCode}")
+    public ResponseEntity<String> createTruck(@PathVariable ("shipmentCode") String shipmentCode,
+                                              @RequestBody GetAllTruckDTO dto){
+        String result= truckingService.createTruck(shipmentCode,dto);
+        return ResponseEntity.ok(result);
+    }
+    @PutMapping("/update/{shipmentCode}")
+    public ResponseEntity<GetAllTruckDTO> updateTruck(@PathVariable ("shipmentCode") String shipmentCode,
+                                                      @RequestBody UpdateTruckDTO dto){
 
-    @PostMapping("/create")
-    public ResponseEntity<Void> createTruck(@RequestBody CreateDTO dto){
-        truckingService.CreateTruck(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(truckingService.updateTruck(shipmentCode,dto));
+    }
+    @DeleteMapping("/{truckCode}")
+    public ResponseEntity<Void> deleteTruck(@PathVariable ("truckCode") String truckCode){
+       truckingService.deleteTruck(truckCode);
+        return  ResponseEntity.ok().build();
     }
 }
 

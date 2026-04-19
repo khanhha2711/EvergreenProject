@@ -1,9 +1,13 @@
 package com.example.logistic.service;
+import com.example.logistic.DTO.EmployeeDTO.InforDTO;
 import com.example.logistic.service.EmailService;
 import com.example.logistic.entity.Accounts;
 import com.example.logistic.repository.IAccountRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +64,8 @@ public class AccountService implements IAccountService {
         }
         return false;
     }
+
+
     @Override
     public boolean resetPassword(String gmail, String newPassword) {
         Boolean isVerified = verifiedOtp.get(gmail);

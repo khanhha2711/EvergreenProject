@@ -28,8 +28,19 @@ public class Trucks {
 
     @Column(name = "driver_phone")
     private String driverPhone;
+    @ManyToOne
+    @JoinColumn(name = "container_id")
+    private Containers container;
 
     public Trucks() {
+    }
+
+    public Containers getContainer() {
+        return container;
+    }
+
+    public void setContainer(Containers container) {
+        this.container = container;
     }
 
     public int getId() {

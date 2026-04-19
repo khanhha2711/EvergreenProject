@@ -40,7 +40,7 @@ public class TruckingCompanyController {
         return ResponseEntity.ok(truckingCompanyService.updateTrucking(companyCode,dto));
     }
 
-    @GetMapping("/selectCom")
+    @GetMapping("/select")
     public List<ResponeSearchDTO> selectCompany(){
         return truckingCompanyService.selectAll();
     }

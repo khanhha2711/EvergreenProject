@@ -7,10 +7,10 @@ import com.example.logistic.entity.Employees;
 import java.util.List;
 
 public interface IEmployeeService {
-    List<ListDTO> findAll();
-    EmployeeRespDTO createEmployee(EmployeeRespDTO dto);
+    List<EmployeeRespDTO> findAll();
+    EmployeeRespDTO createEmployee(ListDTO dto);
     EmployeeRespDTO detailEmployee(String employeeCode);
-    EmployeeRespDTO update(String employeeCode, EmployeeRespDTO dto);
+    EmployeeRespDTO update(String employeeCode, ListDTO dto);
     void delete(String employeeCode);
-    List<ListDTO> findByName(String employeeName);
+    List<EmployeeRespDTO> findByName(String employeeName);
 }

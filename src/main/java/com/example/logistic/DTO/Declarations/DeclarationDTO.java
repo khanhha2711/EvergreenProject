@@ -1,31 +1,26 @@
 package com.example.logistic.DTO.Declarations;
 
-import com.example.logistic.DTO.Container.ContainerDTO;
-import com.example.logistic.DTO.Contracts.Detail.AttachmentDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class CreateNewDTO {
+public class DeclarationDTO {
+    private String declarationCode;
     private  String declarationNumber;
     private String lane;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate declarationDate;
     private String customsBranch;
 
-    private List<ContainerDTO> container;
-
-    private AttachmentDTO attachmentDTO;
-    public CreateNewDTO() {
+    public DeclarationDTO() {
     }
 
-    public List<ContainerDTO> getContainer() {
-        return container;
+    public String getDeclarationCode() {
+        return declarationCode;
     }
 
-    public void setContainer(List<ContainerDTO> container) {
-        this.container = container;
+    public void setDeclarationCode(String declarationCode) {
+        this.declarationCode = declarationCode;
     }
 
     public String getDeclarationNumber() {
@@ -58,14 +53,5 @@ public class CreateNewDTO {
 
     public void setCustomsBranch(String customsBranch) {
         this.customsBranch = customsBranch;
-    }
-
-
-    public AttachmentDTO getAttachmentDTO() {
-        return attachmentDTO;
-    }
-
-    public void setAttachmentDTO(AttachmentDTO attachmentDTO) {
-        this.attachmentDTO = attachmentDTO;
     }
 }

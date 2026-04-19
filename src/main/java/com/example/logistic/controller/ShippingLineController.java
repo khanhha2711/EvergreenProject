@@ -2,6 +2,7 @@ package com.example.logistic.controller;
 
 import com.example.logistic.DTO.ShippingLineDTO.CreateDTO;
 import com.example.logistic.DTO.ShippingLineDTO.ListDTO;
+import com.example.logistic.DTO.ShippingLineDTO.ResponeSearchDTO;
 import com.example.logistic.service.IShippingLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class ShippingLineController {
     }
 
     @GetMapping("/{shippingCode}")
-    public ListDTO detailShipping(@RequestParam ("shippingCode") String shippingCode ){
+    public ListDTO detailShipping(@PathVariable ("shippingCode") String shippingCode ){
         return shippingLineService.detailShipping(shippingCode);
     }
 
@@ -35,9 +36,13 @@ public class ShippingLineController {
     }
 
     @PutMapping("/update/{shippingCode}")
-    public ResponseEntity<ListDTO> updateShipping(@RequestParam ("shippingCode")String shippingCode, @RequestBody ListDTO dto){
+    public ResponseEntity<ListDTO> updateShipping(@PathVariable ("shippingCode")String shippingCode, @RequestBody ListDTO dto){
         return ResponseEntity.ok(shippingLineService.updateShipping(shippingCode,dto));
 
     }
 
+    @GetMapping("/select")
+    public List<ResponeSearchDTO> selectShippingLine(){
+        return shippingLineService.searchAll();
+    }
 }

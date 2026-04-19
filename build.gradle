@@ -35,6 +35,8 @@ dependencies {
         implementation 'com.mysql:mysql-connector-j:8.3.0'
         implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '3.3.0'
 
+        implementation "org.springframework.security:spring-security-web:6.2.3"
+        implementation "org.springframework.security:spring-security-config:6.2.3"
 
         // Mail
         implementation 'org.springframework:spring-context-support:6.2.10'

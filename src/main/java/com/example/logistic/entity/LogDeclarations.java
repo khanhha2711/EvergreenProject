@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="log_declarations")
@@ -16,12 +17,9 @@ public class LogDeclarations {
     @JoinColumn(name="declarations_id")
     private CusDeclarations declarations;
 
-    @Column(name = "declaration_number")
-    private String declarationNumber;
-
     @Column(name = "created_at")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
 
     @Column(name = "description")
     private String description;
@@ -45,19 +43,11 @@ public class LogDeclarations {
         this.declarations = declarations;
     }
 
-    public String getDeclarationNumber() {
-        return declarationNumber;
-    }
-
-    public void setDeclarationNumber(String declarationNumber) {
-        this.declarationNumber = declarationNumber;
-    }
-
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

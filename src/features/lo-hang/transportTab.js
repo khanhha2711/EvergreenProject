@@ -10,6 +10,7 @@ const TransportTab = async ({ id }) => {
 
   const dataNoiDia = responseNoiDia.data;
   const dataDatTau = responseDatTau.data;
+  console.log(dataDatTau);
   return (
     <div className="space-y-4">
       <TruckView data={dataNoiDia} id={id} />

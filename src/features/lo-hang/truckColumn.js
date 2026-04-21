@@ -10,6 +10,8 @@ export const truckColumn = ({
   containerOptions,
   isEdit,
   isCreate,
+  handleEdit,
+  idEdit,
 }) => {
   const columns = [
     {
@@ -21,7 +23,8 @@ export const truckColumn = ({
       accessorKey: "licensePlate",
       header: "Biển số xe",
       cell: ({ row }) =>
-        (isNew && row.original.truckCode === "") || isEdit ? (
+        (isNew && row.original.truckCode === "") ||
+        (isEdit && idEdit === row.original.truckCode) ? (
           <Input
             value={row.original?.licensePlate}
             onChange={(e) =>
@@ -40,7 +43,8 @@ export const truckColumn = ({
       accessorKey: "driverName",
       header: "Tên tài xế",
       cell: ({ row }) =>
-        (isNew && row.original.truckCode === "") || isEdit ? (
+        (isNew && row.original.truckCode === "") ||
+        (isEdit && idEdit === row.original.truckCode) ? (
           <Input
             value={row.original?.driverName}
             onChange={(e) =>
@@ -59,7 +63,8 @@ export const truckColumn = ({
       accessorKey: "driverPhone",
       header: "Số điện thoại",
       cell: ({ row }) =>
-        (isNew && row.original.truckCode === "") || isEdit ? (
+        (isNew && row.original.truckCode === "") ||
+        (isEdit && idEdit === row.original.truckCode) ? (
           <Input
             value={row.original?.driverPhone}
             onChange={(e) =>
@@ -78,7 +83,8 @@ export const truckColumn = ({
       accessorKey: "containerNumber",
       header: "Số container",
       cell: ({ row }) =>
-        (isNew && row.original.truckCode === "") || isEdit ? (
+        (isNew && row.original.truckCode === "") ||
+        (isEdit && idEdit === row.original.truckCode) ? (
           <SelectComponent
             value={row.original?.containerNumber}
             onChange={(value) =>
@@ -96,12 +102,14 @@ export const truckColumn = ({
         ),
     },
   ];
-  (!isEdit || !isCreate) &&
-    columns.push({
-      id: "action",
-      header: "Hành động",
-      cell: ({ row }) => (
-        <div className="flex items-center">
+
+  columns.push({
+    id: "action",
+    header: "Hành động",
+    cell: ({ row }) => (
+      <div className="flex items-center">
+        {((!isEdit && !isCreate) ||
+          (isNew && row.original.truckCode === "")) && (
           <Button
             className="bg-white hover:bg-white"
             onClick={() =>
@@ -110,10 +118,18 @@ export const truckColumn = ({
           >
             <Trash2 size={18} className="text-destructive" />
           </Button>
-        
-        </div>
-      ),
-    });
+        )}
+        {!isNew  && (
+          <Button
+            onClick={() => handleEdit(row.original.truckCode)}
+            className="bg-white hover:bg-white text-gray-600"
+          >
+            <Pen />
+          </Button>
+        )}
+      </div>
+    ),
+  });
 
   return columns;
 };

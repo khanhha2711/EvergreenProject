@@ -27,8 +27,6 @@ export const documentSchema = z.object({
 
   declarationDate: z.string().min(1, "Ngày khai báo không được để trống"),
 
-  lane: z.string().min(1, "Luồng hải quan không được để trống"),
-
   customsBranch: z.string().min(1, "Chi cục hải quan không được để trống"),
 
   container: z.array(containerSchema).min(1, "Phải có ít nhất 1 container"),
@@ -141,19 +139,10 @@ const CustomModal = ({ id, setIsCreate }) => {
       )}
       <h3>Thông tin hải quan</h3>
       <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-6 mt-4">
-        {CUSTOMFIELDS.slice(1, 5).map((field, index) => (
+        {CUSTOMFIELDS.slice(1, 4).map((field, index) => (
           <div key={index}>
             <label htmlFor={field.name}>{field.label}</label>
-            {field.name === "lane" ? (
-              <SelectComponent
-                placeHolder={field.placeholder}
-                options={field.options}
-                value={form?.lane}
-                onChange={(value) =>
-                  updateState({ field: "lane", value: value })
-                }
-              />
-            ) : field.name === "declarationDate" ? (
+            {field.name === "declarationDate" ? (
               <CalenDarInput
                 date={form?.declarationDate}
                 style="dd/MM/yyyy"

@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { CalenDarInput } from "@/components/inputs/calendar";
-import { File, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ConfirmModal from "@/components/modal/comfirmModal";
 import { toast } from "sonner";
 import { CUSTOMER_FIELDS } from "@/constants/khach-hang";
 import { createHopDong } from "@/actions/hopDongAction";
@@ -13,6 +11,7 @@ import PATH from "@/routes/path";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import UploadFile from "@/components/file/uploadFile";
+import { updateState } from "@/actions/baoGiaAction";
 
 export default function ContractForm({ data, id }) {
   const [form, setForm] = useState({
@@ -69,19 +68,18 @@ export default function ContractForm({ data, id }) {
     formData.append("signedDate", formatDate(form.signedDate));
     formData.append("expiredDate", formatDate(form.expiredDate));
     formData.append("file", file);
-    
+
     const res = await createHopDong(formData);
     if (res.success) {
-      setIsLoading(false);
+      await updateState({ id, state: "DONE" });
       toast.success("Tạo hợp đồng thành công");
       router.push(PATH.ADMIN.HOPDONG.CHITIET(res.data));
       return;
     } else {
       toast.error(res.error || "Tạo hợp đồng thất bại");
-      setIsLoading(false);
     }
   };
-  const updateState = (field, value) => {
+  const handleUpdate = (field, value) => {
     setForm((prev) => ({
       ...prev,
       [field]: value,
@@ -113,7 +111,7 @@ export default function ContractForm({ data, id }) {
             <Input
               placeholder="Nhập tên hợp đồng"
               value={form.contractName}
-              onChange={(e) => updateState("contractName", e.target.value)}
+              onChange={(e) => handleUpdate("contractName", e.target.value)}
             />
             {errors.contractName && (
               <p className="text-sm text-red-500">{errors.contractName}</p>
@@ -124,7 +122,7 @@ export default function ContractForm({ data, id }) {
             <CalenDarInput
               date={form?.signedDate || ""}
               style="dd/MM/yyyy"
-              updateState={(value) => updateState("signedDate", value)}
+              updateState={(value) => handleUpdate("signedDate", value)}
             />
             {errors.signedDate && (
               <p className="text-sm text-red-500">{errors.signedDate}</p>
@@ -135,7 +133,7 @@ export default function ContractForm({ data, id }) {
             <CalenDarInput
               date={form?.expiredDate || ""}
               style="dd/MM/yyyy"
-              updateState={(value) => updateState("expiredDate", value)}
+              updateState={(value) => handleUpdate("expiredDate", value)}
             />
             {errors.expiredDate && (
               <p className="text-sm text-red-500">{errors.expiredDate}</p>
@@ -152,7 +150,7 @@ export default function ContractForm({ data, id }) {
             <Button
               variant="secondary"
               type="button"
-              onClick={() => setIsOpenConfirm(true)}
+              onClick={() => router.push(PATH.ADMIN.BAOGIA.DANHSACH)}
               disabled={isLoading}
             >
               Hủy

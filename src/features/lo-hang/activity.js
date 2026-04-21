@@ -1,34 +1,26 @@
 import { Card } from "@/components/ui/card";
+import { SELECTTITLE } from "@/constants/lo-hang";
 import { FileEdit } from "lucide-react";
 import React from "react";
 
 const Activity = ({ data, user }) => {
   return (
-    <div className="flex gap-10 items-start ml-4">
-      <div className="relative top-6.5">
-        <div className="bg-primary/50 rounded-2xl w-fit p-2 absolute -top-8 -left-3.5">
-          <FileEdit className=" text-white" size={15} />
+    <div className="flex gap-4 px-6">
+      <div className="flex flex-col items-center w-10">
+        <div className="bg-primary/80 rounded-2xl w-fit p-2">
+          <FileEdit className=" text-white" size={10} />
         </div>
-        <div className="h-20 w-0.5 bg-gray-400"></div>
+        <div className="bg-gray-300 flex-1 w-0.5"></div>
       </div>
-      <Card className="-space-y-5.5 px-4 py-2 flex-1">
-        <div className="flex justify-between ">
-          <div className="flex gap-2">
-            <p className="text-sm text-gray-700">Người thực hiện: </p>
-            <b className="text-sm text-gray-600">{user}</b>
-          </div>
-          <p className="bg-primary/10 rounded-2xl px-2.5 py-1 text-sm mr-12">
-            {data?.createdAt}
-          </p>
-        </div>
-        <p className=" font-bold text-base">{data?.description}</p>
-        {data?.documentName && (
-          <div className=" flex gap-2  ">
-            <p className="text-sm text-gray-700">Tên chứng từ:</p>
-            <b className="text-sm text-gray-600">{data?.documentName}</b>
-          </div>
-        )}
-      </Card>
+
+      <div className="py-3 space-y-2">
+        <p className="text-sm font-bold">
+          {SELECTTITLE.find((title) => title.value === data?.title)?.label}
+        </p>
+        <p className="text-sm">{data?.description}</p>
+        <p className="text-xs text-gray-400">{data?.createdAt}</p>
+        <p className="text-xs text-gray-400">{user}</p>
+      </div>
     </div>
   );
 };

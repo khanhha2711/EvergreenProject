@@ -112,15 +112,6 @@ export async function optionSelect() {
   }
 }
 
-//vanchuyentab
-
-const data2 = {
-  bookingCode: "MAEU789456123",
-  shippingLineName: "Maersk Line",
-  vesselName: "MAERSK SENTOSA",
-  portOfLoading: "Cảng Tiên Sa - Đà Nẵng",
-  portOfDischarge: "Cảng Tokyo - Nhật Bản",
-};
 export async function getVanChuyenNoiDia(id) {
   try {
     const res = await vanChuyenNoiDia.detail(id);
@@ -160,6 +151,7 @@ export async function updateVanChuyenNoiDia({ id, data }) {
 export async function deleteVanChuyenNoiDia(id) {
   try {
     const res = await vanChuyenNoiDia.delete(id);
+
     return { success: true, data: res.data };
   } catch (error) {
     return {
@@ -176,7 +168,30 @@ export async function getDatTau(id) {
   } catch (error) {
     return {
       success: false,
-      data: data2,
+      error: error?.response?.data?.message || "Lỗi hệ thống",
+    };
+  }
+}
+
+export async function createDatTau({ id, data }) {
+  try {
+    const res = await datTau.create({ id, data });
+    return { success: true, data: res.data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error?.response?.data?.message || "Lỗi hệ thống",
+    };
+  }
+}
+
+export async function updateDatTau({ id, data }) {
+  try {
+    const res = await datTau.update({ id, data });
+    return { success: true, data: res.data };
+  } catch (error) {
+    return {
+      success: false,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }
@@ -185,6 +200,18 @@ export async function getDatTau(id) {
 export async function selectContainer(id) {
   try {
     const res = await container.select(id);
+    return { success: true, data: res.data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error?.response?.data?.message || "Lỗi hệ thống",
+    };
+  }
+}
+
+export async function selectShippingCompany() {
+  try {
+    const res = await vanTaiHangTau.select();
     return { success: true, data: res.data };
   } catch (error) {
     return {

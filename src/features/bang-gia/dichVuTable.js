@@ -1,156 +1,82 @@
 "use client";
 import { DataTable } from "@/components/table/data-table";
 import { getColumns } from "./columns";
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  createDichVu,
-  deleteDichVu,
-  updateDichVu,
-} from "@/actions/dichVuAction";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { getDichVuChiTiet } from "@/actions/dichVuAction";
+import { useRouter, useSearchParams } from "next/navigation";
+import Modal from "@/components/modal/modal";
+import DichVuModal from "./dichVuModal";
+import SearchAndFilter from "@/components/inputs/searchAndFilter";
 
 export default function DichVuTable({ data }) {
-  const [isNew, setIsNew] = useState(false);
+  const [isCreate, setIsCreate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [services, setServices] = useState(data);
-  const [idEdit, setIdEdit] = useState("");
+  const [dataDetail, setDataDetail] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleDelete = useCallback(async (item, index) => {
-    if (!item.serviceCode) {
-      setServices((prev) => prev.filter((service, i) => i !== index));
-      return;
-    }
-    const res = await deleteDichVu(id);
-    if (res.success) {
-      setServices((prev) =>
-        prev.filter((service) => id !== service.serviceCode),
-      );
-      toast.success("Xóa dịch vụ thành công");
-    } else {
-      toast.error("Có lỗi xảy ra hãy thực hiện lại");
-    }
-  }, []);
-
-  const handleSubmit = async () => {
-    setIsLoading(true);
-
-    try {
-      if (isNew) {
-        const hasInvalid = services.some((service) => {
-          const values = [service.serviceName, service.unit, service.price];
-          return values.some((value) => !value);
-        });
-        if (hasInvalid) {
-          setError("Không được để trống. Hãy nhập đầy đủ nội dung");
-          return;
-        }
-        // setError("");
-        const newServices = services
-          .filter((service) => !service.serviceCode)
-          .map(({ serviceCode, ...rest }) => rest);
-
-        const res = await createDichVu(newServices);
-
-        if (!res?.success) {
-          throw new Error("Create failed");
-        }
-
-        setIsNew(false);
-        setError("");
-        toast.success("Lưu thành công");
-        router.refresh();
-      }
-
-      if (isEdit) {
-        console.log(services);
-        const res = await updateDichVu(services);
-
-        if (!res?.success) {
-          throw new Error("Update failed");
-        }
-
-        setIsEdit(false);
-        toast.success("Lưu thành công");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Lưu không thành công");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleDetail = async (id) => {
+    console.log(id);
+    setIsOpen(true);
+    const res = await getDichVuChiTiet(id);
+    setDataDetail(res.data);
   };
-
-  const handleOnChange = useCallback(({ id, field, value }) => {
-    setServices((prev) =>
-      prev.map((item, index) =>
-        index === id ? { ...item, [field]: value } : item,
-      ),
-    );
-    setError("");
-  }, []);
-
-  const handleEdit = useCallback(async (id) => {
-    setIdEdit(id);
+  const handleEdit = async (id) => {
     setIsEdit(true);
-  }, []);
-
-  const columns = useMemo(
-    () =>
-      getColumns({
-        onDelete: handleDelete,
-        isNew,
-        idEdit,
-        isEdit,
-        handleOnChange,
-        onEdit: handleEdit,
-      }),
-    [handleDelete, idEdit, isEdit, isNew, handleOnChange, handleEdit],
-  );
-
-  const handleAdd = () => {
-    setIdEdit("");
-    setServices((prev) => [
-      ...prev,
-      {
-        serviceCode: "",
-        serviceName: "",
-        unit: "",
-        price: "",
-      },
-    ]);
-    setIsNew(true);
+    setIsOpen(true);
+    const res = await getDichVuChiTiet(id);
+    setDataDetail(res.data);
   };
+
+  const updateParams = (key, value) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) params.set(key, value);
+    else params.delete(key);
+    router.push(`?${params.toString()}`);
+  };
+
+  const columns = getColumns({
+    handleEdit,
+  });
+
   return (
     <div className="container space-y-4">
-      <h2 className="text-center">Bảng giá dịch vụ</h2>
-      <div className="flex justify-end">
-        <Button onClick={handleAdd}>+ Thêm dịch vụ</Button>
+      <h2>Danh sách dịch vụ</h2>
+      <div className="flex justify-between">
+        <SearchAndFilter
+          onSearch={(val) => updateParams("search", val)}
+          isFilter={false}
+        />
+        <Button
+          onClick={() => {
+            setIsCreate(true);
+            setIsOpen(true);
+            setDataDetail({});
+          }}
+        >
+          + Thêm dịch vụ
+        </Button>
       </div>
-      <DataTable data={services} columns={columns} />
-      {(isNew || isEdit) && (
-        <div className="flex justify-end gap-4">
-          {errors && <p className="text-destructive">{errors} </p>}
-          <Button
-            onClick={() => {
-              setIsEdit(false), setIsNew(false), setError("");
-              setServices(
-                services.filter((items) => items?.serviceCode !== ""),
-              );
-            }}
-            variant="secondary"
-          >
-            Hủy
-          </Button>
-          <Button onClick={handleSubmit} disabled={isLoading}>
-            Lưu
-          </Button>
-        </div>
+      {isOpen ? (
+        <DichVuModal
+          setIsOpen={setIsOpen}
+          isEdit={isEdit}
+          isCreate={isCreate}
+          setIsEdit={setIsEdit}
+          setIsCreate={setIsCreate}
+          data={dataDetail}
+        />
+      ) : (
+        <DataTable
+          onRowClick={(row) => handleDetail(row.serviceCode)}
+          data={data}
+          columns={columns}
+        />
       )}
     </div>
   );

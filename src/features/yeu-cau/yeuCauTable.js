@@ -64,6 +64,7 @@ export default function YeuCauTable({ data }) {
             onSearch={(val) => updateParams("search", val)}
             onFilter={(val) => updateParams("state", val)}
             status={STATEYEUCAU}
+            placeholder="Số điện thoại"
           />
         </div>
 

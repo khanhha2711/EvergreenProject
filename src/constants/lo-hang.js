@@ -67,23 +67,17 @@ export const CUSTOMFIELDS = [
     name: "declarationDate",
     placeholder: "Chọn ngày khai báo",
   },
-  {
-    label: "Phân luồng hải quan",
-    name: "lane",
-    placeholder: "Chọn phân luồng",
-    options: [
-      { label: "Luồng xanh", value: "green" },
-      { label: "Luồng vàng", value: "yellow" },
-      { label: "Luồng đỏ", value: "red" },
-    ],
-  },
 ];
 
 export const SHIPPINGFIELDS = [
-  { label: "Mã booking", name: "bookingCode", placeholder: "Nhập mã booking" },
+  {
+    label: "Số booking",
+    name: "bookingNumber",
+    placeholder: "Nhập số booking",
+  },
   {
     label: "Hãng vận chuyển",
-    name: "shippingLineName",
+    name: "shippingName",
     placeholder: "Chọn hãng vận chuyển",
   },
   { label: "Tên tàu", name: "vesselName", placeholder: "Nhập tên tàu" },
@@ -93,4 +87,20 @@ export const SHIPPINGFIELDS = [
     name: "portOfDischarge",
     placeholder: "Nhập tên cảng đi",
   },
+];
+
+export const LANE = [
+  { label: "Luồng xanh", value: "green", variant: "primary" },
+  { label: "Luồng vàng", value: "yellow", variant: "destructive" },
+  { label: "Luồng đỏ", value: "red", variant: "yellow" },
+];
+
+export const SELECTTITLE = [
+  { label: "Nhận phân luồng", value: "RECEIVE_LANE" },
+  {
+    label: "Chuyển luồng",
+    value: "CHANGE_LANE",
+  },
+  { label: "Xử lý với hải quan", value: "PROCESS_LANE" },
+  { label: "Thông quan", value: "CLEARANCE" },
 ];

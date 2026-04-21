@@ -15,21 +15,8 @@ import {
 } from "@/actions/vanTaiAction";
 import { toast } from "sonner";
 import z from "zod";
-
-export const truckSchema = z.object({
-  licensePlate: z.string().min(1, "Biển số xe không được để trống"),
-  driverName: z.string().min(1, "Tên tài xế không được để trống"),
-  driverPhone: z
-    .string()
-    .min(10, "SĐT không hợp lệ")
-    .regex(/^[0-9]+$/, "SĐT chỉ được chứa số"),
-  containerNumber: z.string().min(1, "Chưa chọn container"),
-});
-
-export const formSchema = z.object({
-  companyName: z.string().min(1, "Chưa chọn đơn vị vận tải"),
-  trucks: z.array(truckSchema).min(1, "Phải có ít nhất 1 chuyến xe"),
-});
+import { useRouter } from "next/navigation";
+import { formSchema } from "@/constants/van-chuyen";
 
 const TruckView = ({ id, data }) => {
   const [dataTruck, setDataTruck] = useState(data?.trucks || []);
@@ -38,12 +25,15 @@ const TruckView = ({ id, data }) => {
   const [companyOptions, setCompanyOptions] = useState([]);
   const [containerOptions, setContainerOptions] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [idEdit, setIdEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(!data);
   const [isAdd, setIsAdd] = useState(false);
+
   const [errors, setErrors] = useState({
     companyName: "",
     table: [],
   });
+  const router = useRouter();
 
   const fetchSelectCompany = async () => {
     const [resCompany, resContainer] = await Promise.all([
@@ -95,7 +85,7 @@ const TruckView = ({ id, data }) => {
       .filter((item) => item.truckCode === "")
       .map(({ truckCode, ...rest }) => rest);
     let payload;
-    if (isCreate) {
+    if (isCreate || isAdd) {
       payload = {
         companyName,
         trucks: newData,
@@ -116,7 +106,7 @@ const TruckView = ({ id, data }) => {
       result.error.issues.forEach((err) => {
         if (err.path[0] === "companyName") {
           companyError = err.message;
-        } else if (err.path[0] === "list") {
+        } else if (err.path[0] === "trucks") {
           tableErrors.push(err.message);
         }
       });
@@ -146,12 +136,14 @@ const TruckView = ({ id, data }) => {
 
       if (res.success) {
         toast.success(isCreate ? "Tạo mới thành công" : "Cập nhật thành công");
+        router.refresh();
         setIsCreate(false);
         setIsEdit(false);
         setIsNew(false);
         setIsAdd(false);
       } else {
-        throw new Error();
+        console.log(res);
+        throw new Error(res.message || "Có lỗi xảy ra");
       }
     } catch (error) {
       toast.error(
@@ -166,8 +158,13 @@ const TruckView = ({ id, data }) => {
       toast.success("Xóa thành công");
       setDataTruck((prev) => prev.filter((_, index) => index !== id));
     } else {
-      toast.error("Xóa thành công");
+      toast.error("Có lỗi xảy ra thực hiện lại");
     }
+  }, []);
+
+  const handleEdit = useCallback(async (id) => {
+    setIsEdit(true);
+    setIdEdit(id);
   }, []);
 
   const columns = useMemo(
@@ -176,11 +173,22 @@ const TruckView = ({ id, data }) => {
         isNew,
         handleOnChange,
         handleDelete,
+        handleEdit,
         containerOptions,
         isEdit,
         isCreate,
+        idEdit,
       }),
-    [isNew, handleOnChange, handleDelete, containerOptions, isEdit, isCreate],
+    [
+      isNew,
+      handleOnChange,
+      handleDelete,
+      handleEdit,
+      containerOptions,
+      isEdit,
+      isCreate,
+      idEdit,
+    ],
   );
   return (
     <div>
@@ -190,11 +198,6 @@ const TruckView = ({ id, data }) => {
             <Truck size={20} />
             <h3>Thông tin nội địa</h3>
           </div>
-          {!isCreate && !isEdit && (
-            <Button onClick={() => setIsEdit(true)} variant="secondary">
-              Chỉnh sửa
-            </Button>
-          )}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="companyName">Tên đơn vị vận tải</label>
@@ -220,7 +223,8 @@ const TruckView = ({ id, data }) => {
           {(isCreate || !isEdit) && (
             <Button
               onClick={() => {
-                handleAddTruck(), setIsAdd(true);
+                handleAddTruck();
+                setIsAdd(true);
               }}
             >
               + Thêm chuyến xe
@@ -250,6 +254,7 @@ const TruckView = ({ id, data }) => {
                 setDataTruck(data?.trucks || []);
                 setIsEdit(false);
                 setIsCreate(false);
+                setIsNew(false);
                 setErrors({ companyName: "", table: [] });
               }}
             >

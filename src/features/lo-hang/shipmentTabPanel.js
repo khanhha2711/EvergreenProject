@@ -1,6 +1,7 @@
 import CustomTab from "./customTab";
 import DocumentTab from "./documentTab";
 import OverviewTab from "./overviewTab";
+import ShipmentTab from "./shipmentTab";
 import TransportTab from "./transportTab";
 
 const ShipmentTabPanel = async ({ data, searchParams }) => {
@@ -8,7 +9,9 @@ const ShipmentTabPanel = async ({ data, searchParams }) => {
   const renderTab = () => {
     switch (tab) {
       case "tong-quan":
-        return <OverviewTab data={data} />;
+        return <OverviewTab />
+      case "lo-hang":
+        return <ShipmentTab data={data} />;
 
       case "chung-tu":
         return <DocumentTab id={data?.shipmentCode} />;

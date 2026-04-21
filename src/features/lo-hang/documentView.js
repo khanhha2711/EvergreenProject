@@ -2,7 +2,7 @@
 import { Card } from "@/components/ui/card";
 import React, { useState } from "react";
 import DocumentModal from "./documentModal";
-import { CheckCircle, FileUp } from "lucide-react";
+import { CheckCircle, FileEdit, FileUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
 import { getColumns } from "./documentColumns";
@@ -107,11 +107,26 @@ const DocumentView = ({ id, data }) => {
         )}
       </Card>
       {dataDetail?.log.length > 0 && (
-        <div className="space-y-4 mx-6 mb-6">
+        <div className="bg-white rounded-xl space-y-4 px-6 py-4">
           <h3>Lịch sử hoạt động</h3>
           {dataDetail?.log.map((data, index) => (
             <div key={index}>
-              <Activity data={data} user={dataDetail?.activity?.user} />
+              <div className="flex gap-4 px-6">
+                <div className="flex flex-col items-center w-10">
+                  <div className="bg-primary/80 rounded-2xl w-fit p-2">
+                    <FileEdit className=" text-white" size={10} />
+                  </div>
+                  <div className="bg-gray-300 flex-1 w-0.5"></div>
+                </div>
+
+                <div className="py-3 space-y-2">
+                  <p className="text-sm font-bold">{data?.description}</p>
+                  <p className="text-xs text-gray-400">{data?.createdAt}</p>
+                  <p className="text-xs font-bold">
+                    {dataDetail?.activity?.user}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

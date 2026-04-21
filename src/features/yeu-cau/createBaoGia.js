@@ -19,7 +19,6 @@ export function CreateBaoGiaButton({ requestId }) {
         setIsLoading(false);
         throw new Error("Tạo thất bại");
       }
-      setIsLoading(false);
       router.push(PATH.ADMIN.BAOGIA.CHITIET(res.data.id));
     } catch (error) {
       toast.error("Tạo báo giá thất bại");

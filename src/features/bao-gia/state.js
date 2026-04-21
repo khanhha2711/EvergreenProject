@@ -28,29 +28,23 @@ export const State = ({ id, state, data }) => {
       if (options.sendEmail) {
         await sendEmailService({ type: "BAOGIA", data });
       }
-
       await updateState({ id, state: newState.toUpperCase() });
       router.refresh();
-      setLoading(false);
       toast.success("Cập nhật trạng thái thành công");
     } catch (error) {
       setCurrentState(state);
       toast.error("Cập nhật thất bại");
     } finally {
+      setLoading(false);
     }
   };
 
   const createContract = async () => {
     try {
       setLoading(true);
-
-      await updateState({ id, state: "DONE" });
-
       router.push(`${PATH.ADMIN.HOPDONG.TAOMOI}?baoGiaId=${id}`);
     } catch (error) {
       toast.error("Tạo hợp đồng thất bại");
-    } finally {
-      setLoading(false);
     }
   };
   return (

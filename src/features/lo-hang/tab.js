@@ -2,13 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PATH from "@/routes/path";
-import { Box, File, FileSignature, Ship } from "lucide-react";
+import { Box, File, FileSignature, ListChecks, Ship } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const tabValue = [
-  { label: "Tổng quan", name: "tong-quan", icon: <Box /> },
+  { label: "Tổng quan", name: "tong-quan", icon: <ListChecks /> },
+  { label: "Thông tin lô hàng", name: "lo-hang", icon: <Box /> },
   { label: "Chứng từ", name: "chung-tu", icon: <File /> },
   { label: "Tờ khai hải quan", name: "hai-quan", icon: <FileSignature /> },
   { label: "Thông tin vận chuyển", name: "van-chuyen", icon: <Ship /> },

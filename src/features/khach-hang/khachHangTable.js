@@ -2,7 +2,6 @@
 
 import { DataTable } from "@/components/table/data-table";
 import { PaginationTable } from "@/components/table/pagination";
-import SearchAndSort from "@/components/inputs/searchAndFilter";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { columns } from "./columns";
@@ -11,6 +10,7 @@ import { cn } from "@/lib/utils";
 import Modal from "@/components/modal/modal";
 import ModalKhachHang from "./modalKhacHang";
 import { getKhachHangChiTiet } from "@/actions/khachHangAction";
+import SearchAndFilter from "@/components/inputs/searchAndFilter";
 
 export default function KhachHangTable({ data }) {
   const router = useRouter();
@@ -58,7 +58,7 @@ export default function KhachHangTable({ data }) {
     <div className={cn("space-y-2 relative")}>
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
-          <SearchAndSort
+          <SearchAndFilter
             onSearch={(val) => updateParams("search", val)}
             isFilter={false}
           />

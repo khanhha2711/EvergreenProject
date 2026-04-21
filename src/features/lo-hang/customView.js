@@ -13,7 +13,7 @@ const CustomView = ({ data, id }) => {
       <div>
         {isCreate ? (
           <CustomModal id={id} setIsCreate={setIsCreate} />
-        ) : data.length !== 0 ? (
+        ) : data?.length !== 0 ? (
           <CustomDetail data={data} />
         ) : (
           <Card>

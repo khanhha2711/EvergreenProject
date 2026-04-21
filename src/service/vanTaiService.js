@@ -13,6 +13,7 @@ export const vanTaiHangTau = {
   detail: (id) => api.get(`/shipping/${id}`),
   create: (data) => api.post(`/shipping/create`, data),
   update: ({ id, data }) => api.put(`/shipping/update/${id}`, data),
+  select: () => api.get(`/shipping/select`),
 };
 
 export const vanChuyenNoiDia = {
@@ -23,9 +24,9 @@ export const vanChuyenNoiDia = {
 };
 
 export const datTau = {
-  detail: (id) => api.get(`/shipping/detail/${id}`),
-  create: ({ id, data }) => api.post(`/shipping/create/${id}`, data),
-  update: ({ id, data }) => api.put(`/shipping/${id}`, data),
+  detail: (id) => api.get(`/vessel/${id}`),
+  create: ({ id, data }) => api.post(`/vessel/create/${id}`, data),
+  update: ({ id, data }) => api.put(`/vessel/${id}`, data),
 };
 
 export const container = {

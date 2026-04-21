@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IServiceRepository extends JpaRepository<Services, Integer> {
     Services findByServiceName(String name);
     Services findByServiceCode(String serviceCode);
-
+    boolean existsByServiceNameAndUnit(String serviceName, String unit);
     List<Services> findByServiceCodeIn(List<String> serviceCode);
+    Optional<Services> findByServiceCodeAndStatus(String serviceCode, String status);
 }

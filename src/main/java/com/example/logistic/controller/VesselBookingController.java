@@ -18,4 +18,16 @@ public class VesselBookingController {
     public GetAllVesselDTO detailVessel(@PathVariable ("shipmentCode") String shipmentCode){
         return vesselBookingService.detailVessel(shipmentCode);
     }
+    @PostMapping("/create/{shipmentCode}")
+    public ResponseEntity<String> createVessel(@PathVariable ("shipmentCode") String shipmentCode,
+                                               @RequestBody GetAllVesselDTO dto){
+        String result= vesselBookingService.createVessel(shipmentCode,dto);
+        return ResponseEntity.ok(result);
+    }
+    @PutMapping("/update/{shipmentCode}")
+    public ResponseEntity<String> updateVessel(@PathVariable ("shipmentCode") String shipmentCode,
+                                               @RequestBody GetAllVesselDTO dto){
+        String result= vesselBookingService.updateVessel(shipmentCode,dto);
+        return ResponseEntity.ok(result);
+    }
 }

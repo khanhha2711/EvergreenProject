@@ -5,18 +5,29 @@ import com.example.logistic.DTO.RequestDTO.ActivityDTO;
 import com.example.logistic.DTO.RequestDTO.CargoDTO;
 import com.example.logistic.DTO.ShipmentDTO.ListDTO;
 import com.example.logistic.DTO.ShipmentDTO.Page1DTO.InformationDTO;
+import com.example.logistic.DTO.ShipmentDTO.StatusDTO;
 import com.example.logistic.entity.*;
+import com.example.logistic.repository.ICusDeclarationRepository;
+import com.example.logistic.repository.ILogDeclarationRepository;
 import com.example.logistic.repository.IShipmentRepository;
+import com.example.logistic.repository.IVesselBookingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ShipmentService implements  IShipmentService{
     @Autowired
     private IShipmentRepository shipmentRepository;
+    @Autowired
+    private ICusDeclarationRepository cusDeclarationRepository;
+    @Autowired
+    private IVesselBookingRepository vesselBookingRepository;
+    @Autowired
+    private ILogDeclarationRepository logDeclarationRepository;
 
     @Override
     public List<ListDTO> findAll() {
@@ -103,5 +114,34 @@ public class ShipmentService implements  IShipmentService{
         informationDTO.setActivity(activity);
 
         return informationDTO;
+    }
+
+    @Override
+    @Transactional
+    public String updateStatus(String shipmentCode, StatusDTO dto) {
+        Shipments shipments= shipmentRepository.findByShipmentCode(shipmentCode);
+        if(shipments == null){
+            throw new RuntimeException("Shipment not found");
+        }
+
+        String status= dto.getStatus();
+        shipments.setStatus(status);
+        CusDeclarations cusDeclarations= cusDeclarationRepository.findByShipmentCode(shipmentCode);
+        VesselBookings vesselBookings= vesselBookingRepository.findByShipment(shipments);
+
+        if("CLEARANCE".equalsIgnoreCase(status)){
+            cusDeclarations.setStatus("DONE");
+
+        }else if("TRANSPORT".equalsIgnoreCase(status)) {
+
+            vesselBookings.setStatus("DONE");
+        }
+        shipmentRepository.save(shipments);
+        LogDeclarations log= new LogDeclarations();
+        log.setDeclarations(cusDeclarations);
+        log.setCreatedAt(LocalDateTime.now());
+        log.setDescription(dto.getStatus());
+        logDeclarationRepository.save(log);
+        return "Update Successfully";
     }
 }

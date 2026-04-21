@@ -14,5 +14,5 @@ public interface ICusDeclarationService {
     String createDeclaration(String shipmentCode, CreateNewDTO dto, MultipartFile file) throws Exception;
     DetailDTO detailDeclaration(String shipmentCode) throws Exception;
     ResponseEntity<Resource> loadFile(String declarationCode) throws IOException;
-    UpdateLog update(String declarationCode, LogDTO logs);
+    UpdateLog update(String declarationCode, LaneAndLogDTO logs);
 }

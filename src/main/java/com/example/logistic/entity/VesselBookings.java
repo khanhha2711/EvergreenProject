@@ -20,7 +20,6 @@ public class VesselBookings {
     @Column(name = "booking_code", insertable = false, updatable = false)
     private String bookingCode;
 
-
     @Column(name = "status")
     private String status;
     @Column(name = "booking_number") // so tau

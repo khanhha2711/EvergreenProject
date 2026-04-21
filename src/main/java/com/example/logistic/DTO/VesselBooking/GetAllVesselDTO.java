@@ -6,8 +6,17 @@ public class GetAllVesselDTO {
     private String bookingNumber;
     private String portOfLoading;
     private String portOfDischarge;
+    private  String status;
 
     public GetAllVesselDTO() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getVesselName() {

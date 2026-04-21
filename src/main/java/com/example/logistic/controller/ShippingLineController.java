@@ -43,6 +43,7 @@ public class ShippingLineController {
 
     @GetMapping("/select")
     public List<ResponeSearchDTO> selectShippingLine(){
+
         return shippingLineService.searchAll();
     }
 }

@@ -27,6 +27,8 @@ public class ServiceService implements IServiceService{
         ListDTO dto = new ListDTO();
         dto.setServiceCode(services.getServiceCode());
         dto.setServiceName(services.getServiceName());
+        dto.setDescription(services.getDescription());
+        dto.setStatus(services.getStatus());
         dto.setUnit(services.getUnit());
         dto.setPrice(services.getPrice());
         return dto;
@@ -38,47 +40,51 @@ public class ServiceService implements IServiceService{
         ServiceResponeDTO dto= new ServiceResponeDTO();
         dto.setServiceCode(services.getServiceCode());
         dto.setServiceName(services.getServiceName());
+        dto.setDescription(services.getDescription());
+        dto.setStatus(services.getStatus());
         dto.setUnit(services.getUnit());
         dto.setPrice(services.getPrice());
-        dto.setCapacity(services.getCapacity());
         return dto;
     }
 
     @Override
-    public ServiceResponeDTO createService(CreateServiceDTO dto) {
+    public String createService(CreateServiceDTO dto) {
+        boolean check= serviceRepository.existsByServiceNameAndUnit(dto.getServiceName(),dto.getUnit());
+        if(check){
+            throw new RuntimeException("Da ton tai");
+        }
         Services services= new Services();
         services.setServiceName(dto.getServiceName());
         services.setUnit(dto.getUnit());
         services.setPrice(dto.getPrice());
-        services.setCapacity(dto.getCapacity());
+        services.setDescription(dto.getDescription());
+        services.setStatus("ACTIVE");
+        if("container".equalsIgnoreCase(dto.getServiceName())){
+            services.setCapacity(26000);
+        }
 
-        Services save= serviceRepository.save(services);
-
-        ServiceResponeDTO responeDTO = new ServiceResponeDTO();
-        responeDTO.setServiceCode(save.getServiceCode());
-        responeDTO.setServiceName(save.getServiceName());
-        responeDTO.setUnit(save.getUnit());
-        responeDTO.setPrice(save.getPrice());
-        responeDTO.setCapacity(save.getCapacity());
-        return responeDTO;
+        serviceRepository.save(services);
+        return "Them thanh cong";
     }
 
     @Override
-    public ServiceResponeDTO updateService(String serviceCode,ServiceResponeDTO dto) {
-        Services services= serviceRepository.findByServiceCode(serviceCode);
-        services.setUnit(dto.getUnit());
-        services.setPrice(dto.getPrice());
+    public String updateService(String serviceCode) {
+        Services oldService= serviceRepository.findByServiceCode(serviceCode);
 
-        Services update=serviceRepository.save(services);
+        if(oldService ==null){
+            throw new RuntimeException("Invalid service");
+        }
 
-        ServiceResponeDTO responeDTO=new ServiceResponeDTO();
-        responeDTO.setServiceCode(update.getServiceCode());
-        responeDTO.setServiceName(update.getServiceName());
-        responeDTO.setUnit(update.getUnit());
-        responeDTO.setPrice(update.getPrice());
-        responeDTO.setCapacity(update.getCapacity());
-
-        return responeDTO;
+        if("ACTIVE".equalsIgnoreCase(oldService.getStatus())){
+            oldService.setStatus("INACTIVE");
+        }else if("INACTIVE".equalsIgnoreCase(oldService.getStatus())){
+            oldService.setStatus("ACTIVE");
+        }
+        else {
+            throw new RuntimeException("Invalid status value");
+        }
+       serviceRepository.save(oldService);
+        return "Update successfully";
     }
 
     @Override

@@ -78,9 +78,11 @@ public class CusDocumentService implements ICusDocumentService{
     @Transactional
     public String createDocument(String shipmentCode,CreateDocumentDTO dto, MultipartFile file)  throws IOException {
         Shipments shipments= shipmentRepository.findByShipmentCode(shipmentCode);
+
         if (shipments == null) {
             throw new RuntimeException("Shipment không tồn tại");
         }
+
         List<CusDocuments> cusDocuments=cusDocumentRepository.findByShipmentCode(shipmentCode);
         for(CusDocuments documents:cusDocuments){
             if(documents.getDocumentNumber().equals(dto.getDocumentNumber())){

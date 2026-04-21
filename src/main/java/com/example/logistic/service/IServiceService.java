@@ -9,8 +9,8 @@ import java.util.List;
 public interface IServiceService {
     List<ListDTO> findAll();
     ServiceResponeDTO detailService(String serviceCode);
-    ServiceResponeDTO createService(CreateServiceDTO dto);
-    ServiceResponeDTO updateService(String serviceCode,ServiceResponeDTO dto);
+    String createService(CreateServiceDTO dto);
+    String updateService(String serviceCode);
     void deleteService(String serviceCode);
     List<ListDTO> findByServiceName(String serviceName);
 }

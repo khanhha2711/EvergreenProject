@@ -30,14 +30,15 @@ public class ServiceController {
 
     }
     @PostMapping("/create")
-    public ResponseEntity<ServiceResponeDTO> createService(@RequestBody CreateServiceDTO dto){
-        return ResponseEntity.ok(serviceService.createService(dto));
+    public ResponseEntity<String> createService(@RequestBody CreateServiceDTO dto){
+        String result= serviceService.createService(dto);
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping("/update/{serviceCode}")
-    public ResponseEntity<ServiceResponeDTO> updateService(@PathVariable("serviceCode") String serviceCode,
-                                                           @RequestBody ServiceResponeDTO dto){
-        return ResponseEntity.ok(serviceService.updateService(serviceCode,dto));
+    public ResponseEntity<String> updateService(@PathVariable ("serviceCode")String serviceCode){
+        String result= serviceService.updateService(serviceCode);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/delete/{serviceCode}")

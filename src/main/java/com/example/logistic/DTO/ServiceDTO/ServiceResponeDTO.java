@@ -3,11 +3,28 @@ package com.example.logistic.DTO.ServiceDTO;
 public class ServiceResponeDTO {
     private String serviceCode;
     private String serviceName;
+    private String status;
+    private String description;
     private String unit;
     private  double price;
-    private int capacity;
 
     public ServiceResponeDTO() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getServiceCode() {
@@ -42,11 +59,4 @@ public class ServiceResponeDTO {
         this.price = price;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 }

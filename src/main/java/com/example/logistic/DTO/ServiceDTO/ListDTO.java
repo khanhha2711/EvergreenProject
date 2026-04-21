@@ -1,12 +1,19 @@
 package com.example.logistic.DTO.ServiceDTO;
 
+import org.springframework.security.core.parameters.P;
+
 public class ListDTO {
     private String serviceCode;
     private String serviceName;
     private String unit;
     private double price;
-
+    private  String description;
+    private String status;
     public ListDTO() {
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getServiceCode() {
@@ -15,6 +22,18 @@ public class ListDTO {
 
     public void setServiceCode(String serviceCode) {
         this.serviceCode = serviceCode;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getServiceName() {

@@ -51,7 +51,7 @@ public class DeclarationController {
 
     @PutMapping("/update/{declarationCode}")
     public ResponseEntity<UpdateLog> updateLog(@PathVariable ("declarationCode") String declarationCode,
-                                               @RequestBody  LogDTO dto){
+                                               @RequestBody  LaneAndLogDTO dto){
         UpdateLog updateLog= cusDeclarationService.update(declarationCode,dto);
         return ResponseEntity.ok(updateLog );
     }

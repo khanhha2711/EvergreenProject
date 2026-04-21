@@ -16,6 +16,8 @@ public class LogDeclarations {
     @ManyToOne
     @JoinColumn(name="declarations_id")
     private CusDeclarations declarations;
+    @Column(name = "title")
+    private  String title;
 
     @Column(name = "created_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,6 +27,14 @@ public class LogDeclarations {
     private String description;
 
     public LogDeclarations() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getId() {

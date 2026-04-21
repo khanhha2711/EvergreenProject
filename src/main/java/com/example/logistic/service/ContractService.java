@@ -166,7 +166,7 @@ public class ContractService implements IContractService{
         shipments.setDestination(req.getDestination());
         shipments.setDepartureDate(req.getCreatedAt());
         shipments.setEstimatedArrival(contracts.getExpiredDate());
-        shipments.setStatus("New");
+        shipments.setStatus("Cập nhật chứng từ");
         shipments.setCreatedAt(LocalDate.now());
         shipmentRepository.save(shipments);
 

@@ -2,8 +2,10 @@ package com.example.logistic.controller;
 
 import com.example.logistic.DTO.ShipmentDTO.ListDTO;
 import com.example.logistic.DTO.ShipmentDTO.Page1DTO.InformationDTO;
+import com.example.logistic.DTO.ShipmentDTO.StatusDTO;
 import com.example.logistic.service.IShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,5 +32,13 @@ public class ShipmentController {
     @GetMapping("/{shipmentCode}")
     public InformationDTO detailShipment(@PathVariable ("shipmentCode") String shipmentCode){
         return shipmentService.detailInfor(shipmentCode);
+    }
+
+    @PutMapping("/update/{shipmentCode}")
+    public ResponseEntity<String> updateStatus(@PathVariable ("shipmentCode") String shipmentCode,
+                                             @RequestBody StatusDTO dto){
+
+        String result= shipmentService.updateStatus(shipmentCode,dto);
+        return ResponseEntity.ok(result);
     }
 }

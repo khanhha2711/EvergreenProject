@@ -21,6 +21,11 @@ public class Services {
     private String serviceName;
     @Column(name = "unit")
     private String unit;
+
+    @Column(name = "status")
+    private String status;
+    @Column(name = "description")
+    private String description;
     @Column(name = "price")
     private double price;
     @Column(name = "capacity")
@@ -35,6 +40,22 @@ public class Services {
     }
 
     public Services() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<ServiceDetail> getRequestServices() {

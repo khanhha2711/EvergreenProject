@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface IVesselBookingRepository extends JpaRepository<VesselBookings,Integer> {
 
     VesselBookings findByShipment(Shipments shipment);
+
 }

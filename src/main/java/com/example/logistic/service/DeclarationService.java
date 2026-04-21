@@ -45,6 +45,9 @@ public class DeclarationService implements  ICusDeclarationService{
             throw  new RuntimeException("Shipment không tồn tại");
         }
 
+        shipments.setStatus("Khai báo hải quan");
+        shipmentRepository.save(shipments);
+
         CusDeclarations cusDeclarations= cusDeclarationRepository.findByShipmentCode(shipmentCode);
         if(cusDeclarations != null &&
                 cusDeclarations.getShipment().equals(shipments)) {
@@ -60,7 +63,8 @@ public class DeclarationService implements  ICusDeclarationService{
         CusDeclarations newdeclaration= new CusDeclarations();
         newdeclaration.setShipment(shipments);
         newdeclaration.setDeclarationNumber(dto.getDeclarationNumber());
-        newdeclaration.setLane(dto.getLane());
+        newdeclaration.setLane("NULL");
+        newdeclaration.setStatus("CREATED");
         newdeclaration.setCustomsBranch(dto.getCustomsBranch());
         newdeclaration.setDeclarationDate(dto.getDeclarationDate());
         newdeclaration.setAttachment(attachment);
@@ -95,6 +99,7 @@ public class DeclarationService implements  ICusDeclarationService{
         declarationDTO.setDeclarationCode(cusDeclarations.getDeclarationCode());
         declarationDTO.setDeclarationNumber(cusDeclarations.getDeclarationNumber());
         declarationDTO.setLane(cusDeclarations.getLane());
+        declarationDTO.setStatus(cusDeclarations.getStatus());
         declarationDTO.setDeclarationDate(cusDeclarations.getDeclarationDate());
         declarationDTO.setCustomsBranch(cusDeclarations.getCustomsBranch());
 
@@ -120,6 +125,7 @@ public class DeclarationService implements  ICusDeclarationService{
         List<LogDeclarations> logDeclarations=logDeclarationRepository.findByDeclarationId(cusDeclarations.getId());
         List<LogDTO> logDTOS= logDeclarations.stream().map(logs->{
             LogDTO logDTO= new LogDTO();
+            logDTO.setTitle(logs.getTitle());
             logDTO.setCreatedAt(LocalDateTime.now());
             logDTO.setDescription(logs.getDescription());
             return logDTO;
@@ -147,18 +153,26 @@ public class DeclarationService implements  ICusDeclarationService{
 
     @Override
     @Transactional
-    public UpdateLog update(String declarationCode,LogDTO logs) {
+    public UpdateLog update(String declarationCode,LaneAndLogDTO logs) {
         CusDeclarations cusDeclarations= cusDeclarationRepository.findByDeclarationCode(declarationCode);
         if(cusDeclarations == null){
             return null;
         }
+
+        if (logs.getLane() != null) {
+            cusDeclarations.setLane(logs.getLane());
+            cusDeclarationRepository.save(cusDeclarations);
+        }
         LogDeclarations logDTO= new LogDeclarations();
         logDTO.setDeclarations(cusDeclarations);
-        logDTO.setDescription(logs.getDescription());
+        logDTO.setTitle(logs.getLogDTO().getTitle());
+        logDTO.setDescription(logs.getLogDTO().getDescription());
         logDTO.setCreatedAt(LocalDateTime.now());
         logDeclarationRepository.save(logDTO);
 
+
         LogDTO log= new LogDTO();
+        log.setTitle(logDTO.getTitle());
         log.setDescription(logDTO.getDescription());
         log.setCreatedAt(logDTO.getCreatedAt());
 
@@ -169,6 +183,7 @@ public class DeclarationService implements  ICusDeclarationService{
         activityDTO.setUser(employees.getUser().getUserName());
 
         UpdateLog updateLog= new UpdateLog();
+        updateLog.setLane(cusDeclarations.getLane());
         updateLog.setLogDTO(log);
         updateLog.setActivityDTO(activityDTO);
 

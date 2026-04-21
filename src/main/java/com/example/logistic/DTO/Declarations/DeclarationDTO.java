@@ -7,12 +7,21 @@ import java.time.LocalDate;
 public class DeclarationDTO {
     private String declarationCode;
     private  String declarationNumber;
+    private String status;
     private String lane;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate declarationDate;
     private String customsBranch;
 
     public DeclarationDTO() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDeclarationCode() {

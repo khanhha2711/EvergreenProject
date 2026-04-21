@@ -1,15 +1,11 @@
 package com.example.logistic.DTO.Declarations;
 
-import com.example.logistic.DTO.RequestDTO.ActivityDTO;
-
-import java.util.List;
-
-public class UpdateLog {
+public class LaneAndLogDTO {
     private String lane;
     private LogDTO logDTO;
-    private ActivityDTO activityDTO;
 
-    public UpdateLog() {
+
+    public LaneAndLogDTO() {
     }
 
     public String getLane() {
@@ -26,13 +22,5 @@ public class UpdateLog {
 
     public void setLogDTO(LogDTO logDTO) {
         this.logDTO = logDTO;
-    }
-
-    public ActivityDTO getActivityDTO() {
-        return activityDTO;
-    }
-
-    public void setActivityDTO(ActivityDTO activityDTO) {
-        this.activityDTO = activityDTO;
     }
 }

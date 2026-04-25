@@ -13,6 +13,8 @@ import {
   detailVanTaiNoiDia,
 } from "@/actions/vanTaiAction";
 import { toast } from "sonner";
+import { Card } from "@/components/ui/card";
+import { PlusCircle } from "lucide-react";
 
 export default function VanTaiTable({ dataTable, vanTaiColumns }) {
   const router = useRouter();
@@ -76,7 +78,7 @@ export default function VanTaiTable({ dataTable, vanTaiColumns }) {
     }
   };
   return (
-    <div className="space-y-2">
+    <Card className="-space-y-2 px-4">
       {isOpen && (
         <Modal>
           <VanTaiModal
@@ -95,6 +97,7 @@ export default function VanTaiTable({ dataTable, vanTaiColumns }) {
           <SearchAndSort
             onSearch={(val) => updateParams("search", val)}
             isFilter={false}
+            placeholder="Tên công ty"
           />
         </div>
 
@@ -106,7 +109,7 @@ export default function VanTaiTable({ dataTable, vanTaiColumns }) {
             setIsOpen(true);
           }}
         >
-          + Tạo mới
+          <PlusCircle /> Tạo mới
         </Button>
       </div>
       <DataTable
@@ -122,6 +125,6 @@ export default function VanTaiTable({ dataTable, vanTaiColumns }) {
         handleBack={handleBack}
         handlePageChange={handlePageChange}
       />
-    </div>
+    </Card>
   );
 }

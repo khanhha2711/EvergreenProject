@@ -14,9 +14,10 @@ import {
   updateVanChuyenNoiDia,
 } from "@/actions/vanTaiAction";
 import { toast } from "sonner";
-import z from "zod";
+import { geocode } from "@/components/map/geocode";
 import { useRouter } from "next/navigation";
 import { formSchema } from "@/constants/van-chuyen";
+import TransportMap from "@/components/map/transportMap";
 
 const TruckView = ({ id, data }) => {
   const [dataTruck, setDataTruck] = useState(data?.trucks || []);
@@ -190,81 +191,80 @@ const TruckView = ({ id, data }) => {
       idEdit,
     ],
   );
+
   return (
-    <div>
-      <Card className="px-12">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Truck size={20} />
-            <h3>Thông tin nội địa</h3>
-          </div>
+    <Card className="px-12">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Truck size={20} />
+          <h3>Thông tin nội địa</h3>
         </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="companyName">Tên đơn vị vận tải</label>
-          {isCreate ? (
-            <ComboboxComponent
-              className="mt-2"
-              id="companyName"
-              name="companyName"
-              placeholder="Chọn tên đơn vị vận chuyển"
-              options={companyOptions}
-              value={companyName}
-              handleOnChange={setCompanyName}
-            />
-          ) : (
-            <b>{companyName}</b>
-          )}
-          {errors.companyName && (
-            <p className="text-red-500 text-xs">{errors.companyName}</p>
-          )}
-        </div>
-        <div className="flex justify-between">
-          <p>Thông tin chuyển xe</p>
-          {(isCreate || !isEdit) && (
-            <Button
-              onClick={() => {
-                handleAddTruck();
-                setIsAdd(true);
-              }}
-            >
-              + Thêm chuyến xe
-            </Button>
-          )}
-        </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="companyName">Tên đơn vị vận tải</label>
+        {isCreate ? (
+          <ComboboxComponent
+            className="mt-2"
+            id="companyName"
+            name="companyName"
+            placeholder="Chọn tên đơn vị vận chuyển"
+            options={companyOptions}
+            value={companyName}
+            handleOnChange={setCompanyName}
+          />
+        ) : (
+          <b>{companyName}</b>
+        )}
+        {errors.companyName && (
+          <p className="text-red-500 text-xs">{errors.companyName}</p>
+        )}
+      </div>
+      <div className="flex justify-between">
+        <p>Thông tin chuyển xe</p>
+        {(isCreate || !isEdit) && (
+          <Button
+            onClick={() => {
+              handleAddTruck();
+              setIsAdd(true);
+            }}
+          >
+            + Thêm chuyến xe
+          </Button>
+        )}
+      </div>
 
-        <div>
-          <DataTable data={dataTruck} columns={columns} />
-          {errors.table.length > 0 && (
-            <div className="mt-4 text-red-500 text-sm">
-              <ul className="list-disc ml-5">
-                {errors.table.map((err, index) => (
-                  <li key={index}>{err}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-
-        {(isCreate || isEdit || isAdd) && (
-          <div className="flex justify-end gap-4">
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setIsAdd(false);
-                setDataTruck(data?.trucks || []);
-                setIsEdit(false);
-                setIsCreate(false);
-                setIsNew(false);
-                setErrors({ companyName: "", table: [] });
-              }}
-            >
-              Hủy
-            </Button>
-            <Button onClick={handleSubmit}>Lưu</Button>
+      <div>
+        <DataTable data={dataTruck} columns={columns} />
+        {errors.table.length > 0 && (
+          <div className="mt-4 text-red-500 text-sm">
+            <ul className="list-disc ml-5">
+              {errors.table.map((err, index) => (
+                <li key={index}>{err}</li>
+              ))}
+            </ul>
           </div>
         )}
-      </Card>
-    </div>
+      </div>
+
+      {(isCreate || isEdit || isAdd) && (
+        <div className="flex justify-end gap-4">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setIsAdd(false);
+              setDataTruck(data?.trucks || []);
+              setIsEdit(false);
+              setIsCreate(false);
+              setIsNew(false);
+              setErrors({ companyName: "", table: [] });
+            }}
+          >
+            Hủy
+          </Button>
+          <Button onClick={handleSubmit}>Lưu</Button>
+        </div>
+      )}
+    </Card>
   );
 };
 

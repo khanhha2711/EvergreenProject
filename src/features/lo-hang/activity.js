@@ -13,11 +13,11 @@ const Activity = ({ data, user }) => {
         <div className="bg-gray-300 flex-1 w-0.5"></div>
       </div>
 
-      <div className="py-3 space-y-2">
+      <div className="pb-2 space-y-1">
         <p className="text-sm font-bold">
           {SELECTTITLE.find((title) => title.value === data?.title)?.label}
         </p>
-        <p className="text-sm">{data?.description}</p>
+        <p className="text-xs text-muted-foreground">{data?.description}</p>
         <p className="text-xs text-gray-400">{data?.createdAt}</p>
         <p className="text-xs text-gray-400">{user}</p>
       </div>

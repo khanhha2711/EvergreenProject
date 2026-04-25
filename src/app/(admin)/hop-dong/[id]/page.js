@@ -39,13 +39,14 @@ export default async function ChiTiet({ params }) {
       <Card className="grid grid-cols-3 px-12 [&>div]:space-y-1">
         <h3 className="col-span-full">Thông tin tổng quan</h3>
         <div>
-          <p>Mã báo giá</p>
-          <b>{data?.quotationCode}</b>
+          <p>Số hợp đồng</p>
+          <b>{data?.contractNumber}</b>
         </div>
         <div>
           <p>Tên hợp đồng</p>
           <b>{data?.contractName}</b>
         </div>
+
         {CUSTOMER_FIELDS.map((field, index) => {
           if (field.name in data?.customer) {
             return (

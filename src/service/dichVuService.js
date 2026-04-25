@@ -9,5 +9,5 @@ export const dichVuService = {
 
   detail: (id) => api.get(`/services/detail/${id}`),
 
-  update: (data) => api.put(`/services`, data),
+  update: ({ id, data }) => api.put(`/services/update/${id}`, data),
 };

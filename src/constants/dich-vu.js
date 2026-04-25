@@ -37,9 +37,9 @@ export const SERVICEFIELDS = [
 
 export const SERVICE_UNITS = [
   //  Container / vận tải
-  { label: "Container (Cont)", value: "CONT" },
-  { label: "Container 20'", value: "CONT_20" },
-  { label: "Container 40'", value: "CONT_40" },
+  { label: "Container", value: "cont" },
+  { label: "Container 20'", value: "20' cont" },
+  { label: "Container 40'", value: "40' cont" },
   { label: "Chuyến xe", value: "TRIP" },
   { label: "Lô hàng ", value: "SHIPMENT" },
 

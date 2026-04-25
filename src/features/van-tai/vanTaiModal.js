@@ -6,6 +6,7 @@ import {
   updateVanTaiHangTau,
   updateVanTaiNoiDia,
 } from "@/actions/vanTaiAction";
+import LocationInput from "@/components/inputs/locationInput";
 import ConfirmModal from "@/components/modal/comfirmModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +35,7 @@ export default function VanTaiModal({
   setIsCreate,
 }) {
   const [isConfirm, setIsConfirm] = useState(false);
+  const [companyAddress, setCompanyAddress] = useState("");
   const [errors, setError] = useState({});
   const router = useRouter();
 
@@ -60,6 +62,9 @@ export default function VanTaiModal({
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    if (noiDia) {
+      formData.append("companyAddress", companyAddress);
+    }
     const dataForm = Object.fromEntries(formData.entries());
     const schema = noiDia ? schemaNoiDia : schemaTau;
 
@@ -112,8 +117,13 @@ export default function VanTaiModal({
           }}
         />
       )}
-      <div className="flex justify-between items-center">
-        <h3>{title}</h3>
+      <div className="flex justify-between items-center ">
+        <div>
+          <h2>{title}</h2>
+          <p className="text-muted-foreground">
+            Thông tin chi tiết của {noiDia ? "đơn vị vận tải" : "hãng tàu"}
+          </p>
+        </div>
         {!isEdit && !isCreate && (
           <div>
             <Button
@@ -136,13 +146,20 @@ export default function VanTaiModal({
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mt-4">
           {(noiDia ? vanTaiNoiDia : vanTaiHangTau).map((item) => (
-            <div key={item.name}>
+            <div key={item.name} className="space-y-2">
               <p>{item.label}</p>
 
               {isEdit ? (
                 <Input defaultValue={data?.[item.name]} name={item.name} />
               ) : isCreate ? (
-                <Input placeholder={item.label} name={item.name} />
+                item.name === "companyAddress" ? (
+                  <LocationInput
+                    diaDiem={(e) => setCompanyAddress(e)}
+                    value={companyAddress || ""}
+                  />
+                ) : (
+                  <Input placeholder={item.label} name={item.name} />
+                )
               ) : (
                 <b>{data?.[item.name] || ""}</b>
               )}
@@ -157,7 +174,7 @@ export default function VanTaiModal({
           <div className="flex justify-end gap-2 mt-4">
             <Button
               type="button"
-              variant="outline"
+              variant="secondary"
               onClick={(e) => {
                 if (isFormEmpty(e.target.form)) {
                   setIsEdit(false);

@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import Modal from "@/components/modal/modal";
 import ModalNhanVien from "./modalNhanVien.js";
 import { getNhanVienChiTiet } from "@/actions/nhanVienAction.js";
+import { Card } from "@/components/ui/card.jsx";
+import { PlusCircle } from "lucide-react";
 
 export default function NhanVienTable({ data }) {
   const router = useRouter();
@@ -56,36 +58,36 @@ export default function NhanVienTable({ data }) {
     setIsOpen(true);
   };
   return (
-    <div className={cn("space-y-2 relative")}>
+    <Card className={cn("-space-y-2 px-4 relative")}>
       <div className="flex items-center justify-between gap-4">
-        <div className="flex-1">
-          <SearchAndSort
-            onSearch={(val) => updateParams("search", val)}
-            isFilter={false}
-          />
-          <Button
-            type="button"
-            className={"absolute top-0 right-0"}
-            onClick={() => {
-              setIsOpen(true), setIsCreate(true);
-            }}
-          >
-            Thêm nhân viên mới
-          </Button>
-          {isOpen && (
-            <Modal>
-              <ModalNhanVien
-                setIsOpen={setIsOpen}
-                isEdit={isEdit}
-                data={detailData}
-                setIsEdit={setIsEdit}
-                isCreate={isCreate}
-                setIsCreate={setIsCreate}
-              />
-            </Modal>
-          )}
-        </div>
+        <SearchAndSort
+          onSearch={(val) => updateParams("search", val)}
+          isFilter={false}
+          placeholder='Số điện thoại'
+        />
+        <Button
+          type="button"
+          className=""
+          onClick={() => {
+            setIsOpen(true), setIsCreate(true);
+          }}
+        >
+          <PlusCircle />
+          Thêm nhân viên mới
+        </Button>
       </div>
+      {isOpen && (
+        <Modal>
+          <ModalNhanVien
+            setIsOpen={setIsOpen}
+            isEdit={isEdit}
+            data={detailData}
+            setIsEdit={setIsEdit}
+            isCreate={isCreate}
+            setIsCreate={setIsCreate}
+          />
+        </Modal>
+      )}
       <DataTable
         data={dataNew}
         columns={columns}
@@ -100,6 +102,6 @@ export default function NhanVienTable({ data }) {
         handleBack={handleBack}
         handlePageChange={handlePageChange}
       />
-    </div>
+    </Card>
   );
 }

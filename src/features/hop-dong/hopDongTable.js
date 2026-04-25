@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { columns } from "./column";
 import { CONTRACTSTATUS } from "@/constants/hop-dong";
 import PATH from "@/routes/path";
+import { Card } from "@/components/ui/card";
 
 export default function HopDongTable({ data }) {
   console.log(data);
@@ -48,13 +49,14 @@ export default function HopDongTable({ data }) {
   const handleDownload = (id) => {};
 
   return (
-    <div className={cn("space-y-2 relative")}>
+    <Card className={cn("-space-y-2 px-4 relative")}>
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
           <SearchAndSort
             onSearch={(val) => updateParams("search", val)}
             status={CONTRACTSTATUS}
             onFilter={(val) => updateParams("state", val)}
+            placeholder="Mã hợp đồng"
           />
         </div>
       </div>
@@ -72,6 +74,6 @@ export default function HopDongTable({ data }) {
         handleBack={handleBack}
         handlePageChange={handlePageChange}
       />
-    </div>
+    </Card>
   );
 }

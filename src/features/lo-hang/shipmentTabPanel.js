@@ -1,7 +1,6 @@
 import CustomTab from "./customTab";
 import DocumentTab from "./documentTab";
-import OverviewTab from "./overviewTab";
-import ShipmentTab from "./shipmentTab";
+import OverViewTab from "./overViewTab";
 import TransportTab from "./transportTab";
 
 const ShipmentTabPanel = async ({ data, searchParams }) => {
@@ -9,9 +8,7 @@ const ShipmentTabPanel = async ({ data, searchParams }) => {
   const renderTab = () => {
     switch (tab) {
       case "tong-quan":
-        return <OverviewTab />
-      case "lo-hang":
-        return <ShipmentTab data={data} />;
+        return <OverViewTab id={data?.shipmentCode} data={data} />;
 
       case "chung-tu":
         return <DocumentTab id={data?.shipmentCode} />;
@@ -21,7 +18,7 @@ const ShipmentTabPanel = async ({ data, searchParams }) => {
       case "hai-quan":
         return <CustomTab id={data?.shipmentCode} />;
       default:
-        return <OverviewTab data={data} />;
+        return <OverViewTab id={data?.shipmentCode} data={data} />;
     }
   };
 

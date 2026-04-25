@@ -1,21 +1,5 @@
 import { haiQuanService } from "@/service/haiQuanService";
 
-const dataCustom = [
-  {
-    declarationCode: "134",
-    declarationNumber: "1244",
-    createdAt: "20/12/2026",
-    attachment: { name: "ádfghj", downloadURL: "mmmmmmmmmm" },
-  },
-];
-const detail = {
-  declarationCode: "134",
-  declarationNumber: "1244",
-  createdAt: "20/12/2026",
-  attachment: { name: "ádfghj", downloadURL: "mmmmmmmmmm" },
-  container: [],
-};
-
 export async function createHaiQuan({ id, formData }) {
   try {
     const res = await haiQuanService.create({ id, formData });

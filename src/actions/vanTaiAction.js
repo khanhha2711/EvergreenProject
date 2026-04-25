@@ -1,6 +1,7 @@
 import {
   container,
   datTau,
+  transportLocation,
   vanChuyenNoiDia,
   vanTaiHangTau,
   vanTaiNoiDia,
@@ -13,6 +14,7 @@ export async function getVanTaiNoiDia(params) {
   } catch (error) {
     return {
       success: false,
+      data: mockNoiDia,
       error: error?.response?.data?.messege || "Lỗi hệ thống",
     };
   }
@@ -47,6 +49,7 @@ export async function detailVanTaiNoiDia(id) {
   } catch (error) {
     return {
       success: false,
+      data: mockNoiDia[0],
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }
@@ -59,6 +62,7 @@ export async function getVanTaiHangTau(params) {
   } catch (error) {
     return {
       success: false,
+      data: mockHangTau,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }
@@ -212,6 +216,18 @@ export async function selectContainer(id) {
 export async function selectShippingCompany() {
   try {
     const res = await vanTaiHangTau.select();
+    return { success: true, data: res.data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error?.response?.data?.message || "Lỗi hệ thống",
+    };
+  }
+}
+
+export async function getLocationTransport(id) {
+  try {
+    const res = await transportLocation.map(id);
     return { success: true, data: res.data };
   } catch (error) {
     return {

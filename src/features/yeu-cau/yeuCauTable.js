@@ -12,6 +12,8 @@ import { STATEYEUCAU } from "@/constants/yeu-cau";
 import { columns } from "./columns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { PlusCircle } from "lucide-react";
 
 export default function YeuCauTable({ data }) {
   const router = useRouter();
@@ -57,35 +59,45 @@ export default function YeuCauTable({ data }) {
   };
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex-1">
-          <SearchAndSort
-            onSearch={(val) => updateParams("search", val)}
-            onFilter={(val) => updateParams("state", val)}
-            status={STATEYEUCAU}
-            placeholder="Số điện thoại"
-          />
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <div className="space-y-2">
+          <h1>Yêu cầu báo giá</h1>
+          <p className="text-muted-foreground">
+            Quản lý và theo dõi các yêu cầu báo giá từ khách hàng
+          </p>
         </div>
-
         <Link href={PATH.ADMIN.YEUCAU.TAOMOI}>
-          <Button className="whitespace-nowrap">+ Tạo yêu cầu báo giá</Button>
+          <Button className="whitespace-nowrap"><PlusCircle/>Tạo yêu cầu báo giá</Button>
         </Link>
       </div>
-      <DataTable
-        data={dataNew}
-        columns={columns({ handleDelete })}
-        basePath={PATH.ADMIN.YEUCAU.DANHSACH}
-        idName={"requestCode"}
-      />
 
-      <PaginationTable
-        page={page}
-        totalPage={totalPage}
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handlePageChange={handlePageChange}
-      />
+      <Card className="px-4 -space-y-2">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <SearchAndSort
+              onSearch={(val) => updateParams("search", val)}
+              onFilter={(val) => updateParams("state", val)}
+              status={STATEYEUCAU}
+              placeholder="Số điện thoại"
+            />
+          </div>
+        </div>
+        <DataTable
+          data={dataNew}
+          columns={columns({ handleDelete })}
+          basePath={PATH.ADMIN.YEUCAU.DANHSACH}
+          idName={"requestCode"}
+        />
+
+        <PaginationTable
+          page={page}
+          totalPage={totalPage}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handlePageChange={handlePageChange}
+        />
+      </Card>
     </div>
   );
 }

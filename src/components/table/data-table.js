@@ -18,7 +18,6 @@ import {
 import { useRouter } from "next/navigation";
 
 export function DataTable({ data, columns, basePath, idName, onRowClick }) {
-  
   const table = useReactTable({
     data,
     columns,
@@ -26,16 +25,19 @@ export function DataTable({ data, columns, basePath, idName, onRowClick }) {
   });
 
   const router = useRouter();
-  
+
   return (
-    <div className="overflow-hidden rounded-md border bg-white">
-      <Table>
-        <TableHeader className="bg-primary/20 ">
+    <div className="overflow-hidden  rounded-md border bg-white">
+      <Table className="table-fixed w-full">
+        <TableHeader className="bg-primary/10">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    style={{ width: `${header.getSize()}px` }}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -64,7 +66,11 @@ export function DataTable({ data, columns, basePath, idName, onRowClick }) {
                 }}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className=" truncate"
+                    style={{ width: `${cell.column.getSize()}px` }}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

@@ -23,13 +23,13 @@ export default function Sidebar() {
       <Image src="/logo.png" alt="logo" width={140} height={140} priority />
 
       <div className="flex flex-col gap-4">
-        {SIDEBAR.map((sidebar) => {
+        {SIDEBAR.slice(0, 4).map((sidebar) => {
           const isActive = pathname.startsWith(sidebar.link);
 
           return (
             <Link
-              key={sidebar.label}
-              href={sidebar.link}
+              key={sidebar?.label}
+              href={sidebar?.link}
               className={cn(
                 "flex gap-2 items-center pl-4 py-2 rounded-xl transition-colors",
                 "hover:bg-sidebar-primary/30",
@@ -37,8 +37,28 @@ export default function Sidebar() {
                   "bg-primary text-primary-foreground hover:bg-primary",
               )}
             >
-              {sidebar.icon({ style: isActive && "text-white" })}
-              <span className="font-medium">{sidebar.label}</span>
+              {sidebar?.icon({ style: isActive && "text-white" })}
+              <span className="font-medium">{sidebar?.label}</span>
+            </Link>
+          );
+        })}
+        <p className="text-gray-500 border-t-1 pt-2 px-4">Thông tin khác</p>
+        {SIDEBAR.slice(4).map((sidebar) => {
+          const isActive = pathname.startsWith(sidebar.link);
+
+          return (
+            <Link
+              key={sidebar?.label}
+              href={sidebar?.link}
+              className={cn(
+                "flex gap-2 items-center pl-6 py-2 rounded-xl transition-colors",
+                "hover:bg-sidebar-primary/30",
+                isActive &&
+                  "bg-primary text-primary-foreground hover:bg-primary",
+              )}
+            >
+              {sidebar?.icon({ style: isActive && "text-white" })}
+              <span className="font-medium">{sidebar?.label}</span>
             </Link>
           );
         })}

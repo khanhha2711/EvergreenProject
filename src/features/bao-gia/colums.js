@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { STATEBAOGIA } from "@/constants/bao-gia";
-import { Trash } from "lucide-react";
 
 const state = STATEBAOGIA;
 
@@ -10,11 +9,13 @@ export const columns = (actions = {}) => [
   {
     accessorKey: "quotationCode",
     header: "Mã báo giá",
+    size: 100,
   },
 
   {
     accessorKey: "customer",
     header: "Khách hàng",
+    size: 200,
     cell: ({ row }) => {
       const { contactName, companyName } = row.original;
 
@@ -40,6 +41,7 @@ export const columns = (actions = {}) => [
   {
     accessorKey: "totalPrice",
     header: "Tổng tiền",
+    size: 160,
     cell: ({ row }) => {
       const amount = row.getValue("totalPrice");
 
@@ -57,6 +59,7 @@ export const columns = (actions = {}) => [
   {
     accessorKey: "status",
     header: "Trạng thái",
+    size: 100,
     cell: ({ row }) => {
       const value = row.getValue("status").toLowerCase();
       const currentState = state.find((s) => s.value === value);

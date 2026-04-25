@@ -10,5 +10,13 @@ export default async function KhachHangTableContainer({ searchParams }) {
   });
   console.log(res.data);
 
-  return <KhachHangTable data={res.data} />;
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1>Danh sách khách hàng</h1>
+        <p className="text-muted-foreground">Quản lý thông tin khách hàng </p>
+      </div>
+      <KhachHangTable data={res.data} />
+    </div>
+  );
 }

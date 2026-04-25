@@ -8,6 +8,7 @@ import { SHIPMENT_FIELDS } from "@/constants/van-chuyen";
 import MoTa from "@/features/bao-gia/moTa";
 import { CreateBaoGiaButton } from "@/features/yeu-cau/createBaoGia";
 import PATH from "@/routes/path";
+import { Box, List, Truck, User, UserCircle } from "lucide-react";
 
 export default async function Page({ params }) {
   const { id } = await params;
@@ -22,9 +23,11 @@ export default async function Page({ params }) {
           <h2>Thông tin yêu cầu báo giá</h2>
         </div>
         <div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <p>Mã yêu cầu:</p>
-            <b>{id}</b>
+            <p className="text-primary bg-primary/15 px-2 py-1 rounded-xl font-medium">
+              {id}
+            </p>
           </div>
         </div>
         <div className="absolute right-6 translate-y-1/2">
@@ -33,15 +36,45 @@ export default async function Page({ params }) {
       </div>
       <div className={"space-y-2 grid grid-cols-2 gap-6"}>
         <Card className="px-10">
-          <h3>Thông tin khách hàng</h3>
-          <div className="grid grid-cols-2 space-y-4 ">
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <User className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin khách hàng</h3>
+          </div>
+          <div className=" space-y-4 ">
             {CUSTOMER_FIELDS.map((field) => {
               return (
-                <div key={field.name} className="space-y-1">
-                  <p>{field.label}</p>
-                  <p>
+                <div key={field.name} className="space-y-1 flex">
+                  <p className="flex-1 pl-3">{field.label}</p>
+                  <p className="text-balance flex-2 font-bold">
+                    {data?.customer?.[field.name] || ""}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+        <Card className="px-10">
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <Box className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin hàng hóa</h3>
+          </div>
+          <div className="space-y-4 ">
+            {CARGOFIELDS.map((field) => {
+              return (
+                <div key={field.name} className="space-y-1 flex px-3">
+                  <p className="flex-1">{field.label}</p>
+                  <p className="flex-2">
                     <p className="text-balance font-bold">
-                      {data?.customer?.[field.name] || ""}
+                      {field.name === "cargoCategory"
+                        ? field.options.find(
+                            (option) =>
+                              option.value === data?.cargo?.[field.name],
+                          )?.label
+                        : data?.cargo?.[field.name] || ""}
                     </p>
                   </p>
                 </div>
@@ -50,43 +83,26 @@ export default async function Page({ params }) {
           </div>
         </Card>
         <Card className="px-10">
-          <h3>Thông tin hàng hóa</h3>
-          <div className="grid grid-cols-2 space-y-4 ">
-            {CARGOFIELDS.map((field) => {
-              return (
-                <div key={field.name} className="space-y-1">
-                  <p>{field.label}</p>
-                  <p>
-                    <b>
-                      {field.name === "cargoCategory"
-                        ? field.options.find(
-                            (option) =>
-                              option.value === data?.cargo?.[field.name],
-                          )?.label
-                        : data?.cargo?.[field.name] || ""}
-                    </b>
-                  </p>
-                </div>
-              );
-            })}
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <Truck className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin vận chuyển</h3>
           </div>
-        </Card>
-        <Card className="px-10">
-          <h3>Thông tin vận chuyển</h3>
           <div className="grid grid-cols-2 space-y-4 ">
             {SHIPMENT_FIELDS.map((field) => {
               return (
                 <div key={field.name} className="space-y-1">
                   <p>{field.label}</p>
                   <p>
-                    <b>
+                    <p className="text-balance font-bold">
                       {field.name === "containerType"
                         ? CONTAINER.find(
                             (container) =>
                               container.value === data?.shipping?.[field.name],
                           )?.label
                         : data?.shipping?.[field.name] || ""}
-                    </b>
+                    </p>
                   </p>
                 </div>
               );
@@ -94,8 +110,13 @@ export default async function Page({ params }) {
           </div>
         </Card>
         <Card className="px-10">
-          <h3>Thông tin dịch vụ</h3>
-          <div className="grid grid-cols-2 space-y-4 ">
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <List className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin dịch vụ </h3>
+          </div>
+          <div className="grid grid-cols-2 space-y-4 mx-4">
             <ul className="list-disc list-inside">
               {data?.service.map((service, index) => (
                 <li key={index}>{service}</li>

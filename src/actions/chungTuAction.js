@@ -1,13 +1,5 @@
 import { chungTuService } from "@/service/chungTuService";
 
-const data = [
-  {
-    documentCode: "134",
-    documentNumber: "1244",
-    documentType: "sfad",
-    attachment: { fileName: "ádfghj" },
-  },
-];
 export async function getChungTu(id) {
   try {
     const res = await chungTuService.list(id);
@@ -15,7 +7,6 @@ export async function getChungTu(id) {
   } catch (error) {
     return {
       success: false,
-      // data: data,
       error: error?.response?.data?.message || "Lỗi hệ thống",
     };
   }

@@ -32,3 +32,7 @@ export const datTau = {
 export const container = {
   select: (id) => api.get(`/containers/${id}`),
 };
+
+export const transportLocation = {
+  map: (id) => api.get(`/trucking/transport/${id}`),
+};

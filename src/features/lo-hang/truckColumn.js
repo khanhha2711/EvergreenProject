@@ -17,6 +17,7 @@ export const truckColumn = ({
     {
       id: "stt",
       header: "STT",
+      size: 60,
       cell: ({ row }) => <div>{row.index + 1}</div>,
     },
     {
@@ -119,7 +120,7 @@ export const truckColumn = ({
             <Trash2 size={18} className="text-destructive" />
           </Button>
         )}
-        {!isNew  && (
+        {!isNew && (
           <Button
             onClick={() => handleEdit(row.original.truckCode)}
             className="bg-white hover:bg-white text-gray-600"
@@ -133,3 +134,28 @@ export const truckColumn = ({
 
   return columns;
 };
+
+export const truckDetailColumns = [
+  {
+    id: "stt",
+    header: "STT",
+    size: 60,
+    cell: ({ row }) => <div>{row.index + 1}</div>,
+  },
+  {
+    accessorKey: "licensePlate",
+    header: "Biển số xe",
+  },
+  {
+    accessorKey: "driverName",
+    header: "Tên tài xế",
+  },
+  {
+    accessorKey: "driverPhone",
+    header: "Số điện thoại",
+  },
+  {
+    accessorKey: "containerNumber",
+    header: "Số container",
+  },
+];

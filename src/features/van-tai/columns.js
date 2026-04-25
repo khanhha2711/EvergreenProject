@@ -2,6 +2,7 @@ export const columnsNoiDia = [
   {
     accessorKey: "companyCode",
     header: "Mã vận tải",
+    size: 70,
   },
   {
     accessorKey: "companyName",
@@ -25,6 +26,7 @@ export const columnsHangTau = [
   {
     accessorKey: "shippingCode",
     header: "Mã vận tải",
+    size: 70,
   },
   {
     accessorKey: "shippingName",

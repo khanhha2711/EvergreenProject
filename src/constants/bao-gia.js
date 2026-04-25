@@ -18,7 +18,7 @@ export const STATEBAOGIA = [
   },
   {
     icon: <CircleX />,
-    label: "Từ chối",
+    label: "Đã từ chối",
     value: "rejected",
     variant: "destructive",
   },

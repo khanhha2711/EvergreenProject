@@ -8,6 +8,7 @@ export const containerViewColumns = [
   {
     id: "stt",
     header: "STT",
+    size: 60,
     cell: ({ row }) => <div>{row.index + 1}</div>,
   },
   {
@@ -28,6 +29,7 @@ export const containerColumns = ({ isNew, handleDelete, handleOnChange }) => [
   {
     id: "stt",
     header: "STT",
+    size: 60,
     cell: ({ row }) => <div>{row.index + 1}</div>,
   },
   {

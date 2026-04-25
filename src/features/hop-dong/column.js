@@ -9,12 +9,13 @@ export const columns = ({ handleDownload, pageSize, page }) => {
     {
       accessorKey: "id",
       header: "STT",
+      size: 60,
       cell: ({ row }) => {
         return <div>{pageSize * (page - 1) + row.index + 1}</div>;
       },
     },
-    { accessorKey: "contractCode", header: "Mã hợp đồng" },
-    { accessorKey: "quotationCode", header: "Mã báo giá" },
+    { accessorKey: "contractNumber", header: "Mã hợp đồng" },
+    { accessorKey: "contractName", header: "Mã báo giá" },
     {
       accessorKey: "signedDate",
       header: "Ngày kí",
@@ -56,6 +57,7 @@ export const columnFile = [
   {
     accessorKey: "id",
     header: "STT",
+    size: 60,
     cell: ({ row }) => {
       return <div>{row.index + 1}</div>;
     },

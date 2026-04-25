@@ -1,15 +1,23 @@
+import { StatusDropdown } from "@/components/inputs/dropdown";
+import { SelectComponent } from "@/components/inputs/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SERVICE_UNITS } from "@/constants/dich-vu";
 import { ChangeMoney } from "@/lib/changeMoney";
+import { cn } from "@/lib/utils";
 import { Delete, Pen, Trash2 } from "lucide-react";
-
-export const getColumns = ({ handleEdit }) => {
+export const STATUS = [
+  { label: "Hoạt động", value: "ACTIVE" },
+  { label: "Ngừng hoạt đông", name: "INACTIVE" },
+];
+export const getColumns = ({ handleOnChange }) => {
   const columns = [
     {
       accessorKey: "id",
       header: "STT",
+      size: 60,
       cell: ({ row }) => {
-        return <div className="text-center w-fit ml-4 ">{row.index + 1}</div>;
+        return <div className="text-center w-fit ml-2 ">{row.index + 1}</div>;
       },
     },
 
@@ -31,7 +39,14 @@ export const getColumns = ({ handleEdit }) => {
       accessorKey: "unit",
       header: "Đơn vị",
       cell: ({ row }) => {
-        return row.original.unit;
+        return (
+          <div>
+            {
+              SERVICE_UNITS.find((item) => item.value === row.original.unit)
+                ?.label
+            }
+          </div>
+        );
       },
     },
     {
@@ -44,26 +59,15 @@ export const getColumns = ({ handleEdit }) => {
     {
       accessorKey: "status",
       header: "Trạng thái",
+      size: 100,
       cell: ({ row }) => {
-        return <Badge>{row.original.status}</Badge>;
-      },
-    },
-    {
-      id: "actions",
-      cell: ({ row }) => {
-        const id = row.original.serviceCode;
         return (
-          <div className="flex justify-center gap-2">
-            <Button
-              className="border-none bg-white hover:bg-white "
-              onClick={(e) => {
-                e.stopPropagation();
-                handleEdit(id);
-              }}
-            >
-              <Pen className="icon text-gray-600" />
-            </Button>
-          </div>
+          <StatusDropdown
+            status={row.original.status}
+            onChange={(value) =>
+              handleOnChange({ id: row.original.serviceCode, value })
+            }
+          />
         );
       },
     },

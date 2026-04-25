@@ -9,7 +9,6 @@ import React from "react";
 
 const tabValue = [
   { label: "Tổng quan", name: "tong-quan", icon: <ListChecks /> },
-  { label: "Thông tin lô hàng", name: "lo-hang", icon: <Box /> },
   { label: "Chứng từ", name: "chung-tu", icon: <File /> },
   { label: "Tờ khai hải quan", name: "hai-quan", icon: <FileSignature /> },
   { label: "Thông tin vận chuyển", name: "van-chuyen", icon: <Ship /> },

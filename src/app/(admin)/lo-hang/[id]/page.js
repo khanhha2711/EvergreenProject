@@ -10,10 +10,9 @@ export default async function LoHang({ params, searchParams }) {
   const data = res.data;
   return (
     <div className="mb-4">
-      <div className="sticky top-14 z-20 bg-white border-t pt-4 px-6 space-y-4">
+      <div className="sticky top-12 z-10000 bg-white border-t pt-4 px-6 space-y-4">
         <div className="flex gap-6">
           <h2>Thông tin lô hàng</h2>
-          <Badge>Đang vận chuyển</Badge>
         </div>
         <div className="flex gap-20">
           <div className="flex gap-2">

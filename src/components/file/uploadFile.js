@@ -7,7 +7,7 @@ const UploadFile = ({ setFile, error, file }) => {
   console.log("file", file);
   return (
     <div>
-      <h3 className="font-semibold mb-2">Tải hợp đồng</h3>
+      <h3 className="font-semibold mb-2">Tải tệp</h3>
       {file ? (
         <FileComponent
           fileName={file?.name || file?.fileName}

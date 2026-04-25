@@ -24,6 +24,7 @@ import { updateBaoGia } from "@/actions/baoGiaAction";
 import { getDichVu } from "@/actions/dichVuAction";
 import { format, isValid, parse } from "date-fns";
 import { CONTAINER } from "@/constants/form";
+import { Box, List, PlusCircle, User } from "lucide-react";
 
 export default function Form({ form = {}, isEdit }) {
   const [shipping, setShipping] = useState(form?.transportDTO || {});
@@ -37,7 +38,9 @@ export default function Form({ form = {}, isEdit }) {
   const [serviceFields, setServiceFields] = useState([]);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [locationCustomer, setLocationCustomer] = useState(
+    form?.customer?.["customerAddress"] || "",
+  );
   const rawDate = shipping?.createdAt;
 
   let formattedDate = null;
@@ -60,6 +63,7 @@ export default function Form({ form = {}, isEdit }) {
       [fieldName]: value,
     }));
   };
+
   const router = useRouter();
 
   useEffect(() => {
@@ -85,6 +89,7 @@ export default function Form({ form = {}, isEdit }) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    formData.append("customerAddress", locationCustomer);
     const services = formData.getAll("service");
     const raw = Object.fromEntries(formData);
 
@@ -102,6 +107,7 @@ export default function Form({ form = {}, isEdit }) {
       data.customer.service = services;
       const { isValid, errors } = validate({ schema, data });
       if (!isValid) {
+        setLoading(false);
         setError(errors);
         return;
       }
@@ -114,8 +120,6 @@ export default function Form({ form = {}, isEdit }) {
         toast.error("Lưu không thành công hãy thực hiện lại");
       }
     } else {
-      console.log("edit", isEdit);
-      console.log("data", items);
       const res = await updateBaoGia({ id: form.id, data: items });
       if (res.success) {
         toast.success("Cập nhật thành công");
@@ -154,20 +158,34 @@ export default function Form({ form = {}, isEdit }) {
           content="Bạn có chắc chắn muốn hủy yêu cầu này?"
           onConfirm={() => {
             setIsOpen(false);
-            router.push(PATH.ADMIN.YEUCAU.DANHSACH);
+            {
+              isEdit
+                ? router.push(PATH.ADMIN.BAOGIA.DANHSACH)
+                : router.push(PATH.ADMIN.YEUCAU.DANHSACH);
+            }
           }}
           onCancel={() => setIsOpen(false)}
         />
       )}
       <form className="space-y-4 mx-10 mb-10" onSubmit={handleNext}>
         <Card className={"px-6"}>
-          <h3>Thông tin khách hàng</h3>
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <User className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin khách hàng</h3>
+          </div>
           <div className="grid grid-cols-2 gap-6 mx-4">
             {CUSTOMER_FIELDS.map((field) => (
               <div key={field.name}>
                 <p className="text-sm mb-2">{field.label}</p>
                 {isEdit ? (
                   <b>{form?.customer?.[field.name] || ""}</b>
+                ) : field.name === "customerAddress" ? (
+                  <LocationInput
+                    diaDiem={(e) => setLocationCustomer(e)}
+                    value={locationCustomer || ""}
+                  />
                 ) : (
                   <Input
                     placeholder={field.placeholder}
@@ -184,8 +202,13 @@ export default function Form({ form = {}, isEdit }) {
             ))}
           </div>
           {!isEdit && (
-            <div>
-              <h3 className="mb-4">Dịch vụ</h3>
+            <div className="space-y-4">
+              <div className="flex gap-2 items-center border-b-1 pb-1">
+                <div className="w-fit p-2 rounded-full bg-primary/15">
+                  <List className="text-primary" size={15} />
+                </div>
+                <h3>Dịch vụ</h3>
+              </div>
               <div className="flex gap-10 ml-4">
                 {serviceFields.map((service) => (
                   <div key={service.value}>
@@ -207,7 +230,12 @@ export default function Form({ form = {}, isEdit }) {
           )}
         </Card>
         <Card className="px-6">
-          <h3>Thông tin lô hàng</h3>
+          <div className="flex gap-2 items-center border-b-1 pb-1">
+            <div className="w-fit p-2 rounded-full bg-primary/15">
+              <Box className="text-primary" size={15} />
+            </div>
+            <h3>Thông tin lô hàng</h3>
+          </div>
           <div className="grid grid-cols-3 gap-6 mx-4">
             {CARGOFIELDS.map((field) => (
               <div key={field.name}>
@@ -279,14 +307,22 @@ export default function Form({ form = {}, isEdit }) {
         {isEdit && (
           <Card className="flex flex-col bg-white px-4">
             <div className="flex justify-between items-center">
-              <h3>Bảng dịch vụ</h3>
+              <div className="flex gap-2 items-center border-b-1 pb-1">
+                <div className="w-fit p-2 rounded-full bg-primary/15">
+                  <List className="text-primary" size={15} />
+                </div>
+                <h3>Bảng dịch vụ</h3>
+              </div>
               <Button
                 type="button"
                 onClick={() => handleAdd()}
                 className="w-fit self-end mb-2"
                 variant="secondary"
               >
-                Thêm dịch vụ
+                <div className="flex gap-2 items-center">
+                  <PlusCircle />
+                  <b>Thêm dịch vụ</b>
+                </div>
               </Button>
             </div>
 

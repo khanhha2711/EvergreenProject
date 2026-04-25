@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { STATEBAOGIA } from "@/constants/bao-gia";
+import { Card } from "@/components/ui/card";
 
 export default function BaoGiaTable({ data }) {
   const router = useRouter();
@@ -59,31 +60,41 @@ export default function BaoGiaTable({ data }) {
   };
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex-1">
-          <SearchAndSort
-            onSearch={(val) => updateParams("search", val)}
-            onFilter={(val) => updateParams("state", val)}
-            status={STATEBAOGIA}
-            placeholder={"Tìm kiếm theo tên công ty"}
-          />
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <div className="space-y-2">
+          <h1>Danh sách báo giá</h1>
+          <p className="text-muted-foreground">
+            Theo dõi tiến trình và quản lý các báo giá
+          </p>
         </div>
       </div>
-      <DataTable
-        data={dataNew || ""}
-        columns={columns({ onDelete: handleDelete })}
-        basePath={PATH.ADMIN.BAOGIA.DANHSACH}
-        idName={"quotationCode"}
-      />
+      <Card className="-space-y-2 px-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <SearchAndSort
+              onSearch={(val) => updateParams("search", val)}
+              onFilter={(val) => updateParams("state", val)}
+              status={STATEBAOGIA}
+              placeholder={"Tên công ty"}
+            />
+          </div>
+        </div>
+        <DataTable
+          data={dataNew || ""}
+          columns={columns({ onDelete: handleDelete })}
+          basePath={PATH.ADMIN.BAOGIA.DANHSACH}
+          idName={"quotationCode"}
+        />
 
-      <PaginationTable
-        page={page}
-        totalPage={totalPage}
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handlePageChange={handlePageChange}
-      />
+        <PaginationTable
+          page={page}
+          totalPage={totalPage}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handlePageChange={handlePageChange}
+        />
+      </Card>
     </div>
   );
 }

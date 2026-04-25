@@ -11,6 +11,8 @@ import Modal from "@/components/modal/modal";
 import ModalKhachHang from "./modalKhacHang";
 import { getKhachHangChiTiet } from "@/actions/khachHangAction";
 import SearchAndFilter from "@/components/inputs/searchAndFilter";
+import { Card } from "@/components/ui/card";
+import { PlusCircle } from "lucide-react";
 
 export default function KhachHangTable({ data }) {
   const router = useRouter();
@@ -55,35 +57,35 @@ export default function KhachHangTable({ data }) {
     setIsOpen(true);
   };
   return (
-    <div className={cn("space-y-2 relative")}>
+    <Card className={cn("-space-y-2 px-4")}>
       <div className="flex items-center justify-between gap-4">
-        <div className="flex-1">
-          <SearchAndFilter
-            onSearch={(val) => updateParams("search", val)}
-            isFilter={false}
-          />
-          <Button
-            className={"absolute top-0 right-0"}
-            onClick={() => {
-              setIsOpen(true), setIsCreate(true);
-            }}
-          >
-            Thêm khách hàng mới
-          </Button>
-          {isOpen && (
-            <Modal>
-              <ModalKhachHang
-                setIsOpen={setIsOpen}
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-                data={detailData}
-                isCreate={isCreate}
-                setIsCreate={setIsCreate}
-              />
-            </Modal>
-          )}
-        </div>
+        <SearchAndFilter
+          onSearch={(val) => updateParams("search", val)}
+          isFilter={false}
+          placeholder='Số điện thoại'
+        />
+        <Button
+          className={""}
+          onClick={() => {
+            setIsOpen(true), setIsCreate(true);
+          }}
+        >
+          <PlusCircle />
+          Thêm khách hàng mới
+        </Button>
       </div>
+      {isOpen && (
+        <Modal>
+          <ModalKhachHang
+            setIsOpen={setIsOpen}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+            data={detailData}
+            isCreate={isCreate}
+            setIsCreate={setIsCreate}
+          />
+        </Modal>
+      )}
       <DataTable
         data={dataNew}
         columns={columns}
@@ -98,6 +100,6 @@ export default function KhachHangTable({ data }) {
         handleBack={handleBack}
         handlePageChange={handlePageChange}
       />
-    </div>
+    </Card>
   );
 }

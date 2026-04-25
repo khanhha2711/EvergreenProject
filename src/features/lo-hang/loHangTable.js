@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { columns } from "./columns";
 import { STATELOHANG } from "@/constants/lo-hang";
+import { Card } from "@/components/ui/card";
 
 export default function LoHangTable({ data }) {
   const router = useRouter();
@@ -44,30 +45,33 @@ export default function LoHangTable({ data }) {
   };
 
   return (
-    <div className="space-y-2">
+    <Card className="px-4 -space-y-2 w-full">
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
           <SearchAndSort
             onSearch={(val) => updateParams("search", val)}
             onFilter={(val) => updateParams("state", val)}
             status={STATELOHANG}
+            placeholder="Tên công ty"
           />
         </div>
       </div>
-      <DataTable
-        data={dataNew || ""}
-        columns={columns}
-        basePath={PATH.ADMIN.LOHANG.DANHSACH}
-        idName={"shipmentCode"}
-      />
+      <div className=" w-full overflow-x-auto">
+        <DataTable
+          data={dataNew || ""}
+          columns={columns}
+          basePath={PATH.ADMIN.LOHANG.DANHSACH}
+          idName={"shipmentCode"}
+        />
 
-      <PaginationTable
-        page={page}
-        totalPage={totalPage}
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handlePageChange={handlePageChange}
-      />
-    </div>
+        <PaginationTable
+          page={page}
+          totalPage={totalPage}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handlePageChange={handlePageChange}
+        />
+      </div>
+    </Card>
   );
 }

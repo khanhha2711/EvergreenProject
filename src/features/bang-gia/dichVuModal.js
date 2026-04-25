@@ -5,7 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { SERVICE_UNITS, SERVICEFIELDS } from "@/constants/dich-vu";
+import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,11 +35,15 @@ export default function DichVuModal({
 }) {
   const [errors, setErrors] = useState([]);
   const [unit, setUnit] = useState("");
+  const [description, setDescription] = useState("");
   const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     formData.append("unit", unit);
+    formData.append("description", description);
+
     const dataSubmit = Object.fromEntries(formData);
 
     const result = dichVuSchema.safeParse(dataSubmit);
@@ -46,7 +52,7 @@ export default function DichVuModal({
       const fieldErrors = {};
 
       result.error.issues.forEach((err) => {
-        const field = err.path[0]; // ví dụ: "serviceName"
+        const field = err.path[0];
         fieldErrors[field] = err.message;
       });
 
@@ -58,8 +64,11 @@ export default function DichVuModal({
       const res = isCreate
         ? await createDichVu(dataSubmit)
         : await updateDichVu({ id: data.serviceCode, data: dataSubmit });
+
       if (res.success) {
         setIsOpen(false);
+        setIsCreate(false);
+        setIsEdit(false);
         router.refresh();
         toast.success("Tạo mới thành công");
       }
@@ -72,26 +81,21 @@ export default function DichVuModal({
     }
   };
   return (
-    <Card className="space-y-4 px-12 ">
+    <Card className=" px-12 ">
       <div className="flex justify-between items-center">
-        <div className="flex gap-4">
-          <h3>
+        <div className="">
+          <h2>{isCreate ? "Thêm dịch vụ mới" : "Thông tin dịch vụ"}</h2>
+          <p className="text-gray-500">
             {isCreate
-              ? "Thêm dịch vụ mới"
-              : isEdit
-              ? "Chỉnh sửa dịch vụ"
-              : "Thông tin dịch vụ"}
-          </h3>
-          {!isCreate && <Badge>{data?.status || ""}</Badge>}
+              ? "Nhập thông tin chi tiết để tạo dịch vụ"
+              : "Thông tin chi tiết về dịch vụ"}
+          </p>
         </div>
 
         {isEdit || isCreate ? (
           ""
         ) : (
           <div className="flex items-center gap-2">
-            <Button variant={"secondary"} onClick={() => setIsEdit(true)}>
-              Chỉnh sửa
-            </Button>
             <Button
               onClick={() => setIsOpen(false)}
               className="bg-white hover:bg-white text-black"
@@ -106,7 +110,13 @@ export default function DichVuModal({
         className="grid grid-cols-3 gap-x-10 gap-y-4 "
       >
         {SERVICEFIELDS.slice(0, -1).map((service, index) => (
-          <div key={index} className="space-y-2">
+          <div
+            key={index}
+            className={cn(
+              "space-y-2",
+              service.name === "description" && "col-span-full",
+            )}
+          >
             <p>{service.label}</p>
             {isEdit || isCreate ? (
               service.name === "unit" ? (
@@ -116,6 +126,13 @@ export default function DichVuModal({
                   options={SERVICE_UNITS}
                   onChange={(value) => setUnit(value)}
                 />
+              ) : service.name === "description" ? (
+                <Textarea
+                  name="description"
+                  placeholder="Nhập mô tả dịch vụ"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               ) : (
                 <Input
                   name={service.name}
@@ -124,7 +141,13 @@ export default function DichVuModal({
                 />
               )
             ) : (
-              <b>{data?.[service.name]}</b>
+              <b>
+                {service.name === "unit"
+                  ? SERVICE_UNITS.find(
+                      (item) => item.value === data?.[service.name],
+                    )?.label
+                  : data?.[service.name]}
+              </b>
             )}
             {errors && (
               <p className="text-destructive">{errors?.[service.name]}</p>

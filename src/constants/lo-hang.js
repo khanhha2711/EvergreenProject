@@ -96,6 +96,7 @@ export const LANE = [
 ];
 
 export const SELECTTITLE = [
+  { label: "Tạo tờ khai hải quan", value: "CREATED" },
   { label: "Nhận phân luồng", value: "RECEIVE_LANE" },
   {
     label: "Chuyển luồng",
@@ -103,4 +104,52 @@ export const SELECTTITLE = [
   },
   { label: "Xử lý với hải quan", value: "PROCESS_LANE" },
   { label: "Thông quan", value: "CLEARANCE" },
+];
+
+export const SHIPMENT_STEPS = [
+  {
+    code: "Document Update",
+    title: "Cập nhật chứng từ",
+    description: "Hoàn tất hồ sơ lô hàng",
+    style: "bg-badge-1 text-badge-1-foreground ",
+  },
+  {
+    code: "Customs Declaration",
+    title: "Khai báo hải quan",
+    description: "Khai báo và kiểm tra chứng từ",
+    style: "bg-badge-2 text-badge-2-foreground",
+  },
+  {
+    code: "Clearance",
+    title: "Thông quan",
+    description: "Kiểm tra và cho phép thông quan",
+    style: "bg-badge-3 text-badge-3-foreground",
+  },
+  {
+    code: "Transportation",
+    title: "Vận chuyển",
+    description: "Đang vận chuyển hàng hóa",
+    style: "bg-badge-4 text-badge-4-foreground",
+  },
+  {
+    code: "Completed",
+    title: "Hoàn thành",
+    description: "Hoàn thành lô hàng",
+    style: "bg-chart-5/20 text-chart-5",
+  },
+];
+
+export const documentOptions = [
+  { value: "Commercial Invoice", label: "Commercial Invoice" },
+  { value: "Packing List", label: "Packing List" },
+  { value: "Bill of Lading", label: "Bill of Lading" },
+  { value: "Air Waybill", label: "Air Waybill" },
+  { value: "Sales Contract", label: "Sales Contract" },
+  { value: "Certificate of Origin", label: "Certificate of Origin" },
+  { value: "Customs Declaration", label: "Customs Declaration" },
+  { value: "Import License", label: "Import License" },
+  { value: "Inspection Certificate", label: "Inspection Certificate" },
+  { value: "Insurance Certificate", label: "Insurance Certificate" },
+  { value: "Phytosanitary Certificate", label: "Phytosanitary Certificate" },
+  { value: "Health Certificate", label: "Health Certificate" },
 ];

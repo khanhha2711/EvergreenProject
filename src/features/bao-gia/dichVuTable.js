@@ -13,7 +13,7 @@ export default function DichVuTable({
   serviceFields,
 }) {
   const handleDelete = (id) => {
-    handleUpdate((prev) => prev.filter((item) => item.serviceCode !== id));
+    handleUpdate((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleChange = async ({ id, field, value }) => {

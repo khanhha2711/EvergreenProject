@@ -9,5 +9,15 @@ export default async function HopDongTableContainer({ searchParams }) {
     search,
   });
 
-  return <HopDongTable data={res.data} />;
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1>Danh sách hợp đồng</h1>
+        <p className="text-muted-foreground">
+          Quản lý và theo dõi các hợp đồng với khách hàng
+        </p>
+      </div>
+      <HopDongTable data={res.data} />
+    </div>
+  );
 }

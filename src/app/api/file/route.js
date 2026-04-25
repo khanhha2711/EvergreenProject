@@ -1,4 +1,3 @@
-// app/api/file/route.js
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);

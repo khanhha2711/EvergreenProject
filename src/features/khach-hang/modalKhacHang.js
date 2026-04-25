@@ -88,14 +88,20 @@ export default function ModalKhachHang({
           }}
         />
       )}
-      <div className="flex justify-between">
-        <h3 className="mb-4">
-          {isEdit
-            ? "Chỉnh sửa thông tin khách hàng"
-            : !isCreate
-            ? "Thông tin khách hàng"
-            : "Thêm mới khách hàng"}
-        </h3>
+      <div className="flex justify-between mb-4">
+        <div>
+          <h2 className="">
+            {isEdit
+              ? "Chỉnh sửa thông tin khách hàng"
+              : !isCreate
+              ? "Thông tin khách hàng"
+              : "Thêm mới khách hàng"}
+          </h2>
+          <p className="text-muted-foreground">
+            Thông tin chi tiết của khách hàng
+          </p>
+        </div>
+
         {!isEdit && !isCreate && (
           <div className="flex gap-3">
             <Button variant="secondary" onClick={() => setIsEdit(true)}>

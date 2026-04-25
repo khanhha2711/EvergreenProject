@@ -10,5 +10,15 @@ export default async function NhanVienTableContainer({ searchParams }) {
   });
   console.log(res.data);
 
-  return <NhanVienTable data={res.data} />;
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1>Danh sách nhân viên</h1>
+        <p className="text-muted-foreground">
+          Theo dõi và quản lý thông tin nhân viên
+        </p>
+      </div>
+      <NhanVienTable data={res.data} />
+    </div>
+  );
 }

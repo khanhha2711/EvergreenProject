@@ -81,7 +81,7 @@ const ShipView = ({ data, id }) => {
     }
   };
   return (
-    <Card className="px-12">
+    <Card className="px-12 mb-15">
       <div className="flex items-center justify-between">
         <div className="flex gap-2 items-baseline">
           <Ship size={18} />

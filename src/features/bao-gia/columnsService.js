@@ -1,5 +1,7 @@
 import { SelectComponent } from "@/components/inputs/select";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SERVICE_UNITS } from "@/constants/dich-vu";
 import { ChangeMoney } from "@/lib/changeMoney";
 import { Delete, Pen, Trash2 } from "lucide-react";
 
@@ -14,8 +16,9 @@ export const getColumns = ({
     {
       accessorKey: "id",
       header: "STT",
+      size: 60,
       cell: ({ row }) => {
-        return <div className="text-center">{row.index + 1}</div>;
+        return <div className="px-2">{row.index + 1}</div>;
       },
     },
     {
@@ -43,6 +46,7 @@ export const getColumns = ({
     {
       accessorKey: "quantity",
       header: "Số lượng",
+      size: 140,
       cell: ({ row }) => {
         if (showActions) {
           return (
@@ -64,6 +68,15 @@ export const getColumns = ({
     {
       accessorKey: "unit",
       header: "Đơn vị",
+      size: 140,
+      cell: ({ row }) => (
+        <div>
+          {
+            SERVICE_UNITS.find((item) => item.value === row.original.unit)
+              ?.label
+          }
+        </div>
+      ),
     },
     {
       accessorKey: "unitPrice",
@@ -81,14 +94,18 @@ export const getColumns = ({
     baseColumns.push({
       id: "actions",
       header: "Hành động",
+      size: 80,
       cell: ({ row }) => {
         const item = row.original;
 
         return (
-          <div className="flex gap-2">
-            <button onClick={() => onDelete?.(item.serviceCode)}>
-              <Trash2 className="icon" />
-            </button>
+          <div className="flex gap-2 items-center justify-center">
+            <Button
+              className=" bg-white hover:bg-white"
+              onClick={() => onDelete?.(item.id)}
+            >
+              <Trash2 className="text-destructive" />
+            </Button>
           </div>
         );
       },

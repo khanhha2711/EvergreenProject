@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export default async function LoHang({ searchParams }) {
   return (
-    <div className="container mx-auto h-full">
+    <div className="container h-full">
       <Suspense fallback={<Skeleton className="w-full h-[200px]" />}>
         <LoHangTableContainer searchParams={searchParams} />
       </Suspense>

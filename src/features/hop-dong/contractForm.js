@@ -17,7 +17,8 @@ export default function ContractForm({ data, id }) {
   const [form, setForm] = useState({
     signedDate: "",
     expiredDate: "",
-    contractName: "",
+    contractName: "HỢP ĐỒNG NGUYÊN TẮC",
+    contractNumber: "",
   });
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
@@ -33,15 +34,21 @@ export default function ContractForm({ data, id }) {
         signedDate: "Vui lòng chọn ngày ký hợp đồng",
         expiredDate: "Vui lòng chọn ngày hết hạn",
       });
+      setIsLoading(false);
+
       return;
     }
-    if (form.contractName === "") {
-      setErrors({ contractName: "Vui lòng nhập tên hợp đồng" });
+    if (form.contractNumber === "") {
+      setErrors({ contractNumber: "Vui lòng nhập tên hợp đồng" });
+      setIsLoading(false);
+      return;
     }
     if (form.signedDate < new Date()) {
       setErrors({
         signedDate: "Ngày ký hợp đồng không được trước ngày hiện tại",
       });
+      setIsLoading(false);
+
       return;
     }
 
@@ -49,12 +56,15 @@ export default function ContractForm({ data, id }) {
       setErrors({
         expiredDate: "Ngày hết hạn phải sau ngày ký hợp đồng",
       });
+      setIsLoading(false);
+
       return;
     }
     if (!file) {
       setErrors({
         file: "Vui lòng tải lên hợp đồng",
       });
+      setIsLoading(false);
       return;
     }
     const formatDate = (date) => {
@@ -65,6 +75,7 @@ export default function ContractForm({ data, id }) {
 
     formData.append("quotationCode", id);
     formData.append("contractName", form.contractName);
+    formData.append("contractNumber", form.contractNumber);
     formData.append("signedDate", formatDate(form.signedDate));
     formData.append("expiredDate", formatDate(form.expiredDate));
     formData.append("file", file);
@@ -77,6 +88,7 @@ export default function ContractForm({ data, id }) {
       return;
     } else {
       toast.error(res.error || "Tạo hợp đồng thất bại");
+      setIsLoading(false);
     }
   };
   const handleUpdate = (field, value) => {
@@ -88,7 +100,12 @@ export default function ContractForm({ data, id }) {
 
   return (
     <div className="space-y-4 container ">
-      <h2>Tạo hợp đồng mới</h2>
+      <div>
+        <h2>Tạo hợp đồng mới</h2>
+        <p className="text-muted-foreground">
+          Nhập thông tin chi tiết của hợp đồng{" "}
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Card className="bg-white grid grid-cols-3 gap-4 p-6 px-12 ">
@@ -104,17 +121,24 @@ export default function ContractForm({ data, id }) {
             </div>
           ))}
         </Card>
-        <Card className="grid grid-cols-3 gap-6 px-12">
+        <Card className="grid grid-cols-4 gap-6 px-12">
           <h3 className="col-span-full">Thông tin hợp đồng</h3>
           <div>
             <p className="mb-2">Tên hợp đồng</p>
-            <Input
-              placeholder="Nhập tên hợp đồng"
-              value={form.contractName}
-              onChange={(e) => handleUpdate("contractName", e.target.value)}
-            />
+            <b className="">HỢP ĐỒNG NGUYÊN TẮC</b>
             {errors.contractName && (
               <p className="text-sm text-red-500">{errors.contractName}</p>
+            )}
+          </div>
+          <div>
+            <p className="mb-2">Số hợp đồng</p>
+            <Input
+              placeholder="Nhập tên hợp đồng"
+              value={form.contractNumber}
+              onChange={(e) => handleUpdate("contractNumber", e.target.value)}
+            />
+            {errors.contractNumber && (
+              <p className="text-sm text-red-500">{errors.contractNumber}</p>
             )}
           </div>
           <div>

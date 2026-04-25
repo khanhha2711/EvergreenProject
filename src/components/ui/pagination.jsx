@@ -42,8 +42,8 @@ function PaginationLink({ className, isActive, size = "icon", ...props }) {
       data-active={isActive}
       className={cn(
         buttonVariants({
-          variant: isActive ? "secondary" : "ghost",
-          size,
+          variant: isActive ? "default" : "ghost",
+          size: "sm",
         }),
         className,
         "text-sm",

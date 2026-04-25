@@ -6,6 +6,7 @@ import PATH from "@/routes/path";
 import { toast } from "sonner";
 import { createBaoGia } from "@/actions/baoGiaAction";
 import { useState } from "react";
+import { PlusCircle } from "lucide-react";
 
 export function CreateBaoGiaButton({ requestId }) {
   const router = useRouter();
@@ -14,12 +15,12 @@ export function CreateBaoGiaButton({ requestId }) {
     setIsLoading(true);
     try {
       const res = await createBaoGia(requestId);
-
-      if (!res?.success || !res?.data?.id) {
-        setIsLoading(false);
-        throw new Error("Tạo thất bại");
+      console.log(res);
+      if (res.success) {
+        router.push(PATH.ADMIN.BAOGIA.CHITIET(res.data.quotationCode));
+      } else {
+        toast.error("Tạo báo giá thất bại");
       }
-      router.push(PATH.ADMIN.BAOGIA.CHITIET(res.data.id));
     } catch (error) {
       toast.error("Tạo báo giá thất bại");
     }
@@ -27,7 +28,14 @@ export function CreateBaoGiaButton({ requestId }) {
 
   return (
     <Button onClick={() => handleCreate()} disabled={isLoading}>
-      {isLoading ? "Đang tạo ..." : "Tạo báo giá"}
+      {isLoading ? (
+        "Đang tạo ..."
+      ) : (
+        <div className="flex gap-2 items-center">
+          <PlusCircle />
+          <p>Tạo báo giá</p>
+        </div>
+      )}
     </Button>
   );
 }

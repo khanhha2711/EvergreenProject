@@ -6,6 +6,7 @@ export const getColumns = ({ handleEdit }) => {
     {
       id: "stt",
       header: "STT",
+      size: 60,
       cell: ({ row }) => <div>{row.index + 1}</div>,
     },
     { accessorKey: "documentCode", header: "Mã chứng từ" },

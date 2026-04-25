@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Box, Container } from "lucide-react";
+import { Box, Container, Ship, Truck } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function VanTaiTab() {
@@ -15,31 +15,35 @@ export default function VanTaiTab() {
   };
   const currentTab = searchParams.get("tab") || "noi-dia";
   return (
-    <div className="flex items-center gap-4 bg-white py-2 px-4">
-      <Button
+    <div className="flex items-center gap-8 py-2 px-8 border-b-1 border-gray-300">
+      <button
         className={cn(
-          "bg-white text-primary hover:bg-white",
+          " text-muted-foreground hover:cursor-pointer ",
           currentTab === "noi-dia"
-            ? " underline underline-offset-8 font-bold"
+            ? "text-primary underline underline-offset-11 decoration-[0.10rem]"
             : "",
         )}
         onClick={() => handleChangeTab("noi-dia")}
       >
-        <Box />
-        Vận tải nội địa
-      </Button>
-      <Button
+        <div className="flex gap-2 items-center">
+          <Truck size={15} />
+          <p className="font-semibold">Vận tải nội địa</p>
+        </div>
+      </button>
+      <button
         className={cn(
-          "bg-white text-primary hover:bg-white",
+          " text-muted-foreground hover:cursor-pointer ",
           currentTab === "hang-tau"
-            ? " underline underline-offset-8 font-bold"
+            ? "text-primary underline underline-offset-11 decoration-[0.10rem]"
             : "",
         )}
         onClick={() => handleChangeTab("hang-tau")}
       >
-        <Container />
-        Hãng tàu
-      </Button>
+        <div className="flex gap-2 items-center">
+          <Ship size={15} />
+          <b>Hãng tàu</b>
+        </div>
+      </button>
     </div>
   );
 }

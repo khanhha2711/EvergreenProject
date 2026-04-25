@@ -14,7 +14,7 @@ const CustomView = ({ data, id }) => {
         {isCreate ? (
           <CustomModal id={id} setIsCreate={setIsCreate} />
         ) : data?.length !== 0 ? (
-          <CustomDetail data={data} />
+          <CustomDetail data={data} id={id} />
         ) : (
           <Card>
             <div className="flex justify-between border-b pb-4 px-6">

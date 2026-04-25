@@ -1,3 +1,6 @@
+import { Badge } from "@/components/ui/badge";
+import { SHIPMENT_STEPS } from "@/constants/lo-hang";
+
 export const columns = [
   { accessorKey: "shipmentCode", header: "Mã lô hàng" },
   { accessorKey: "companyName", header: "Tên công ty" },
@@ -6,5 +9,14 @@ export const columns = [
   { accessorKey: "departureDate", header: "Ngày khởi hành" },
   { accessorKey: "estimatedArrival", header: "Ngày dự kiến" },
   { accessorKey: "createdAt", header: "Ngày tạo" },
-  { accessorKey: "status", header: "Trạng thái" },
+  {
+    accessorKey: "status",
+    header: "Trạng thái",
+    cell: ({ row }) => {
+      const item = SHIPMENT_STEPS.find(
+        (item) => item.code === row.original.status,
+      );
+      return <Badge className={`${item?.style}`}>{item?.title}</Badge>;
+    },
+  },
 ];

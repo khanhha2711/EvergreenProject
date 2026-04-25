@@ -1,11 +1,12 @@
 "use client";
 import { createChungTu, updateChungTu } from "@/actions/chungTuAction";
 import UploadFile from "@/components/file/uploadFile";
+import { SelectComponent } from "@/components/inputs/select";
 import ConfirmModal from "@/components/modal/comfirmModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { DOCUMENTFIELDS } from "@/constants/lo-hang";
+import { DOCUMENTFIELDS, documentOptions } from "@/constants/lo-hang";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -35,7 +36,9 @@ const DocumentModal = ({
   const [isComfirm, setIsConfirm] = useState(false);
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [documentType, setDocumentType] = useState(
+    dataDetail?.documentType || "",
+  );
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -43,6 +46,7 @@ const DocumentModal = ({
     setError({});
     setIsLoading(true);
     const formData = new FormData(e.target);
+    formData.append("documentType", documentType);
     if (isEdit) {
       formData.append("documentNumber", dataDetail.documentNumber);
       formData.append("documentType", dataDetail.documentType);
@@ -121,11 +125,20 @@ const DocumentModal = ({
           DOCUMENTFIELDS.slice(1, 3).map((field, index) => (
             <div key={index}>
               <label htmlFor={field.name}>{field.label}</label>
-              <Input
-                id={field.name}
-                name={field.name}
-                placeholder={field.placeholder}
-              />
+              {field.name === "documentType" ? (
+                <SelectComponent
+                  placeHolder={"Chọn loại chứng từ"}
+                  options={documentOptions}
+                  value={documentType || ""}
+                  onChange={(value) => setDocumentType(value)}
+                />
+              ) : (
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                />
+              )}
               {error[field.name] && (
                 <p className="text-red-500 text-xs mt-1">{error[field.name]}</p>
               )}

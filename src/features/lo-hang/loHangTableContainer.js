@@ -9,5 +9,15 @@ export default async function LoHangTableContainer({ searchParams }) {
     search,
   });
 
-  return <LoHangTable data={res.data} />;
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1>Danh sách lô hàng</h1>
+        <p className="text-muted-foreground">
+          Theo dõi và quản lý các lô hàng trong hệ thống
+        </p>
+      </div>
+      <LoHangTable data={res.data} />
+    </div>
+  );
 }

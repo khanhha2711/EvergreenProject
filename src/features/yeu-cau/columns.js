@@ -6,6 +6,7 @@ export const columns = ({ handleDelete }) => [
   {
     accessorKey: "requestCode",
     header: "Mã YC",
+    size: 70,
   },
   {
     accessorKey: "companyName",
@@ -14,6 +15,7 @@ export const columns = ({ handleDelete }) => [
   {
     accessorKey: "contactName",
     header: "Người đại diện",
+    size: 100,
   },
   {
     id: "contact",
@@ -31,6 +33,7 @@ export const columns = ({ handleDelete }) => [
   {
     accessorKey: "status",
     header: "Trạng thái",
+    size: 80,
     cell: ({ row }) => {
       const state = row.original.status.toLowerCase();
       const currentState = STATEYEUCAU.find((s) => s.value === state);
@@ -48,6 +51,7 @@ export const columns = ({ handleDelete }) => [
   {
     accessorKey: "createdAt",
     header: "Ngày tạo",
+    size: 90,
     cell: ({ row }) => {
       return row.original.createdAt;
     },

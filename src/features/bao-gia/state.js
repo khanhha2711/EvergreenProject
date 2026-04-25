@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import ContractForm from "../hop-dong/contractForm";
+import { CheckCircle, PlusCircle, Save, XCircle } from "lucide-react";
 
 export const State = ({ id, state, data }) => {
   const [currentState, setCurrentState] = useState(state);
@@ -56,16 +57,11 @@ export const State = ({ id, state, data }) => {
       )}
       {normalizedState === "draft" && (
         <div className="flex gap-6">
-          <Link href={PATH.ADMIN.BAOGIA.CHINHSUA(id)}>
-            <Button variant="secondary" className="bg-white" disabled={loading}>
-              Chỉnh sửa
-            </Button>
-          </Link>
-
           <Button
             onClick={() => handleUpdateState("send", { sendEmail: true })}
             disabled={loading}
           >
+            <Save size={15} />
             {loading ? "Đang gửi ..." : "Gửi báo giá"}
           </Button>
         </div>
@@ -74,18 +70,13 @@ export const State = ({ id, state, data }) => {
       {/* SEND */}
       {normalizedState === "send" && (
         <div className="flex gap-6 ">
-          <Link href={PATH.ADMIN.BAOGIA.CHINHSUA(id)}>
-            <Button variant="outline" disabled={loading}>
-              Chỉnh sửa
-            </Button>
-          </Link>
-
           <Button
             onClick={() => handleUpdateState("rejected")}
             disabled={loading}
             className="bg-badge-1 text-badge-1-foreground hover:bg-badge-1-foreground/30"
           >
-            Khách hàng từ chối
+            <XCircle size={15} className="text-badge-1-foreground" /> Khách hàng
+            từ chối
           </Button>
 
           <Button
@@ -93,6 +84,7 @@ export const State = ({ id, state, data }) => {
             disabled={loading}
             className="bg-badge-4 text-badge-4-foreground hover:bg-badge-4-foreground/30"
           >
+            <CheckCircle size={15} className="text-badge-4-foreground" />
             Khách hàng chấp nhận
           </Button>
         </div>
@@ -101,6 +93,7 @@ export const State = ({ id, state, data }) => {
       {/* APPROVED */}
       {normalizedState === "approved" && (
         <Button disabled={loading} onClick={createContract}>
+          <PlusCircle size={15} />
           {loading ? "Đang tải..." : "Tạo hợp đồng"}
         </Button>
       )}

@@ -54,14 +54,14 @@ public class EmployeeService implements IEmployeeService{
 
         Accounts accounts= accountRepository.findByGmail(dto.getGmail());
         if(accounts!=null){
-            throw new RuntimeException("Gmail đã tồn tại");
+            throw new RuntimeException("Gmail already existed.");
         }
         Users users= new Users();
         users.setUserName(dto.getEmployeeName());
         users.setUserPhone(dto.getEmployeePhone());
         users.setCreateAt(LocalDate.now());
-        users.setUserAddress("null");
-        users.setUserStatus("Native");
+        users.setUserAddress("NULL");
+        users.setUserStatus("NATIVE");
         Users saves= userRepository.save(users);
 
         Accounts accounts1= new Accounts();
@@ -109,11 +109,11 @@ public class EmployeeService implements IEmployeeService{
 
         Employees emp = employeeRepository.findByEmployeeCode(employeeCode);
         if(emp == null){
-            throw new RuntimeException("Khong tim thay");
+            throw new RuntimeException("Not found");
         }
         Users user = emp.getUser();
         if (user == null) {
-            throw new RuntimeException("Employee chưa có user");
+            throw new RuntimeException("The employee has no user yet.");
         }
         if (dto.getEmployeeName() != null && !dto.getEmployeeName().isBlank()) {
             user.setUserName(dto.getEmployeeName());
@@ -134,11 +134,11 @@ public class EmployeeService implements IEmployeeService{
 
         if (dto.getGmail() != null && !dto.getGmail().isBlank()) {
             Accounts acc = accountRepository.findByUserId_Id(user.getId())
-                    .orElseThrow(() -> new RuntimeException("Không tìm thấy account"));
+                    .orElseThrow(() -> new RuntimeException("Account not found"));
 
             Optional<Accounts> existing = accountRepository.findByGmailAndIdNot(dto.getGmail(),acc.getAccountId());
             if (existing.isPresent()) {
-                throw new RuntimeException("Gmail đã tồn tại với tài khoản khác");
+                throw new RuntimeException("Gmail already exists with another account.");
             }
 
             acc.setGmail(dto.getGmail());

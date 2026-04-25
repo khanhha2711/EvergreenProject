@@ -36,4 +36,9 @@ public interface ITruckRepository extends JpaRepository<Trucks,Integer> {
 
     Trucks findByTruckCode(String truckCode);
 
+    List<Trucks> findAllByShipment(Shipments shipment);
+
+
+    Trucks findByShipment(Shipments shipment);
+
 }

@@ -28,11 +28,23 @@ public class Trucks {
 
     @Column(name = "driver_phone")
     private String driverPhone;
+
+    @Column(name = "status")
+    private String status;
     @ManyToOne
     @JoinColumn(name = "container_id")
     private Containers container;
 
+
     public Trucks() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Containers getContainer() {

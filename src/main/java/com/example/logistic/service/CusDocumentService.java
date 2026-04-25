@@ -80,13 +80,13 @@ public class CusDocumentService implements ICusDocumentService{
         Shipments shipments= shipmentRepository.findByShipmentCode(shipmentCode);
 
         if (shipments == null) {
-            throw new RuntimeException("Shipment không tồn tại");
+            throw new RuntimeException("Shipment not found");
         }
 
         List<CusDocuments> cusDocuments=cusDocumentRepository.findByShipmentCode(shipmentCode);
         for(CusDocuments documents:cusDocuments){
             if(documents.getDocumentNumber().equals(dto.getDocumentNumber())){
-                throw  new RuntimeException("Chứng từ đã tồn tại, chỉ được phép cập nhật!");
+                throw  new RuntimeException("The document already exists, only updating is permitted!");
             }
         }
         String attachment = null;
@@ -111,7 +111,7 @@ public class CusDocumentService implements ICusDocumentService{
     public DetailDocument detailDocument(String documentCode) throws IOException {
         CusDocuments documents= cusDocumentRepository.findByDocumentCode(documentCode);
         if(documents == null){
-            throw  new RuntimeException("Chứng từ không tồn tại");
+            throw  new RuntimeException("The document does not exist.");
         }
         DetailDocument detailDocument= new DetailDocument();
         ListDTO dto= new ListDTO();
@@ -162,7 +162,7 @@ public class CusDocumentService implements ICusDocumentService{
     public String updateDocument(String documentCode, CreateReqestDTO dto, MultipartFile file) throws IOException {
         CusDocuments cusDocuments= cusDocumentRepository.findByDocumentCode(documentCode);
         if(cusDocuments == null){
-            throw new RuntimeException("Chứng từ không tồn tại");
+            throw new RuntimeException("The document does not exist.");
         }
 
         LogDocuments logDocuments=new LogDocuments();

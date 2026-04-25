@@ -1,12 +1,15 @@
 package com.example.logistic.controller;
 
 import com.example.logistic.DTO.Trucks.GetAllTruckDTO;
+import com.example.logistic.DTO.Trucks.InTransit.GetTransportDTO;
 import com.example.logistic.DTO.Trucks.TruckItemDTO;
 import com.example.logistic.DTO.Trucks.UpdateTruckDTO;
 import com.example.logistic.service.ITruckingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/trucking")
@@ -35,6 +38,10 @@ public class TruckController {
     public ResponseEntity<Void> deleteTruck(@PathVariable ("truckCode") String truckCode){
        truckingService.deleteTruck(truckCode);
         return  ResponseEntity.ok().build();
+    }
+    @GetMapping("/transport/{shipmentCode}")
+    public ResponseEntity<List<GetTransportDTO>> getTransport(@PathVariable ("shipmentCode") String shipmentCode){
+        return ResponseEntity.ok(truckingService.getTruck(shipmentCode));
     }
 }
 

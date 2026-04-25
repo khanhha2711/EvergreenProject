@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 public class ListDTO {
-    private  String contractCode;
-    private String quotationCode;
+    private  String contractNumber;
+    private String contractName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate signedDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
@@ -16,20 +16,20 @@ public class ListDTO {
     public ListDTO() {
     }
 
-    public String getContractCode() {
-        return contractCode;
+    public String getContractNumber() {
+        return contractNumber;
     }
 
-    public void setContractCode(String contractCode) {
-        this.contractCode = contractCode;
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
-    public String getQuotationCode() {
-        return quotationCode;
+    public String getContractName() {
+        return contractName;
     }
 
-    public void setQuotationCode(String quotationCode) {
-        this.quotationCode = quotationCode;
+    public void setContractName(String contractName) {
+        this.contractName = contractName;
     }
 
     public LocalDate getSignedDate() {

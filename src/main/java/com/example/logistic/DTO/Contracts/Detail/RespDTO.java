@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class RespDTO {
     private String contractCode;
     private String contractName;
+    private String contractNumber;
     private String quotationCode;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate signedDate;
@@ -18,6 +19,14 @@ public class RespDTO {
     private CustomerContractDTO customer;
     private AttachmentDTO attachment;
     public RespDTO() {
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getContractName() {

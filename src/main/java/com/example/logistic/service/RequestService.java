@@ -1,6 +1,7 @@
 package com.example.logistic.service;
 
 import com.example.logistic.DTO.RequestDTO.*;
+import com.example.logistic.common.LocationAPI;
 import com.example.logistic.entity.*;
 import com.example.logistic.repository.*;
 import jakarta.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequestService implements IRequestService {
@@ -25,6 +27,8 @@ public class RequestService implements IRequestService {
     private IServiceRepository serviceRepository;
     @Autowired
     private IRequestRepository requestRepository;
+    @Autowired
+    private LocationAPI locationAPI;
 
     @Autowired
     private IServiceDetailRepository serviceDetailRepository;
@@ -63,7 +67,7 @@ public class RequestService implements IRequestService {
                 });
         // Service
        List<String> serviceCode= requestDTO.getCustomer().getService();
-       List<Services> listService= serviceRepository.findByServiceCodeIn(serviceCode);
+       List<Services> listService= serviceRepository.findActiveServices(serviceCode);
 
        if(listService.isEmpty()){
            throw new RuntimeException("No services found for codes: "+serviceCode);
@@ -94,12 +98,21 @@ public class RequestService implements IRequestService {
 
         for(Services s:listService){
             int quantity=1;
-            if("container".equalsIgnoreCase(s.getUnit())){
-                quantity=(int) Math.ceil(
-                        (double) requestDTO.getCargo().getGrossWeight()/s.getCapacity()
+            String containerType = requestDTO.getTransport().getContainerType();
+
+            if (containerType != null
+                    && containerType.equalsIgnoreCase(s.getUnit())
+                    && s.getCapacity() > 0) {
+
+                quantity = (int) Math.ceil(
+                        (double) requestDTO.getCargo().getGrossWeight() / s.getCapacity()
                 );
-                req.setQuantityContainer(quantity);
+
+            } else {
+                // 👉 các service khác
+                quantity = 1;
             }
+            req.setQuantityContainer(quantity);
             ServiceDetail rs= new ServiceDetail();
             rs.setService(s);
             rs.setRequest(req);

@@ -1,6 +1,7 @@
 package com.example.logistic.service;
 
 import com.example.logistic.DTO.CustomerDTO.*;
+import com.example.logistic.common.LocationAPI;
 import com.example.logistic.entity.Customers;
 import com.example.logistic.entity.Services;
 import com.example.logistic.repository.ICustomerRepository;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,8 @@ public class CustomerService implements ICustomerService{
     private ICustomerRepository customerRepository;
 
 
+    @Autowired
+    private LocationAPI locationAPI;
     @Override
     public List<ListDTO> findAll() {
         return customerRepository.findAll()

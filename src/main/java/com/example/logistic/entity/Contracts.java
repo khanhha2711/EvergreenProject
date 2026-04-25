@@ -33,10 +33,21 @@ public class Contracts {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 
+    @Column(name="contract_number")
+    private String contractNumber;
+
     @Column(name="attachment")
     private String attachment;
 
     public Contracts() {
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getAttachment() {

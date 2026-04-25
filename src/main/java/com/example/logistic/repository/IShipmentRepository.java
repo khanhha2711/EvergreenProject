@@ -27,4 +27,5 @@ public interface IShipmentRepository extends JpaRepository<Shipments,Integer> {
             @Param("filter") String filter
     );
 
+    List<Shipments> findByStatus(String status);
 }

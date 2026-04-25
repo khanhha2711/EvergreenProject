@@ -83,7 +83,7 @@ public class QuotationService implements IQuotationService{
         for(ServiceDetail rs: list){
             Services services= rs.getService();
             int quantity=1;
-            if("container".equalsIgnoreCase(services.getUnit())){
+            if(requests.getContainerType().equalsIgnoreCase(services.getUnit())){
                 quantity=(int) Math.ceil(
                         requests.getGrossWeight()/services.getCapacity()
                 );
@@ -263,7 +263,7 @@ public class QuotationService implements IQuotationService{
         //employee
 
         ActivityDTO activityDTO=new ActivityDTO();
-        activityDTO.setAction("Tao bao gia");
+        activityDTO.setAction("Create a quote");
         activityDTO.setUser(quotations.getEmployee().getUser().getUserName());
         activityDTO.setTimestamp(
                 quotations.getCreatedAt() !=null

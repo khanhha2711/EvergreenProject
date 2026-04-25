@@ -51,20 +51,24 @@ public class ServiceService implements IServiceService{
     public String createService(CreateServiceDTO dto) {
         boolean check= serviceRepository.existsByServiceNameAndUnit(dto.getServiceName(),dto.getUnit());
         if(check){
-            throw new RuntimeException("Da ton tai");
+            throw new RuntimeException("The service already exists.");
         }
+        String type = "40' Cont";
+        String type2="20' Cont";
         Services services= new Services();
         services.setServiceName(dto.getServiceName());
         services.setUnit(dto.getUnit());
         services.setPrice(dto.getPrice());
         services.setDescription(dto.getDescription());
         services.setStatus("ACTIVE");
-        if("container".equalsIgnoreCase(dto.getServiceName())){
+        if(type.equalsIgnoreCase(dto.getUnit())){
+            services.setCapacity(23000);
+        }else if(type2.equalsIgnoreCase(dto.getUnit())){
             services.setCapacity(26000);
         }
 
         serviceRepository.save(services);
-        return "Them thanh cong";
+        return "Service added successfully.";
     }
 
     @Override

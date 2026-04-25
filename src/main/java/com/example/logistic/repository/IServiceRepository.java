@@ -15,6 +15,11 @@ public interface IServiceRepository extends JpaRepository<Services, Integer> {
     Services findByServiceName(String name);
     Services findByServiceCode(String serviceCode);
     boolean existsByServiceNameAndUnit(String serviceName, String unit);
-    List<Services> findByServiceCodeIn(List<String> serviceCode);
+    @Query("""
+    SELECT s FROM Services s
+    WHERE s.serviceCode IN :codes
+    AND UPPER(TRIM(s.status)) = 'ACTIVE'
+""")
+    List<Services> findActiveServices(@Param("codes") List<String> codes);
     Optional<Services> findByServiceCodeAndStatus(String serviceCode, String status);
 }

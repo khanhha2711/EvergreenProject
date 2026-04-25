@@ -178,5 +178,14 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         converters.add(new ByteArrayHttpMessageConverter());
         converters.add(converter);
     }
+    @Bean
+    public org.springframework.web.filter.CharacterEncodingFilter characterEncodingFilter() {
+        org.springframework.web.filter.CharacterEncodingFilter filter =
+                new org.springframework.web.filter.CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
+    }
+
 
 }

@@ -29,10 +29,30 @@ public class VesselBookings {
 
     @Column(name = "port_of_loading") // cang di
     private String portOfLoading;
+    @Column(name="latitude")
+    private Double latitude;
+    @Column(name="longitude ")
+    private Double longitude ;
     @Column(name = "port_of_discharge") // cang den
     private String portOfDischarge ;
 
     public VesselBookings() {
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getBookingNumber() {

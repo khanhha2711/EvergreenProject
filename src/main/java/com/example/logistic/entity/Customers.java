@@ -34,8 +34,11 @@ public class Customers {
     private String taxCode;
 
 
+
+
     public Customers() {
     }
+
 
 
     public int getId() {

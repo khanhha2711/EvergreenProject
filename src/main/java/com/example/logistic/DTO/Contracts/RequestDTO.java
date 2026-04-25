@@ -7,12 +7,21 @@ import java.time.LocalDate;
 public class RequestDTO {
     private String quotationCode;
     private String contractName;
+    private String  contractNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate signedDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiredDate;
 
     public RequestDTO() {
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getContractName() {

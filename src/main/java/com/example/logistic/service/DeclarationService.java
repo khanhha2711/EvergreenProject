@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class DeclarationService implements  ICusDeclarationService{
     private IContainerRepository containerRepository;
     @Autowired
     private ILogDeclarationRepository logDeclarationRepository;
+    @Autowired
+    private  IShipmentStatusRepository shipmentStatusRepository;
 
     public static  final String UPLOAD_DIR= "D:/TTTN/Uploads/Declarations/";
     @Override
@@ -42,19 +45,25 @@ public class DeclarationService implements  ICusDeclarationService{
     public String createDeclaration(String shipmentCode, CreateNewDTO dto, MultipartFile file) throws Exception {
         Shipments shipments= shipmentRepository.findByShipmentCode(shipmentCode);
         if(shipments == null){
-            throw  new RuntimeException("Shipment không tồn tại");
+            throw  new RuntimeException("Shipment does not exist.");
         }
 
-        shipments.setStatus("Khai báo hải quan");
+        shipments.setStatus("Customs Declaration");
         shipmentRepository.save(shipments);
+        // status history
+        ShipmentStatus shipmentStatus= new ShipmentStatus();
+        shipmentStatus.setShipment(shipments);
+        shipmentStatus.setStatus(shipments.getStatus());
+        shipmentStatus.setUpdatedAt(LocalDate.now());
+        shipmentStatusRepository.save(shipmentStatus);
 
         CusDeclarations cusDeclarations= cusDeclarationRepository.findByShipmentCode(shipmentCode);
         if(cusDeclarations != null &&
                 cusDeclarations.getShipment().equals(shipments)) {
-            throw new RuntimeException("Tờ khai đã tồn tại, chỉ được phép cập nhật");
+            throw new RuntimeException("The declaration form already exists; it can only be updated.");
         }
         if(dto.getContainer() == null || dto.getContainer().isEmpty()){
-            throw new RuntimeException("Phải có ít nhất 1 container");
+            throw new RuntimeException("There must be at least one container.");
         }
         String attachment=null;
         if(file!= null && !file.isEmpty()){
@@ -82,6 +91,14 @@ public class DeclarationService implements  ICusDeclarationService{
 
         CusDeclarations saved= cusDeclarationRepository.saveAndFlush(newdeclaration);
         entityManager.refresh(saved);
+
+
+        LogDeclarations logDeclarations= new LogDeclarations();
+        logDeclarations.setDeclarations(saved);
+        logDeclarations.setCreatedAt(LocalDateTime.now());
+        logDeclarations.setDescription("Tạo tờ khai hải quan thành công");
+        logDeclarations.setTitle("CREATED");
+        logDeclarationRepository.save(logDeclarations);
         return saved.getDeclarationCode();
     }
 

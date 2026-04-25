@@ -1,5 +1,6 @@
 package com.example.logistic.repository;
 
+import com.example.logistic.entity.CusDeclarations;
 import com.example.logistic.entity.LogDeclarations;
 import com.example.logistic.entity.LogDocuments;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,7 @@ import java.util.List;
 public interface ILogDeclarationRepository extends JpaRepository<LogDeclarations,Integer> {
     @Query(value = "SELECT * FROM log_declarations WHERE declarations_id = :declarationId ORDER BY created_at DESC", nativeQuery = true)
     List<LogDeclarations> findByDeclarationId(@Param("declarationId") int declarationId);
+
+    LogDeclarations findTopByDeclarationsOrderByCreatedAtDesc(CusDeclarations declarations);
+    LogDeclarations findByDeclarations(CusDeclarations declarations);
 }

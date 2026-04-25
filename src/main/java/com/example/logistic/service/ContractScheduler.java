@@ -21,10 +21,10 @@ public class ContractScheduler {
     public void updateExpiredContracts() {
         LocalDate today = LocalDate.now();
 
-        log.info("Bắt đầu cập nhật hợp đồng hết hạn - Ngày hiện tại: {}", today);
+        log.info("Start updating expired contracts - Current date: {}", today);
 
         int updatedCount = contractRepository.updateStatusToDoneForExpired(today);
 
-        log.info("Đã cập nhật {} hợp đồng thành trạng thái 'Done'", updatedCount);
+        log.info("The contract has been updated to 'Done' status.", updatedCount);
     }
 }

@@ -33,7 +33,6 @@ public class Shipments {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate estimatedArrival;
 
-
     @Column(name = "status")
     private String status;
 
@@ -41,10 +40,29 @@ public class Shipments {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 
-    @Column(name = "shipment_direction")
-    private String direction;
+    @Column(name="latitude")
+    private Double latitude;
+    @Column(name="longitude ")
+    private Double longitude ;
 
     public Shipments() {
+    }
+
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public LocalDate getDepartureDate() {
@@ -128,11 +146,5 @@ public class Shipments {
         this.createdAt = createdAt;
     }
 
-    public String getDirection() {
-        return direction;
-    }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 }

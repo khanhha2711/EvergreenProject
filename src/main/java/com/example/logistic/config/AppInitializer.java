@@ -31,4 +31,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         );
         registration.setMultipartConfig(multipartConfig);
     }
+    @Override
+    protected jakarta.servlet.Filter[] getServletFilters() {
+        org.springframework.web.filter.CharacterEncodingFilter filter =
+                new org.springframework.web.filter.CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+
+        return new jakarta.servlet.Filter[]{filter};
+    }
 }

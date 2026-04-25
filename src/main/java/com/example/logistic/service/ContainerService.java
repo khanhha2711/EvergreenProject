@@ -20,7 +20,7 @@ public class ContainerService implements  IContainerService{
     public List<SelectDTO> seachAll(String shipmentCode) {
         Shipments shipments = shipmentRepository.findByShipmentCode(shipmentCode);
         if(shipments ==null){
-            throw new RuntimeException("Shipment không tồn tại");
+            throw new RuntimeException("Shipment not found");
         }
 
         return containerRepository.findAllByShipment(shipmentCode)

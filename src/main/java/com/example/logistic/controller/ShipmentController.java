@@ -1,6 +1,7 @@
 package com.example.logistic.controller;
 
 import com.example.logistic.DTO.ShipmentDTO.ListDTO;
+import com.example.logistic.DTO.ShipmentDTO.OverViewDTO;
 import com.example.logistic.DTO.ShipmentDTO.Page1DTO.InformationDTO;
 import com.example.logistic.DTO.ShipmentDTO.StatusDTO;
 import com.example.logistic.service.IShipmentService;
@@ -41,4 +42,13 @@ public class ShipmentController {
         String result= shipmentService.updateStatus(shipmentCode,dto);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/over/{shipmentCode}")
+    public ResponseEntity<List<OverViewDTO>> overView(@PathVariable ("shipmentCode") String shipmentCode){
+        return ResponseEntity.ok(shipmentService.getView(shipmentCode));
+    }
+
+//    @GetMapping("/geo/{shipmentCode}")
+
+
 }

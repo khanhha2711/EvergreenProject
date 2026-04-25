@@ -119,6 +119,7 @@ public class ContractService implements IContractService{
 
     private ListDTO mapToListDTO(Contracts contracts) {
         ListDTO dto=new ListDTO();
+        dto.setContractCode(contracts.getContractCode());
         dto.setContractNumber(contracts.getContractNumber());
         dto.setContractName(contracts.getContractName());
         dto.setSignedDate(contracts.getSignedDate());
@@ -136,6 +137,9 @@ public class ContractService implements IContractService{
             throw new RuntimeException("This quote has already been contracted. It cannot be renewed.");
         }
         quotations.setStatus("DONE");
+        if(dto.getContractNumber()!=null){
+            throw new RuntimeException("Contract number already!");
+        }
         String attachment= fileService.uploadFile(file,UPLOAD_DIR);
         Contracts contracts= new Contracts();
         contracts.setQuotations(quotations);

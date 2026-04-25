@@ -180,7 +180,7 @@ public class QuotationService implements IQuotationService{
 
         QuotationResponseDTO res = new QuotationResponseDTO();
 
-        res.setId(quotations.getQuotationCode());
+        res.setQuotationCode(quotations.getQuotationCode());
         res.setStatus(quotations.getStatus());
         res.setCreatedAt(quotations.getCreatedAt()!=null
                         ? quotations.getCreatedAt().toString():null

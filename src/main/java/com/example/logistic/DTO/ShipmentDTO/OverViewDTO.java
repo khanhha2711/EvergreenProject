@@ -18,6 +18,7 @@ public class OverViewDTO {
 
 
     public List<TruckInforDTO> getTruckInforDTO() {
+
         return truckInforDTO;
     }
 

@@ -148,6 +148,13 @@ public class ShipmentService implements  IShipmentService{
             shipments.setStatus("Transportation");
             saveShipmentStatus(shipments, "Transportation");
 
+            LogDeclarations log = new LogDeclarations();
+            log.setDeclarations(cusDeclarations);
+            log.setTitle(status);
+            log.setCreatedAt(LocalDateTime.now());
+            log.setDescription("Lô hàng đã được thông quan");
+            logDeclarationRepository.save(log);
+
         } else if ("TRANSPORT".equals(status)) {
 
             vesselBookings.setStatus("DONE");
@@ -159,14 +166,6 @@ public class ShipmentService implements  IShipmentService{
             saveShipmentStatus(shipments, "Transportation");
         }
         shipmentRepository.save(shipments);
-
-        LogDeclarations log = new LogDeclarations();
-        log.setDeclarations(cusDeclarations);
-        log.setTitle(status);
-        log.setCreatedAt(LocalDateTime.now());
-        log.setDescription("Lô hàng đã được thông quan");
-        logDeclarationRepository.save(log);
-
         return "Update Successfully";
     }
 

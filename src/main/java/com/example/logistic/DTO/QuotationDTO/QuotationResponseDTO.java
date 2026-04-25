@@ -5,7 +5,7 @@ import com.example.logistic.DTO.RequestDTO.*;
 import java.util.List;
 
 public class QuotationResponseDTO {
-    private String id;         // BG001
+    private String quotationCode;         // BG001
     private String status;
     private String createdAt;
 
@@ -20,24 +20,12 @@ public class QuotationResponseDTO {
     public QuotationResponseDTO() {
     }
 
-    public QuotationResponseDTO(String id, String status, String createdAt, CustomerDTO customer, TransportDTO transportDTO, CargoDTO cargo, List<ItemDTO> items, SummaryDTO summary, List<ActivityDTO> activityLogs) {
-        this.id = id;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.customer = customer;
-        this.transportDTO = transportDTO;
-        this.cargo = cargo;
-        this.items = items;
-        this.summary = summary;
-        this.activityLogs = activityLogs;
+    public String getQuotationCode() {
+        return quotationCode;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setQuotationCode(String quotationCode) {
+        this.quotationCode = quotationCode;
     }
 
     public String getStatus() {

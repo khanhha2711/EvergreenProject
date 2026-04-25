@@ -47,8 +47,4 @@ public class ShipmentController {
     public ResponseEntity<List<OverViewDTO>> overView(@PathVariable ("shipmentCode") String shipmentCode){
         return ResponseEntity.ok(shipmentService.getView(shipmentCode));
     }
-
-//    @GetMapping("/geo/{shipmentCode}")
-
-
 }

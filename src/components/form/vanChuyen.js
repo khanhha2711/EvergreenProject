@@ -12,18 +12,21 @@ import z from "zod";
 import { CONTAINER, INCOTERM } from "@/constants/form";
 import LocationInput from "../inputs/locationInput";
 import { SelectComponent } from "../inputs/select";
-import { Input } from "../ui/input";
+
 const today = new Date();
 today.setHours(0, 0, 0, 0);
+
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+
 const schema = z.object({
   origin: z.string().min(1, "Vui lòng chọn nơi lấy hàng"),
   destination: z.string().min(1, "Vui lòng chọn nơi giao hàng"),
-  incoterm: z.string().optional(),
   createdAt: z
     .date({
       required_error: "Vui lòng chọn thời gian giao hàng",
     })
-    .min(today, "Vui lòng chọn ngày ở tương lai"),
+    .min(tomorrow, "Vui lòng chọn ngày lớn hơn ngày hiện tại"),
 });
 export default function VanChuyen({ onNext, defaultValue }) {
   const [errors, setErrors] = useState({});
@@ -31,7 +34,6 @@ export default function VanChuyen({ onNext, defaultValue }) {
     origin: "",
     destination: "",
     containerType: "",
-    incoterm: "",
     createdAt: new Date(),
     ...defaultValue,
   });
@@ -97,19 +99,6 @@ export default function VanChuyen({ onNext, defaultValue }) {
         </div>
 
         <div>
-          <p className="text-sm mb-2">Incoterms *</p>
-          <SelectComponent
-            placeHolder="Chọn Incoterms"
-            options={INCOTERM}
-            onChange={(e) => updateState("incoterm", e)}
-            value={form.incoterm}
-          />
-          {errors.incoterm && (
-            <p className="text-red-500 text-xs mt-1">{errors.incorterm}</p>
-          )}
-        </div>
-
-        <div>
           <p className="text-sm mb-2">Loại container *</p>
           <SelectComponent
             placeHolder="Chọn loại container"
@@ -146,10 +135,10 @@ export default function VanChuyen({ onNext, defaultValue }) {
               />
             </PopoverContent>
           </Popover>
-          {errors.createdAt && (
-            <p className="text-red-500 text-xs mt-1">{errors.date}</p>
-          )}
         </div>
+        {errors.createdAt && (
+          <p className="text-red-500 text-xs mt-1">{errors.createdAt}</p>
+        )}
       </form>
     </div>
   );

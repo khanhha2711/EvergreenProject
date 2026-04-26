@@ -133,7 +133,7 @@ export default function ContractForm({ data, id }) {
           <div>
             <p className="mb-2">Số hợp đồng</p>
             <Input
-              placeholder="Nhập tên hợp đồng"
+              placeholder="Nhập số hợp đồng"
               value={form.contractNumber}
               onChange={(e) => handleUpdate("contractNumber", e.target.value)}
             />

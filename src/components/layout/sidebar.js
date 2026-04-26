@@ -42,7 +42,9 @@ export default function Sidebar() {
             </Link>
           );
         })}
-        <p className="text-gray-500 border-t-1 pt-2 px-4">Thông tin khác</p>
+        <p className="text-gray-500 border-t-1 border-gray-400  pt-2 px-4">
+          Thông tin khác
+        </p>
         {SIDEBAR.slice(4).map((sidebar) => {
           const isActive = pathname.startsWith(sidebar.link);
 

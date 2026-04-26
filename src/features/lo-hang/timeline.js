@@ -1,4 +1,5 @@
-import { SHIPMENT_STEPS } from "@/constants/lo-hang";
+import { Badge } from "@/components/ui/badge";
+import { LANE, SHIPMENT_STEPS } from "@/constants/lo-hang";
 import { cn } from "@/lib/utils";
 import { CheckCircle2, Clock, Dot } from "lucide-react";
 
@@ -27,6 +28,7 @@ export const IconStep = ({ statusStep }) => {
 
 export default function TimeLine({ data, steps }) {
   const currentStep = data[data.length - 1]?.status;
+  const itemLog = data.find((item) => item.status === "Customs Declaration");
   return (
     <div className="flex flex-col">
       {steps.map((step, index) => {
@@ -57,6 +59,21 @@ export default function TimeLine({ data, steps }) {
                 {step?.description ||
                   data?.find((item) => item.status === step.code)?.updatedAt}
               </p>
+              {step.code === "Customs Declaration" && itemLog?.dto && (
+                <div className="pt-2">
+                  <Badge
+                    variant={
+                      LANE.find((lane) => lane.value === itemLog?.dto?.lane)
+                        ?.variant
+                    }
+                  >
+                    {
+                      LANE.find((lane) => lane.value === itemLog?.dto?.lane)
+                        ?.label
+                    }
+                  </Badge>
+                </div>
+              )}
             </div>
           </div>
         );

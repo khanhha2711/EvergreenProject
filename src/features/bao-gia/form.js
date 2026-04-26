@@ -117,7 +117,9 @@ export default function Form({ form = {}, isEdit }) {
         router.push(PATH.ADMIN.YEUCAU.DANHSACH);
       } else {
         setLoading(false);
-        toast.error("Lưu không thành công hãy thực hiện lại");
+        toast.error(
+          "Mã số thuế không hợp lệ hãy kiểm tra lại và không được để trống thông tin",
+        );
       }
     } else {
       const res = await updateBaoGia({ id: form.id, data: items });
@@ -295,9 +297,9 @@ export default function Form({ form = {}, isEdit }) {
                     updateState={(value) => updateState("createdAt", value)}
                   />
                 )}
-                {errors[`shipping.${field.name}`] && (
+                {errors[`transport.${field.name}`] && (
                   <p className="text-red-500 text-xs mt-1">
-                    {errors[`shipping.${field.name}`]}
+                    {errors[`transport.${field.name}`]}
                   </p>
                 )}
               </div>

@@ -28,7 +28,6 @@ const SHIPMENTFIELDS = [
 const OverViewTab = async ({ id, data }) => {
   const res = await getLoHangDashboard(id);
   const history = res.data;
-  console.log(history);
   return (
     <div className="grid grid-cols-[2fr,2fr,1fr] gap-4 ">
       <Card className="flex bg-white px-8 ">
@@ -50,11 +49,11 @@ const OverViewTab = async ({ id, data }) => {
             <ClipboardList size={15} />
             <b className="text-base ">Danh sách dịch vụ</b>
           </div>
-          <div className="flex flex-wrap gap-x-12 gap-y-4 mt-4">
+          <div className="flex flex-wrap gap-x-12 gap-y-4 mt-2">
             {data?.service.map((service, index) => (
               <ul key={index} className="flex items-center gap-1">
                 <Dot className="text-primary" size={30} />
-                <li className="text-black">{service}</li>
+                <li className="text-black text-sm">{service}</li>
               </ul>
             ))}
           </div>

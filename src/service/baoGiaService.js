@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 
 export const baoGiaService = {
-  list: (params) => api.get(`/quotations`, { params }),
+  list: (params) => api.get(`/quotations` , { params }),
 
   delete: (id) => api.delete(`/quotations/${id}`),
 

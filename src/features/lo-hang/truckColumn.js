@@ -95,7 +95,7 @@ export const truckColumn = ({
                 value: value,
               })
             }
-            placeHolder="Chọn mã container"
+            placeHolder="Chọn số container"
             options={containerOptions}
           />
         ) : (

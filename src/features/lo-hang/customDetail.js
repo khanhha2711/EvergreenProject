@@ -24,6 +24,7 @@ const haiQuanSchema = z.object({
     errorMap: () => ({ message: "Vui lòng chọn luồng" }),
   }),
   title: z.string().min(1, "Vui lòng chọn bước xử lý"),
+  description: z.string().optional(),
 });
 
 const CustomDetail = ({ data, id }) => {
@@ -38,7 +39,7 @@ const CustomDetail = ({ data, id }) => {
 
   const handleSubmit = async () => {
     let titleNew;
-    if (lane === "green") {
+    if (data?.dto?.lane === "NULL") {
       titleNew = "RECEIVE_LANE";
     } else {
       titleNew = title;
@@ -46,7 +47,7 @@ const CustomDetail = ({ data, id }) => {
     const result = haiQuanSchema.safeParse({
       lane,
       title: titleNew,
-      description,
+      description: description,
     });
 
     if (!result.success) {
@@ -57,23 +58,28 @@ const CustomDetail = ({ data, id }) => {
     }
 
     setErrors({});
-
+    const dataNew = {
+      lane: result.data.lane,
+      logDTO: {
+        title: result.data.title,
+        description: result.data.description,
+      },
+    };
+    console.log(result, dataNew);
     try {
       const res = await updateHaiQuan({
         id: data?.dto?.declarationCode,
-        data: {
-          lane: result.data.lane,
-          logDTO: {
-            title: result.data.title,
-            description: result.data.description,
-          },
-        },
+        data: dataNew,
       });
-
       if (!res.success) throw new Error("Có lỗi xảy ra");
+      else {
+        toast.success("Cập nhật thành công");
+        if (lane === "green") {
+          handleUpdateShipment();
+        }
+        router.refresh();
+      }
 
-      toast.success("Cập nhật thành công");
-      router.refresh();
       setDescription("");
     } catch (err) {
       toast.error(err.message || "Có lỗi xảy ra");
@@ -100,7 +106,18 @@ const CustomDetail = ({ data, id }) => {
     <div className="grid grid-cols-[1fr,minmax(240px,320px)] gap-4">
       <Card className="px-6">
         <div className="flex justify-between">
-          <h3>Thông tin tờ khai hải quan</h3>
+          <div className="flex gap-4">
+            <h3>Thông tin tờ khai hải quan</h3>
+            {data.dto.lane !== "NULL" && (
+              <Badge
+                variant={
+                  LANE.find((lane) => lane.value === data?.dto?.lane)?.variant
+                }
+              >
+                {LANE.find((lane) => lane.value === data?.dto?.lane)?.label}
+              </Badge>
+            )}
+          </div>
           <div className="flex gap-4 items-center">
             {data?.dto?.status === "DONE" ? (
               <Badge>Đã thông quan</Badge>
@@ -138,13 +155,17 @@ const CustomDetail = ({ data, id }) => {
         </div>
       </Card>
       {data?.dto?.status !== "DONE" && (
-        <Card className="px-12">
+        <Card className="px-12 -space-y-2">
+          <h3>Chọn luồng xử lý</h3>
           <div className="space-x-4">
             {LANE.map((field, index) => {
               const active = lane === field.value;
               const currentLane = data?.dto?.lane;
               const disabled =
-                currentLane !== "NULL" && currentLane !== field.value;
+                currentLane !== "NULL" &&
+                currentLane !== field.value &&
+                title !== "CHANGE_LANE";
+
               return (
                 <Button
                   onClick={() => setLane(field.value)}
@@ -199,16 +220,19 @@ const CustomDetail = ({ data, id }) => {
               <p className="text-sm text-red-500 mt-1">{errors.lane[0]}</p>
             )}
           </div>
-          {lane !== "green" && (
+          {data?.dto?.lane !== "NULL" && data?.dto?.lane !== "green" && (
             <>
-              <div className="w-50 space-y-2">
+              <div className="w-100 space-y-2">
                 <h3>Chọn bước xử lý</h3>
                 <SelectComponent
-                  options={SELECTTITLE}
+                  options={SELECTTITLE.slice(0, 3)}
                   placeHolder="Chọn tiêu đề"
                   value={title}
                   onChange={(value) => setTitle(value)}
                 />
+                <p className="text-muted-foreground w-full">
+                  Vui lòng chọn bước xử lý phù hợp với trạng thái hiện tại
+                </p>
                 {errors.title && (
                   <p className="text-sm text-red-500 mt-1">{errors.title[0]}</p>
                 )}
@@ -230,11 +254,10 @@ const CustomDetail = ({ data, id }) => {
               )}
             </>
           )}
-          {lane !== "" ? (
-            ""
-          ) : (
-            <div>
-              <div className="flex gap-4 mt-2 justify-end">
+
+          <div>
+            <div className="flex gap-4 mt-2">
+              {data?.dto?.lane !== "NULL" && (
                 <Button
                   variant="secondary"
                   onClick={() => {
@@ -243,10 +266,12 @@ const CustomDetail = ({ data, id }) => {
                 >
                   Hủy
                 </Button>
-                <Button onClick={() => handleSubmit()}>Lưu</Button>
-              </div>
+              )}
+              <Button onClick={() => handleSubmit()}>
+                {lane === "green" ? "Lưu và thông quan" : "Lưu và theo dõi"}
+              </Button>
             </div>
-          )}
+          </div>
         </Card>
       )}
       <div className="col-start-2 row-start-1  ">

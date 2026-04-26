@@ -23,7 +23,7 @@ export default function YeuCauTable({ data }) {
   const updateParams = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (value) params.set(key, value);
+    if (value !== "all") params.set(key, value);
     else params.delete(key);
     setPage(1);
     router.push(`?${params.toString()}`);
@@ -68,7 +68,10 @@ export default function YeuCauTable({ data }) {
           </p>
         </div>
         <Link href={PATH.ADMIN.YEUCAU.TAOMOI}>
-          <Button className="whitespace-nowrap"><PlusCircle/>Tạo yêu cầu báo giá</Button>
+          <Button className="whitespace-nowrap">
+            <PlusCircle />
+            Tạo yêu cầu báo giá
+          </Button>
         </Link>
       </div>
 

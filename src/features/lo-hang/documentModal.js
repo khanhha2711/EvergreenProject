@@ -89,7 +89,7 @@ const DocumentModal = ({
       }
     } catch (error) {
       console.error(error);
-      toast.error("Có lỗi xảy ra");
+      toast.error("File quá lớn không thể tải lên");
     } finally {
       setIsLoading(false);
     }

@@ -91,18 +91,20 @@ export const SHIPPINGFIELDS = [
 
 export const LANE = [
   { label: "Luồng xanh", value: "green", variant: "primary" },
-  { label: "Luồng vàng", value: "yellow", variant: "destructive" },
-  { label: "Luồng đỏ", value: "red", variant: "yellow" },
+  { label: "Luồng vàng", value: "yellow", variant: "yellow" },
+  { label: "Luồng đỏ", value: "red", variant: "destructive" },
 ];
 
 export const SELECTTITLE = [
-  { label: "Tạo tờ khai hải quan", value: "CREATED" },
-  { label: "Nhận phân luồng", value: "RECEIVE_LANE" },
   {
     label: "Chuyển luồng",
     value: "CHANGE_LANE",
   },
+  { label: "Kiểm tra hồ sơ", value: "CHECK_DOCUMENT" },
+  { label: "Kiểm tra hàng hóa", value: "CHECK_GOODS" },
+  { label: "Nhận phân luồng", value: "RECEIVE_LANE" },
   { label: "Xử lý với hải quan", value: "PROCESS_LANE" },
+  { label: "Tạo tờ khai hải quan", value: "CREATED" },
   { label: "Thông quan", value: "CLEARANCE" },
 ];
 

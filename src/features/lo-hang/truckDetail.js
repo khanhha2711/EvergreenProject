@@ -5,7 +5,7 @@ import { SHIPPINGFIELDS } from "@/constants/lo-hang";
 import { truckDetailColumns } from "./truckColumn";
 import TransportMap from "@/components/map/transportMap";
 import TimeLine from "./timeline";
-import { MapPinned, NotepadText, Truck } from "lucide-react";
+import { MapPinned, NotepadText, Flag } from "lucide-react";
 
 const STATUS = [
   { title: "Đã xác nhận đặt chỗ", code: "Booking Confirm" },

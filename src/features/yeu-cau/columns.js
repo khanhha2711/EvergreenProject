@@ -5,7 +5,7 @@ import { Trash } from "lucide-react";
 export const columns = ({ handleDelete }) => [
   {
     accessorKey: "requestCode",
-    header: "Mã YC",
+    header: "Mã yêu cầu",
     size: 70,
   },
   {

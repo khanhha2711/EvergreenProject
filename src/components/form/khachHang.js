@@ -28,7 +28,7 @@ export default function KhachHang({ onNext, defaultValue }) {
   useEffect(() => {
     const fetchServices = async () => {
       const data = await getServiceFields();
-      console.log(data);
+      setServiceFields(data);
     };
 
     fetchServices();

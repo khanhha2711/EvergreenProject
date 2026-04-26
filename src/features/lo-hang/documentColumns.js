@@ -11,7 +11,7 @@ export const getColumns = ({ handleEdit }) => {
     },
     { accessorKey: "documentCode", header: "Mã chứng từ" },
     { accessorKey: "documentNumber", header: "Số chứng từ" },
-    { accessorKey: "documentType", header: "Tên chứng từ" },
+    { accessorKey: "documentType", header: "Loại chứng từ" },
     {
       accessorKey: "acttachment",
       header: "File",

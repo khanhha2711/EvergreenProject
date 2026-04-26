@@ -24,6 +24,12 @@ export default function CostTable({ data, status }) {
   const router = useRouter();
 
   useEffect(() => {
+    if (isEdit) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsOpen(true);
+    }
+  }, [status]);
+  useEffect(() => {
     const fetchServices = async () => {
       const res = await getDichVu();
       const data = res.data;
@@ -44,9 +50,10 @@ export default function CostTable({ data, status }) {
   const handleNext = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const res = await updateBaoGia({ id: data.id, data: items });
+    const res = await updateBaoGia({ id: data.quotationCode, data: items });
     if (res.success) {
       toast.success("Cập nhật thành công");
+      setLoading(false);
       router.refresh();
     } else {
       setLoading(false);
@@ -94,7 +101,7 @@ export default function CostTable({ data, status }) {
               </div>
               <h3>Bảng chi phí</h3>
             </div>
-            {(status !== "done" || status !== "send") && (
+            {["draft", "send"].includes(status) && (
               <Button
                 onClick={() => setIsEdit(true)}
                 className="flex items-center"

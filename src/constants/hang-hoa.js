@@ -1,5 +1,9 @@
 export const CARGOFIELDS = [
-  { label: "Tên hàng hóa", name: "cargoName", placeholder: "Máy tính" },
+  {
+    label: "Tên hàng hóa",
+    name: "cargoName",
+    placeholder: "Nhập tên hàng hóa",
+  },
   {
     label: "Loại hàng",
     options: [
@@ -25,7 +29,6 @@ export const CARGOFIELDS = [
   {
     label: "Giá trị hàng",
     name: "cargoValue",
-    placeholder: "1000000",
+    placeholder: "Ví dụ: 1000000",
   },
-
 ];

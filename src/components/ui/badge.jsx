@@ -10,6 +10,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         done: "bg-chart-5/20 text-chart-5 [a&]:hover:bg-badge-2/90",
+        yellow: "bg-chart-5/20 text-chart-5 [a&]:hover:bg-badge-2/90",
         default: "bg-badge-2 text-badge-2-foreground [a&]:hover:bg-badge-2/90",
         secondary:
           "bg-badge-3 text-badge-3-foreground [a&]:hover:bg-badge-3/90",

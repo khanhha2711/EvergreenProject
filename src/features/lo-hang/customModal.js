@@ -133,15 +133,17 @@ const CustomModal = ({ id, setIsCreate }) => {
   );
 
   return (
-    <Card className="mx-4 px-6">
+    <Card className="mx-4 px-6 -space-y-2">
       {isComfirm && (
         <ConfirmModal onCancel={handleCancel} onConfirm={handleConfirm} />
       )}
       <h3>Thông tin hải quan</h3>
-      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-6 mt-4">
+      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-2">
         {CUSTOMFIELDS.slice(1, 4).map((field, index) => (
           <div key={index}>
-            <label htmlFor={field.name}>{field.label}</label>
+            <label className="text-sm " htmlFor={field.name}>
+              {field.label}
+            </label>
             {field.name === "declarationDate" ? (
               <CalenDarInput
                 date={form?.declarationDate}
@@ -206,7 +208,7 @@ const CustomModal = ({ id, setIsCreate }) => {
             Hủy
           </Button>
           <Button disabled={isLoading} type="submit" className="w-fit">
-            {form?.lane === "green" ? "Lưu và thông quan" : "Lưu và theo dõi"}
+            Lưu và theo dõi
           </Button>
         </div>
       </form>

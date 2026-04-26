@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { SelectComponent } from "../inputs/select";
 const cargoSchema = z.object({
   cargoName: z.string().min(2, "Tên hàng hóa phải có ít nhất 2 ký tự"),
 
@@ -22,24 +23,28 @@ const cargoSchema = z.object({
     .number({ invalid_type_error: "Số kiện phải là số" })
     .min(1, "Số kiện phải lớn hơn 0"),
 
-  grossWeight: z.coerce.number({
-    invalid_type_error: "Trọng lượng phải là số",
-  }),
+  grossWeight: z.coerce
+    .number({
+      invalid_type_error: "Trọng lượng phải là số",
+    })
+    .min(1, "Trọng lượng phải lớn hơn 0"),
 
   cargoValue: z.coerce
     .number({ invalid_type_error: "Giá trị phải là số" })
-    .min(0, "Giá trị không hợp lệ"),
+    .min(1, "Giá trị không hợp lệ"),
 });
 
 export default function HangHoa({ onNext, defaultValue }) {
   const [error, setError] = useState({});
-  const [cargoCategory, setCargoCategory] = useState("");
+  const [cargoCategory, setCargoCategory] = useState(
+    defaultValue?.[cargo.name] || "",
+  );
   const cargoField = [
     {
       type: "input",
       label: "Tên hàng hóa *",
       name: "cargoName",
-      placeHolder: "Máy tính",
+      placeHolder: "Chọn nhập tên hàng hóa",
       icon: <Box className="icon" />,
     },
     {
@@ -48,32 +53,32 @@ export default function HangHoa({ onNext, defaultValue }) {
       name: "cargoCategory",
       placeHolder: "Chọn loại hàng",
       categories: [
-        { name: "hangThuong", option: "Hàng thường" },
-        { name: "nguyHiem", option: "Hàng nguy hiểm" },
-        { name: "deVo", option: "Hàng dễ vỡ" },
-        { name: "hangLanh", option: "Hàng lạnh" },
-        { name: "dienTu", option: "Pin/Điện tử" },
+        { value: "hangThuong", label: "Hàng thường" },
+        { value: "hangNguyHiem", label: "Hàng nguy hiểm" },
+        { value: "hangDeVo", label: "Hàng dễ vỡ" },
+        { value: "hangLanh", label: "Hàng lạnh" },
+        { value: "dienTu", label: "Pin/Điện tử" },
       ],
     },
     {
       type: "input",
       label: "Số kiện *",
       name: "packageCount",
-      placeHolder: "1000",
+      placeHolder: "Nhập số kiện",
       icon: <Weight className="icon" />,
     },
     {
       type: "input",
       label: "Trọng lượng (kg) *",
       name: "grossWeight",
-      placeHolder: "1000",
+      placeHolder: "Nhập trọng lượng",
       icon: <Weight className="icon" />,
     },
     {
       type: "input",
       label: "Giá trị hàng hóa *",
       name: "cargoValue",
-      placeHolder: "100000",
+      placeHolder: "Nhập giá trị hàng hóa",
       icon: <DollarSign className="icon" />,
     },
   ];
@@ -139,28 +144,15 @@ export default function HangHoa({ onNext, defaultValue }) {
               </div>
             ) : (
               <div>
-                <Select
-                  value={defaultValue?.[cargo.name]}
-                  onValueChange={setCargoCategory}
-                  name="cargoCategory"
-                >
-                  <SelectTrigger className="w-full ">
-                    <SelectValue placeholder={cargo.placeHolder} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {cargo.categories.map((category, index) => (
-                        <SelectItem
-                          className={cn("hover:text-card")}
-                          key={index}
-                          value={category.name}
-                        >
-                          {category.option}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                <SelectComponent
+                  value={cargoCategory}
+                  options={
+                    cargoField.find((item) => item.name === "cargoCategory")
+                      .categories
+                  }
+                  onChange={(value) => setCargoCategory(value)}
+                  placeHolder={"Chọn loại hàng hóa"}
+                />
                 {error[cargo.name] && (
                   <p className="text-red-500 text-xs mt-1">
                     {error[cargo.name]}

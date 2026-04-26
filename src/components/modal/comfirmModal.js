@@ -8,7 +8,7 @@ export default function ConfirmModal({
   nameButton = "Hủy",
 }) {
   return (
-    <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-20000 flex items-center justify-center bg-black/50">
       <div className="bg-white w-full max-w-sm p-4 flex flex-col items-center space-y-2 rounded-2xl">
         <h3>{title || "Xác nhận hủy bỏ"}</h3>
         <p className="text-center">

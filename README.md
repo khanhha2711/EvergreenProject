@@ -10,7 +10,7 @@
 
 ---
 
-## 📌 Giới thiệu đề tài
+## 📌 1. Giới thiệu đề tài
 
 Trong bối cảnh nền kinh tế ngày càng hội nhập sâu rộng, hoạt động logistics và dịch vụ giao nhận hàng hóa đóng vai trò quan trọng trong chuỗi cung ứng của các doanh nghiệp xuất nhập khẩu. Việc quản lý hiệu quả các quy trình như báo giá, theo dõi lô hàng, khai báo hải quan, đặt chỗ vận chuyển và chăm sóc khách hàng không chỉ giúp nâng cao chất lượng dịch vụ mà còn góp phần tối ưu chi phí, rút ngắn thời gian xử lý và tăng năng lực cạnh tranh của doanh nghiệp trên thị trường.
 
@@ -60,14 +60,11 @@ Trên cơ sở đó, hệ thống được thiết kế tổng thể với cơ s
 ### 4.1. Đối tượng nghiên cứu
 
 Đề tài tập trung nghiên cứu và mô phỏng các nghiệp vụ logistics – forwarding trong doanh nghiệp xuất nhập khẩu, chủ yếu liên quan đến khách hàng và nhân sự nội bộ như admin, nhân viên chứng từ và hiện trường
-
----
-
 ### 4.2. Phạm vi nghiên cứu
 - Phạm vi nghiên cứu bao gồm việc phân tích, thiết kế và xây dựng hệ thống quản lý các nghiệp vụ cốt lõi như báo giá, hợp đồng dịch vụ, quản lý lô hàng, chứng từ, khai báo hải quan và vận chuyển.
 - Hệ thống được xây dựng ở mức mô phỏng tổng thể với dữ liệu tập trung, trong đó các chức năng chủ yếu được triển khai và kiểm thử trên tài khoản quản trị, chưa triển khai đầy đủ cơ chế phân quyền cho nhiều nhóm người dùng.
 ---
-# 📚 5. CƠ SỞ LÝ THUYẾT
+# 📚 5. Cơ sở lý thuyết
 
 ---
 
@@ -79,26 +76,7 @@ Trong phạm vi đề tài, nhóm áp dụng phương pháp phát triển linh h
 
 Phương pháp này giúp nhóm dễ dàng điều chỉnh chức năng, tối ưu quy trình phát triển và đảm bảo sản phẩm cuối cùng bám sát nghiệp vụ thực tế của doanh nghiệp logistics.
 
----
-
-## 5.2. Tổng quan phân tích nghiệp vụ
-
-Phân tích nghiệp vụ là quá trình tìm hiểu, xác định và làm rõ các yêu cầu thực tế của doanh nghiệp, từ đó đề xuất giải pháp hệ thống phù hợp nhằm tối ưu hóa quy trình vận hành.
-
-Trong đề tài này, hệ thống tập trung vào các nghiệp vụ chính trong lĩnh vực logistics – forwarding, bao gồm:
-
-- Quản lý khách hàng và thông tin đối tác  
-- Quản lý báo giá dịch vụ logistics  
-- Quản lý lô hàng xuất nhập khẩu  
-- Theo dõi trạng thái vận chuyển  
-- Quản lý chứng từ và hồ sơ hải quan  
-- Quản lý hóa đơn, công nợ và thanh toán  
-
-Việc phân tích nghiệp vụ giúp đảm bảo hệ thống được xây dựng sát với thực tế vận hành của doanh nghiệp.
-
----
-
-## 5.3. Phân tích yêu cầu hệ thống
+## 5.2. Phân tích yêu cầu hệ thống
 
 Hệ thống được xây dựng dựa trên hai nhóm yêu cầu chính:
 
@@ -115,9 +93,7 @@ Hệ thống được xây dựng dựa trên hai nhóm yêu cầu chính:
    - Hệ thống cũng được thiết kế để tương thích với các trình duyệt phổ biến như Chrome, Edge, Cốc Cốc và hiển thị tốt trên màn hình từ 1366×768 trở lên.
    - Đồng thời, dữ liệu được đảm bảo tính toàn vẹn, chính xác, không trùng lặp và được kiểm soát chặt chẽ theo đúng quy trình nghiệp vụ nhằm hạn chế sai sót trong quá trình vận hành.
 
----
-
-## 5.4. Kiến trúc hệ thống
+## 5.3. Kiến trúc hệ thống
 
 Hệ thống được xây dựng theo kiến trúc tách lớp, bao gồm:
 
@@ -125,11 +101,7 @@ Hệ thống được xây dựng theo kiến trúc tách lớp, bao gồm:
 - **Tầng xử lý nghiệp vụ (Backend API)**: xử lý toàn bộ logic hệ thống  
 - **Tầng cơ sở dữ liệu (Database)**: lưu trữ toàn bộ dữ liệu nghiệp vụ  
 
-Kiến trúc này giúp hệ thống dễ dàng mở rộng, bảo trì và tích hợp với các hệ thống bên ngoài trong tương lai.
-
----
-
-## 5.5. Công nghệ sử dụng
+## 5.4. Công nghệ sử dụng
 
 Hệ thống được xây dựng dựa trên các công nghệ hiện đại, đảm bảo tính ổn định và hiệu năng cao:
 
@@ -140,7 +112,40 @@ Hệ thống được xây dựng dựa trên các công nghệ hiện đại, �
 - **API Testing**: Postman  
 - **Thiết kế hệ thống**: Figma, Draw.io  
 
-Các công nghệ này hỗ trợ xây dựng hệ thống có kiến trúc rõ ràng, dễ mở rộng và phù hợp với bài toán quản lý logistics thực tế.
+---
+# 6. Thiết kế hệ thống
+## 6.1. Thiết kế mô hình dữ liệu
+ ####  Mô hình ERD
+ 
+  <img width="1465" height="1801" alt="SDQH" src="https://github.com/user-attachments/assets/3fc90283-df93-4e75-a687-78f6218151db" />
+
+## 6.2. Thiết kế giao diện
+
+#### Sơ đồ màn hình
+
+<img width="655" height="421" alt="image" src="https://github.com/user-attachments/assets/e4114940-849b-404e-863a-a5c836a3edd6" />
+
+#### Sơ đồ màn hình cổng thông tin điện tử
+
+<img width="2185" height="495" alt="image" src="https://github.com/user-attachments/assets/b6b5872e-8ad0-45b9-ab14-fb37e2729fb3" />
+
+#### Sơ đồ màn hình hệ thống nội bộ 
+
+👉 [Xem thêm ](https://drive.google.com/file/d/1cr7lWlSYYmuSK0shNB3Yegpje-AGtZRX/view)
+
+## 6.3. Thiết kế API
+
+👉 [Xem thêm ](https://drive.google.com/file/d/1KfEHNI3QrJXxCLzOZADZXsTso1Tg1beW/view)
 
 ---
+# 7. Kết quả đạt được và hướng phát triển
+Sau quá trình phân tích, thiết kế và triển khai, hệ thống quản lý logistics – forwarding đã cơ bản đáp ứng các nghiệp vụ cốt lõi của doanh nghiệp như quản lý khách hàng, báo giá, hợp đồng, lô hàng và chứng từ. Hệ thống giúp số hóa và chuẩn hóa quy trình vận hành, giảm thao tác thủ công, hạn chế sai sót và nâng cao hiệu quả quản lý dữ liệu tập trung. Các module được thiết kế tách biệt, dễ mở rộng và bảo trì. Hệ thống cũng tích hợp xác thực người dùng, khôi phục mật khẩu qua OTP email, góp phần tăng tính bảo mật. Bên cạnh đó, giao diện người dùng thân thiện, hỗ trợ theo dõi trạng thái lô hàng và tra cứu thông tin thuận tiện, đồng thời có website giới thiệu dịch vụ giúp khách hàng gửi yêu cầu báo giá trực tuyến dễ dàng.
+
+Trong tương lai, hệ thống sẽ tiếp tục được hoàn thiện theo hướng mở rộng phân quyền người dùng, bổ sung các phân hệ tài chính như hóa đơn, chi phí và doanh thu, phát triển cổng thông tin khách hàng theo thời gian thực, tối ưu giao diện và dashboard quản trị, đồng thời tăng cường báo cáo phân tích dữ liệu. Ngoài ra, hệ thống sẽ được nâng cấp bảo mật và tích hợp với các nền tảng bên ngoài như hãng tàu, hãng hàng không và hệ thống hải quan để tự động hóa quy trình vận hành.
+
+---
+# 8. Tài liệu tham khảo
+
+- [Tài liệu xem thêm (phụ lục)  ](https://drive.google.com/file/d/1KfEHNI3QrJXxCLzOZADZXsTso1Tg1beW/view)
+- Bài báo cáo : [Github của nhóm : ](https://github.com/khanhha2711/EvergreenProject.git)
 

@@ -20,7 +20,7 @@ Bên cạnh đó, việc thiếu một hệ thống thông tin tập trung hoặ
 
 Xuất phát từ thực tiễn đó, cùng với xu hướng ứng dụng công nghệ thông tin trong quản lý doanh nghiệp, việc xây dựng một hệ thống thông tin quản lý quy trình logistics tập trung là cần thiết và mang tính thực tiễn cao. Hệ thống này giúp chuẩn hóa quy trình vận hành, đồng bộ hóa dữ liệu giữa các bộ phận, hỗ trợ theo dõi trạng thái lô hàng theo thời gian thực, đồng thời nâng cao hiệu quả quản lý và chất lượng dịch vụ khách hàng.
 
-Từ những yêu cầu trên, đề tài **“Xây dựng hệ thống thông tin quản lý quy trình logistics cho doanh nghiệp xuất nhập khẩu”** được lựa chọn với mục tiêu xây dựng một nền tảng quản lý hiện đại, phù hợp với nhu cầu thực tế, góp phần thúc đẩy ứng dụng công nghệ thông tin và hướng đến phát triển bền vững trong doanh nghiệp.
+Từ những yêu cầu trên, đề tài **“Xây dựng hệ thống quản lý logistics cho doanh nghiệp xuất nhập khẩu”** được lựa chọn với mục tiêu xây dựng một nền tảng quản lý hiện đại, phù hợp với nhu cầu thực tế, góp phần thúc đẩy ứng dụng công nghệ thông tin và hướng đến phát triển bền vững trong doanh nghiệp.
 
 ---
 ## 🎯 2. Mục tiêu của đề tài

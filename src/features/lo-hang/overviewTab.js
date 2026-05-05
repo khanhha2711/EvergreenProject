@@ -28,6 +28,7 @@ const SHIPMENTFIELDS = [
 const OverViewTab = async ({ id, data }) => {
   const res = await getLoHangDashboard(id);
   const history = res.data;
+  console.log(history);
   return (
     <div className="grid grid-cols-[2fr,2fr,1fr] gap-4 ">
       <Card className="flex bg-white px-8 ">
@@ -74,6 +75,10 @@ const OverViewTab = async ({ id, data }) => {
                     amount={data?.cargo?.[field.name]}
                     style="bold"
                   />
+                ) : field.name === "cargoCategory" ? (
+                  field.options.find(
+                    (item) => item.value === data?.cargo?.[field.name],
+                  ).label
                 ) : (
                   data?.cargo?.[field.name]
                 )}

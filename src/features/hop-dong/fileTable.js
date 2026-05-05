@@ -9,7 +9,7 @@ export default function FileTable({ attachment }) {
 
   return (
     <div onClick={handleOpenFile} className="font-bold cursor-pointer">
-      {attachment?.fileName?.split("_")[1] || attachment?.downloadURL}
+      {attachment?.fileName || attachment?.downloadURL}
     </div>
   );
 }

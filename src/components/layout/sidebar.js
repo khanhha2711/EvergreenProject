@@ -19,7 +19,7 @@ export default function Sidebar() {
     }
   }, []);
   return (
-    <section className="flex flex-col h-screen  gap-10 mx-4 sm:w-48 sticky top-0 pt-4   ">
+    <section className="flex flex-col h-screen gap-10 mx-4 sm:w-48 sticky top-0 pt-4   ">
       <Image src="/logo.png" alt="logo" width={140} height={140} priority />
 
       <div className="flex flex-col gap-4">
@@ -71,7 +71,7 @@ export default function Sidebar() {
         </div>
         <div>
           <b>{user?.userId?.userName}</b>
-          <p>{user?.gmail}</p>
+          <p className="text-balance">{user?.gmail}</p>
         </div>
       </div>
     </section>

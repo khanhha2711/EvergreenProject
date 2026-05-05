@@ -54,6 +54,7 @@ export default function CostTable({ data, status }) {
     if (res.success) {
       toast.success("Cập nhật thành công");
       setLoading(false);
+      setIsEdit(false);
       router.refresh();
     } else {
       setLoading(false);
@@ -197,25 +198,25 @@ export default function CostTable({ data, status }) {
                 </div>
               </div>
             </div>
+            <div className="flex justify-end mt-2 gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setIsOpen(true)}
+                disabled={loading}
+              >
+                Hủy
+              </Button>
+              <Button
+                type="button"
+                onClick={handleNext}
+                className="w-fit"
+                disabled={loading}
+              >
+                Lưu
+              </Button>
+            </div>
           </Card>
-          <div className="flex justify-end mt-2 gap-2">
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => setIsOpen(true)}
-              disabled={loading}
-            >
-              Hủy
-            </Button>
-            <Button
-              type="button"
-              onClick={handleNext}
-              className="w-fit"
-              disabled={loading}
-            >
-              Gửi
-            </Button>
-          </div>
         </div>
       )}
     </div>

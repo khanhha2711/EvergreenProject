@@ -19,6 +19,7 @@ export async function submitForm(form) {
         createdAt: createdAt ? format(new Date(createdAt), "yyyy/MM/dd") : null,
       },
     };
+    formattedForm.customer.service.push("DV-2026-001");
     console.log(formattedForm);
     const res = await formService.submitForm(formattedForm);
     try {

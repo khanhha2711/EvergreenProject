@@ -19,7 +19,7 @@ export default function Form() {
     2: "hangHoa",
     3: "vanChuyen",
   };
-
+  console.log(form);
   const id = stepFormId[step];
 
   const handleNext = async (data) => {

@@ -90,7 +90,7 @@ export default function KhachHang({ onNext, defaultValue }) {
           <h3 className="text-sm mb-2">Dịch vụ quan tâm *</h3>
 
           <div className="flex gap-4 flex-wrap justify-between">
-            {serviceFields.map((service) => (
+            {serviceFields.slice(1, serviceFields.length).map((service) => (
               <label key={service.value} className="flex items-center gap-2">
                 <Checkbox
                   name="service"

@@ -62,6 +62,7 @@ const DocumentModal = ({
         formattedErrors[err.path[0]] = err.message;
       });
       setError(formattedErrors);
+      setIsLoading(false);
       return;
     }
 

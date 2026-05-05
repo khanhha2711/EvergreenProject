@@ -30,7 +30,7 @@ export default function YeuCauTable({ data }) {
   };
 
   // pagination
-  const pageSize = 8;
+  const pageSize = 7;
   const totalPage = Math.ceil(data?.length / pageSize) || 1;
   const dataNew = data?.slice((page - 1) * pageSize, page * pageSize);
   const handleNext = () => {

@@ -90,7 +90,7 @@ export const SHIPPINGFIELDS = [
 ];
 
 export const LANE = [
-  { label: "Luồng xanh", value: "green", variant: "primary" },
+  { label: "Luồng xanh", value: "green", variant: "default" },
   { label: "Luồng vàng", value: "yellow", variant: "yellow" },
   { label: "Luồng đỏ", value: "red", variant: "destructive" },
 ];

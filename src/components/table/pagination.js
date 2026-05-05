@@ -24,7 +24,7 @@ export function PaginationTable({
       }
     } else {
       if (page < 2) {
-        page.push(1, 2, 3, "...", totalPage);
+        pages.push(1, 2, 3, "...", totalPage);
       } else if (page >= totalPage - 1) {
         pages.push(1, "...", totalPage - 2, totalPage - 1, totalPage);
       } else {

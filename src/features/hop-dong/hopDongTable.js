@@ -28,7 +28,7 @@ export default function HopDongTable({ data }) {
   };
 
   // pagination
-  const pageSize = 10;
+  const pageSize = 9;
   const totalPage = Math.ceil(data.length / pageSize);
   const dataNew = data.slice((page - 1) * pageSize, page * pageSize);
   const handleNext = () => {

@@ -92,7 +92,6 @@ export default function Form({ form = {}, isEdit }) {
     formData.append("customerAddress", locationCustomer);
     const services = formData.getAll("service");
     const raw = Object.fromEntries(formData);
-
     const data = {
       customer: buildSectionData({ fields: CUSTOMER_FIELDS, rawData: raw }),
       cargo: buildSectionData({
@@ -212,7 +211,7 @@ export default function Form({ form = {}, isEdit }) {
                 <h3>Dịch vụ</h3>
               </div>
               <div className="flex gap-10 ml-4">
-                {serviceFields.map((service) => (
+                {serviceFields.slice(1, serviceFields.length).map((service) => (
                   <div key={service.value}>
                     <Checkbox
                       name="service"

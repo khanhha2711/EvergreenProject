@@ -35,7 +35,9 @@ export default function VanTaiModal({
   setIsCreate,
 }) {
   const [isConfirm, setIsConfirm] = useState(false);
-  const [companyAddress, setCompanyAddress] = useState("");
+  const [companyAddress, setCompanyAddress] = useState(
+    data?.companyAddress || "",
+  );
   const [errors, setError] = useState({});
   const router = useRouter();
 
@@ -66,8 +68,8 @@ export default function VanTaiModal({
       formData.append("companyAddress", companyAddress);
     }
     const dataForm = Object.fromEntries(formData.entries());
+    console.log(dataForm);
     const schema = noiDia ? schemaNoiDia : schemaTau;
-
     const { isValid, errors } = validate({ schema, data: dataForm });
     if (!isValid) {
       setError(errors);
@@ -89,7 +91,6 @@ export default function VanTaiModal({
       const res = noiDia
         ? await updateVanTaiNoiDia({ id: data?.companyCode, data: dataForm })
         : await updateVanTaiHangTau({ id: data?.shippingCode, data: dataForm });
-      console.log(res.success);
       if (res.success) {
         setIsOpen(false);
         router.refresh();
@@ -150,7 +151,14 @@ export default function VanTaiModal({
               <p>{item.label}</p>
 
               {isEdit ? (
-                <Input defaultValue={data?.[item.name]} name={item.name} />
+                item.name === "companyAddress" ? (
+                  <LocationInput
+                    diaDiem={(e) => setCompanyAddress(e)}
+                    value={companyAddress || ""}
+                  />
+                ) : (
+                  <Input defaultValue={data?.[item.name]} name={item.name} />
+                )
               ) : isCreate ? (
                 item.name === "companyAddress" ? (
                   <LocationInput

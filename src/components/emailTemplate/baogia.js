@@ -38,10 +38,10 @@ export const BaoGiaEmail = ({ customer, items, summary }) => {
             <b>Công ty:</b> {customer?.companyName}
           </li>
           <li>
-            <b>Email:</b> {customer?.email}
+            <b>Email:</b> {customer?.customerEmail}
           </li>
           <li>
-            <b>SĐT:</b> {customer?.phone}
+            <b>SĐT:</b> {customer?.contactPhone}
           </li>
         </ul>
 

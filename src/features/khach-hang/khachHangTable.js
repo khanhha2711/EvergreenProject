@@ -33,7 +33,7 @@ export default function KhachHangTable({ data }) {
   };
 
   // pagination
-  const pageSize = 13;
+  const pageSize = 10;
   const totalPage = Math.ceil(data.length / pageSize);
   const dataNew = data.slice((page - 1) * pageSize, page * pageSize);
   const handleNext = () => {
@@ -62,7 +62,7 @@ export default function KhachHangTable({ data }) {
         <SearchAndFilter
           onSearch={(val) => updateParams("search", val)}
           isFilter={false}
-          placeholder='Số điện thoại'
+          placeholder="Số điện thoại"
         />
         <Button
           className={""}

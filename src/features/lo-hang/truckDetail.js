@@ -8,24 +8,23 @@ import TimeLine from "./timeline";
 import { MapPinned, NotepadText, Flag } from "lucide-react";
 
 const STATUS = [
-  { title: "Đã xác nhận đặt chỗ", code: "Booking Confirm" },
-  { title: "Chờ lấy hàng", code: "On the way to customer" },
+  { title: "Đã xác nhận đặt chỗ", code: "Booking Confirmed" },
+  { title: "Chờ lấy hàng", code: "Waiting pickup" },
   { title: "Đang vận chuyển", code: "In transit" },
-  { title: "Hoàn thành đơn hàng", code: "Arrived at port" },
+  { title: "Hoàn thành đơn hàng", code: "Delivered" },
 ];
 
 export default function TransportDetail({ dataTruck, dataShip, location }) {
-  let dataStatus;
   const indexStatus = STATUS.findIndex(
-    (item) => item.code === location.location,
+    (item) => item.code === location[0].location,
   );
-  if (indexStatus === -1) {
-    dataStatus = [];
+  let dataStatus = [];
+
+  if (indexStatus !== -1) {
+    dataStatus = STATUS.slice(0, indexStatus + 1).map((item) => ({
+      status: item.code,
+    }));
   }
-  dataStatus = STATUS.slice(0, indexStatus).map((item) => {
-    return { status: item.code };
-  });
-  console.log(dataStatus);
   return (
     <div className="flex space-x-4 ">
       <div className="flex-3 space-y-4">

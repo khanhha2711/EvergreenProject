@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import { SelectComponent } from "@/components/inputs/select";
 import z from "zod";
 import { updateLoHang } from "@/actions/loHangActions";
-import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 const haiQuanSchema = z.object({
   lane: z.enum(["green", "yellow", "red"], {
@@ -34,8 +33,6 @@ const CustomDetail = ({ data, id }) => {
   const [errors, setErrors] = useState({});
 
   const router = useRouter();
-
-  console.log(data);
 
   const handleSubmit = async () => {
     let titleNew;

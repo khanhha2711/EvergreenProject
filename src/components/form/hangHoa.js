@@ -33,55 +33,54 @@ const cargoSchema = z.object({
     .number({ invalid_type_error: "Giá trị phải là số" })
     .min(1, "Giá trị không hợp lệ"),
 });
-
+const cargoField = [
+  {
+    type: "input",
+    label: "Tên hàng hóa *",
+    name: "cargoName",
+    placeHolder: "Chọn nhập tên hàng hóa",
+    icon: <Box className="icon" />,
+  },
+  {
+    type: "select",
+    label: "Loai hàng *",
+    name: "cargoCategory",
+    placeHolder: "Chọn loại hàng",
+    categories: [
+      { value: "hangThuong", label: "Hàng thường" },
+      { value: "hangNguyHiem", label: "Hàng nguy hiểm" },
+      { value: "hangDeVo", label: "Hàng dễ vỡ" },
+      { value: "hangLanh", label: "Hàng lạnh" },
+      { value: "dienTu", label: "Pin/Điện tử" },
+    ],
+  },
+  {
+    type: "input",
+    label: "Số kiện *",
+    name: "packageCount",
+    placeHolder: "Nhập số kiện",
+    icon: <Weight className="icon" />,
+  },
+  {
+    type: "input",
+    label: "Trọng lượng (kg) *",
+    name: "grossWeight",
+    placeHolder: "Nhập trọng lượng",
+    icon: <Weight className="icon" />,
+  },
+  {
+    type: "input",
+    label: "Giá trị hàng hóa *",
+    name: "cargoValue",
+    placeHolder: "Nhập giá trị hàng hóa",
+    icon: <DollarSign className="icon" />,
+  },
+];
 export default function HangHoa({ onNext, defaultValue }) {
   const [error, setError] = useState({});
   const [cargoCategory, setCargoCategory] = useState(
-    defaultValue?.[cargo.name] || "",
+    defaultValue?.cargoCategory || "",
   );
-  const cargoField = [
-    {
-      type: "input",
-      label: "Tên hàng hóa *",
-      name: "cargoName",
-      placeHolder: "Chọn nhập tên hàng hóa",
-      icon: <Box className="icon" />,
-    },
-    {
-      type: "select",
-      label: "Loai hàng *",
-      name: "cargoCategory",
-      placeHolder: "Chọn loại hàng",
-      categories: [
-        { value: "hangThuong", label: "Hàng thường" },
-        { value: "hangNguyHiem", label: "Hàng nguy hiểm" },
-        { value: "hangDeVo", label: "Hàng dễ vỡ" },
-        { value: "hangLanh", label: "Hàng lạnh" },
-        { value: "dienTu", label: "Pin/Điện tử" },
-      ],
-    },
-    {
-      type: "input",
-      label: "Số kiện *",
-      name: "packageCount",
-      placeHolder: "Nhập số kiện",
-      icon: <Weight className="icon" />,
-    },
-    {
-      type: "input",
-      label: "Trọng lượng (kg) *",
-      name: "grossWeight",
-      placeHolder: "Nhập trọng lượng",
-      icon: <Weight className="icon" />,
-    },
-    {
-      type: "input",
-      label: "Giá trị hàng hóa *",
-      name: "cargoValue",
-      placeHolder: "Nhập giá trị hàng hóa",
-      icon: <DollarSign className="icon" />,
-    },
-  ];
 
   const handleNext = (e) => {
     e.preventDefault();

@@ -148,8 +148,8 @@ public class RequestService implements IRequestService {
     }
 
     @Override
-    public List<ListRespDTO> search(String phone) {
-        List<Requests> list = requestRepository.findByCustomerPhone(phone);
+    public List<ListRespDTO> search(String phone,String status) {
+        List<Requests> list = requestRepository.findByCustomerPhoneAndFilter(phone,status);
 
         return list.stream()
                 .map(req -> new ListRespDTO(

@@ -12,4 +12,5 @@ public interface IShipmentStatusRepository extends JpaRepository<ShipmentStatus,
     ShipmentStatus findByShipment(Shipments shipment);
     List<ShipmentStatus> findByShipmentOrderByUpdatedAtAsc(Shipments shipment);
 
+    boolean existsByShipmentAndStatus(Shipments shipment, String status);
 }

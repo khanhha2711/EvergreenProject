@@ -29,5 +29,7 @@ public interface IContractRepository extends JpaRepository<Contracts,Integer> {
     List<Contracts> findBySearchAndFilter(@Param("search") String search,
                                           @Param("filter") String filter);
     boolean existsByQuotations(Quotations quotations);
+
+    boolean existsByContractNumber(String contractNumber);
     List<Contracts> findAllByOrderByContractCodeDesc();
 }

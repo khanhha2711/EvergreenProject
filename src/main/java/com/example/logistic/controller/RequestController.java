@@ -21,15 +21,17 @@ public class RequestController {
 
     @GetMapping("/list")
     public List<ListRespDTO> listRequest(
-            @RequestParam(name="search" ,required = false) String search
-    ) {
-        // Nếu không có search thì trả hết
-        if (search == null || search.isEmpty()) {
+            @RequestParam(name="search" ,required = false)String search,
+            @RequestParam (name="filter" ,required = false) String filter) {
+        boolean isSearchEmpty = (search == null || search.isEmpty());
+        boolean isFilterEmpty = (filter == null || filter.isEmpty());
+
+        if ((isSearchEmpty && isFilterEmpty)) {
+            //all
             return requestService.findAll();
         }
-
-        // Nếu có search → lọc theo phone
-        return requestService.search(search);
+        // loc + search
+        return requestService.search(search, filter);
     }
 
     @PostMapping("/create")

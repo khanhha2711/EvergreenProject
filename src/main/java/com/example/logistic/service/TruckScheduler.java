@@ -62,7 +62,7 @@ public class TruckScheduler {
                     targetLon = vesselBookings.getLongitude();
                 }
 
-                double t = 0.3; // nên giảm lại cho mượt
+                double t = 0.2; // nên giảm lại cho mượt
 
                 double newLat = lat1 + t * (targetLat - lat1);
                 double newLon = lon1 + t * (targetLon - lon1);
@@ -72,7 +72,7 @@ public class TruckScheduler {
                 newStatus.setUpdatedAt(LocalDateTime.now());
 
                 // ===== CHECK ARRIVAL =====
-                if (distance(newLat, newLon, targetLat, targetLon) < 0.0001) {
+                if (distance(newLat, newLon, targetLat, targetLon) < 0.001) {
 
                     // 👉 ép về đúng điểm
                     newLat = targetLat;

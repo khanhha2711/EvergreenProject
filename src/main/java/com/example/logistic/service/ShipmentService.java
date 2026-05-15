@@ -235,6 +235,7 @@ public class ShipmentService implements  IShipmentService{
                 if (allDelivered && !trucksList.isEmpty()) {
                     shipment.setStatus("Completed");
                     shipmentRepository.save(shipment);
+                    saveShipmentStatus(shipment, "Completed");
                 }
             }
             else {
@@ -248,6 +249,10 @@ public class ShipmentService implements  IShipmentService{
     }
 
     private void saveShipmentStatus(Shipments shipments, String status) {
+        boolean exists = shipmentStatusRepository
+                .existsByShipmentAndStatus(shipments, status);
+
+        if (exists) return;
         ShipmentStatus shipmentStatus = new ShipmentStatus();
         shipmentStatus.setShipment(shipments);
         shipmentStatus.setStatus(status);

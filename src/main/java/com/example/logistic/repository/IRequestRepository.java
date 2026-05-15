@@ -24,8 +24,9 @@ public interface IRequestRepository extends JpaRepository<Requests,Integer> {
     SELECT r.* 
     FROM requests r
     JOIN customers c ON r.customer_id = c.id
-    WHERE c.contact_phone LIKE %:phone%
+    WHERE (:phone IS NULL OR c.contact_phone LIKE CONCAT('%', :phone, '%'))
+      AND (:status IS NULL OR r.status LIKE CONCAT('%', :status, '%'))
 """, nativeQuery = true)
-    List<Requests> findByCustomerPhone(@Param("phone") String phone);
+    List<Requests> findByCustomerPhoneAndFilter(@Param("phone") String phone, @Param("status") String status);
     List<Requests> findAllByOrderByRequestCodeDesc();
 }

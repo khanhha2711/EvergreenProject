@@ -137,8 +137,11 @@ public class ContractService implements IContractService{
             throw new RuntimeException("This quote has already been contracted. It cannot be renewed.");
         }
         quotations.setStatus("DONE");
-        if(dto.getContractNumber()!=null){
+        if(contractRepository.existsByContractNumber(dto.getContractNumber())){
             throw new RuntimeException("Contract number already!");
+        }
+        if (dto.getSignedDate().isAfter(dto.getExpiredDate())) {
+            throw new RuntimeException("Invalid date range!");
         }
         String attachment= fileService.uploadFile(file,UPLOAD_DIR);
         Contracts contracts= new Contracts();

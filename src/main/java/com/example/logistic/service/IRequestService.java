@@ -14,6 +14,6 @@ public interface IRequestService {
    ListRespDTO createRequest(CreateRequestDTO requestDTO);
    RequestResponeDTO detailRequest(String requestCode);
    ResponseEntity<String> deleteRequest(String requestCode);
-   List<ListRespDTO> search(String phone);
+   List<ListRespDTO> search(String phone, String status);
 
 }

@@ -95,7 +95,6 @@ public class ServiceService implements IServiceService{
     public void deleteService(String serviceCode) {
         Services services= serviceRepository.findByServiceCode(serviceCode);
         serviceRepository.delete(services);
-
     }
 
     @Override
